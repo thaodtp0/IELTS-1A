@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IELTS A_S5_Lesson 1</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    
+    <style>
+        *, body, html, button, span, h1, h2, h3, p, div, input, select, textarea { 
+            font-family: 'Quicksand', sans-serif; 
+            font-weight: 600;
+        }
+        h1, h2, h3, .font-heading {
+            font-family: 'Fredoka', sans-serif;
+        }
+        .perspective { perspective: 1000px; }
+        .backface-hidden { backface-visibility: hidden; }
+        .card-inner { transition: transform 0.5s; transform-style: preserve-3d; }
+        .card-flipped { transform: rotateY(180deg); }
+        .disabled-tab { opacity: 0.4; cursor: not-allowed !important; pointer-events: none; }
+        
+        .hangman-box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body class="bg-[#fffaf7] text-slate-800 min-h-screen flex flex-col selection:bg-orange-200 pb-12">
+
+    <!-- HEADER -->
+    <header class="bg-gradient-to-r from-[#FFEDD5] via-[#FED7AA] to-[#FDE68A] border-b-4 border-dashed border-orange-300 shadow-sm p-6 text-center rounded-b-3xl">
+        <h1 class="text-3xl md:text-4xl font-black tracking-wide drop-shadow-sm text-orange-950">📚 IELTS A_S5_Lesson 1 🎯</h1>
+    </header>
+
+    <!-- NAVIGATION TABS -->
+    <div class="max-w-4xl w-full mx-auto px-4 mt-6">
+        <div class="flex bg-orange-100/70 p-1.5 rounded-2xl border border-orange-200 shadow-inner overflow-x-auto">
+            <button onclick="switchTab('reference')" id="btn-reference" class="tab-btn flex-1 py-3 px-2 text-xs md:text-sm font-black rounded-xl text-center bg-white text-orange-600 shadow-sm transition cursor-pointer whitespace-nowrap">📖 Vocabulary bank</button>
+            <button onclick="switchTab('flashcard')" id="btn-flashcard" class="tab-btn flex-1 py-3 px-2 text-xs md:text-sm font-black rounded-xl text-center text-slate-500 transition cursor-pointer whitespace-nowrap">🎴 Flashcards</button>
+            <button onclick="switchTab('hangman-game')" id="btn-hangman-game" class="tab-btn disabled-tab flex-1 py-3 px-2 text-xs md:text-sm font-black rounded-xl text-center text-slate-500 transition whitespace-nowrap">🎮 Hangman</button>
+            <button onclick="switchTab('sentence-builder')" id="btn-sentence-builder" class="tab-btn disabled-tab flex-1 py-3 px-2 text-xs md:text-sm font-black rounded-xl text-center text-slate-500 transition whitespace-nowrap">🧩 Sentence builder</button>
+            <button onclick="switchTab('sentence-writing')" id="btn-sentence-writing" class="tab-btn disabled-tab flex-1 py-3 px-2 text-xs md:text-sm font-black rounded-xl text-center text-slate-500 transition whitespace-nowrap">✍️ Sentence writing</button>
+            <button onclick="switchTab('completion')" id="btn-completion" class="tab-btn disabled-tab flex-1 py-3 px-2 text-xs md:text-sm font-black rounded-xl text-center text-slate-500 transition whitespace-nowrap">🎉 Completion</button>
+        </div>
+    </div>
+
+    <main class="flex-1 max-w-4xl w-full mx-auto px-4 py-6">
+        
+        <!-- TAB 1: VOCABULARY BANK -->
+        <section id="tab-reference" class="tab-content block space-y-6">
+            <div class="bg-white p-6 rounded-3xl border border-orange-100 shadow-sm space-y-4">
+                <div>
+                    <h2 class="text-2xl font-black text-orange-950 font-heading">📖 IELTS Vocabulary Bank</h2>
+                </div>
+
+                <div class="overflow-x-auto rounded-2xl border border-slate-200">
+                    <table class="w-full text-left border-collapse bg-white">
+                        <thead>
+                            <tr class="bg-orange-50 border-b border-slate-200 text-orange-950 text-xs uppercase tracking-wider font-black">
+                                <th class="p-3.5">English Vocabulary</th>
+                                <th class="p-3.5">Pronunciation</th>
+                                <th class="p-3.5">Meaning</th>
+                                <th class="p-3.5">Example Sentence</th>
+                            </tr>
+                        </thead>
+                        <tbody id="reference-table-body" class="divide-y divide-slate-100 text-xs md:text-sm">
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="text-center pt-2">
+                    <button onclick="switchTab('flashcard')" class="px-8 py-3.5 bg-orange-500 hover:bg-orange-600 text-white font-black rounded-xl text-sm shadow-sm transition cursor-pointer">Start flashcards practice ➔</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: FLASHCARDS -->
+        <section id="tab-flashcard" class="tab-content hidden space-y-6">
+            <div class="bg-white p-4 rounded-2xl border-2 border-dashed border-orange-300 shadow-sm flex justify-between items-center flex-wrap gap-2">
+                <div class="text-sm font-black text-slate-600">Remaining queue: <span id="queue-text" class="text-orange-600 font-extrabold">0 cards</span></div>
+                <div class="w-full sm:w-1/3 bg-slate-100 h-4 rounded-full overflow-hidden p-0.5 border border-slate-200">
+                    <div id="progress-bar" class="bg-gradient-to-r from-orange-400 to-amber-500 h-full rounded-full transition-all duration-500" style="width: 0%"></div>
+                </div>
+                <button onclick="resetProgress()" class="text-xs text-rose-500 hover:underline font-black cursor-pointer">🔄 Reset session</button>
+            </div>
+            
+            <div id="flashcard-container" class="space-y-6">
+                <div id="card-arena" class="perspective w-full max-w-md mx-auto h-[420px] cursor-pointer">
+                    <div id="flashcard-inner" onclick="flipCard()" class="card-inner w-full h-full relative border-4 border-orange-300 rounded-3xl shadow-md bg-white">
+                        
+                        <!-- FRONT SIDE -->
+                        <div class="backface-hidden absolute inset-0 p-6 flex flex-col justify-between items-center text-center bg-orange-50/30 rounded-[20px]">
+                            <span id="f-badge" class="text-xs font-black text-orange-700 uppercase tracking-widest bg-orange-100 px-4 py-1.5 rounded-full">Prompt</span>
+                            
+                            <div class="space-y-3 my-auto w-full">
+                                <h3 id="f-prompt" class="text-2xl md:text-3xl font-black text-orange-950"></h3>
+                                
+                                <div id="f-extra-content" class="hidden space-y-2 pt-2 border-t border-orange-200">
+                                    <div class="flex justify-center items-center space-x-2">
+                                        <span id="f-ipa" class="text-orange-600 font-bold text-sm font-mono"></span>
+                                        <button id="f-audio-btn" onclick="speakText(currentCard.word, event)" class="w-7 h-7 bg-orange-500 hover:bg-orange-600 text-white rounded-full transition flex items-center justify-center text-xs cursor-pointer shadow-sm">🔊</button>
+                                    </div>
+                                    <p id="f-example" class="text-slate-600 text-xs px-2 font-medium leading-relaxed"></p>
+                                </div>
+                            </div>
+
+                            <p class="text-xs text-orange-600 font-black">👉 Tap card to reveal answer 👈</p>
+                        </div>
+
+                        <!-- BACK SIDE -->
+                        <div class="backface-hidden w-full h-full absolute inset-0 p-6 flex flex-col justify-between bg-slate-900 text-white rounded-[22px]" style="transform: rotateY(180deg);">
+                            <span id="b-badge" class="text-xs font-black text-orange-400 uppercase tracking-widest bg-slate-800 px-4 py-1.5 rounded-full w-max mx-auto">Answer</span>
+                            
+                            <div class="my-auto space-y-3 text-center">
+                                <h2 id="b-answer" class="text-2xl md:text-3xl font-black text-amber-300"></h2>
+                                
+                                <div id="b-extra-content" class="space-y-2 border-t border-slate-800 pt-3">
+                                    <div class="flex justify-center items-center space-x-2">
+                                        <span id="b-ipa" class="text-orange-300 font-bold text-sm font-mono"></span>
+                                        <button id="b-audio-btn" onclick="speakText(currentCard.word, event)" class="w-7 h-7 bg-orange-900 hover:bg-orange-800 text-orange-200 rounded-full transition flex items-center justify-center text-xs cursor-pointer shadow-sm">🔊</button>
+                                    </div>
+                                    <p id="b-example" class="text-slate-300 text-xs px-2 font-medium leading-relaxed"></p>
+                                </div>
+                            </div>
+
+                            <p class="text-xs text-center text-slate-500 font-bold">Rate how well you recalled this 👇</p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="w-full max-w-md mx-auto bg-white p-4 rounded-2xl border border-slate-200 shadow-sm grid grid-cols-4 gap-2">
+                    <button onclick="handleAnkiAction('again')" class="p-2 bg-rose-50 hover:bg-rose-100 border border-rose-200 rounded-xl text-center transition cursor-pointer">
+                        <span class="block text-xs font-black text-rose-600">Again</span>
+                        <span class="text-[10px] text-rose-400 font-bold block mt-0.5">&lt; 1m</span>
+                    </button>
+                    <button onclick="handleAnkiAction('hard')" class="p-2 bg-amber-50 hover:bg-amber-100 border border-amber-200 rounded-xl text-center transition cursor-pointer">
+                        <span class="block text-xs font-black text-amber-600">Hard</span>
+                        <span class="text-[10px] text-amber-400 font-bold block mt-0.5">10m</span>
+                    </button>
+                    <button onclick="handleAnkiAction('good')" class="p-2 bg-orange-50 hover:bg-orange-100 border border-orange-200 rounded-xl text-center transition cursor-pointer">
+                        <span class="block text-xs font-black text-orange-600">Good</span>
+                        <span class="text-[10px] text-orange-400 font-bold block mt-0.5">1d</span>
+                    </button>
+                    <button onclick="handleAnkiAction('easy')" class="p-2 bg-teal-50 hover:bg-teal-100 border border-teal-200 rounded-xl text-center transition shadow-sm cursor-pointer">
+                        <span class="block text-xs font-black text-teal-600">Easy</span>
+                        <span class="text-[10px] text-teal-400 font-bold block mt-0.5">4d</span>
+                    </button>
+                </div>
+            </div>
+
+            <div id="flashcard-success-box" class="max-w-md mx-auto bg-orange-50 border-4 border-orange-300 p-6 rounded-3xl text-center space-y-4 hidden shadow-sm">
+                <span class="text-5xl block animate-bounce">🎓🧠✨</span>
+                <h4 class="text-2xl font-heading font-black text-orange-950">Vocabulary Mastered!</h4>
+                <p class="text-sm text-slate-700 font-medium leading-relaxed">Awesome work! You completed all vocabulary flashcards. Ready for the Hangman Challenge?</p>
+                <button onclick="unlockAndGoToHangman()" class="w-full py-3.5 bg-orange-500 hover:bg-orange-600 text-white font-black rounded-xl shadow-md transition cursor-pointer text-sm tracking-wide">Start Hangman Game ➔</button>
+            </div>
+        </section>
+
+        <!-- TAB 3: HANGMAN GAME -->
+        <section id="tab-hangman-game" class="tab-content hidden space-y-6">
+            <div class="bg-white p-6 rounded-3xl border border-orange-100 shadow-sm space-y-6 max-w-2xl mx-auto">
+                <div class="text-center space-y-1.5">
+                    <span class="text-xs uppercase bg-amber-100 text-amber-900 font-black px-4 py-1.5 rounded-full tracking-wide">Task 1: Vocabulary Hangman</span>
+                    <p class="text-xs md:text-sm text-slate-600 font-bold pt-1">Guess the English word/phrase letter by letter based on the hint! Complete all 15 rounds to pass.</p>
+                </div>
+
+                <div class="flex justify-between items-center bg-orange-50 p-4 rounded-2xl border border-orange-200">
+                    <div class="text-xs font-black text-orange-950">
+                        Score: <span id="hangman-score" class="text-orange-600 text-base font-extrabold">0 / 15</span>
+                    </div>
+                    <div class="text-xs font-black text-slate-600">
+                        Lives left: <span id="hangman-lives" class="text-rose-600 text-base font-extrabold">6 ❤️</span>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-center bg-orange-50/40 p-4 rounded-2xl border border-orange-100">
+                    <div class="hangman-box bg-white p-2 rounded-xl border border-orange-200">
+                        <svg height="180" width="160" class="mx-auto">
+                            <!-- Base & Gallows -->
+                            <line x1="10" y1="170" x2="150" y2="170" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+                            <line x1="40" y1="170" x2="40" y2="20" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+                            <line x1="40" y1="20" x2="100" y2="20" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+                            <line x1="100" y1="20" x2="100" y2="40" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+                            
+                            <!-- Body Parts -->
+                            <circle id="hm-head" cx="100" cy="55" r="15" stroke="#f97316" stroke-width="3" fill="none" class="hidden" />
+                            <line id="hm-body" x1="100" y1="70" x2="100" y2="115" stroke="#f97316" stroke-width="3" stroke-linecap="round" class="hidden" />
+                            <line id="hm-larm" x1="100" y1="85" x2="80" y2="100" stroke="#f97316" stroke-width="3" stroke-linecap="round" class="hidden" />
+                            <line id="hm-rarm" x1="100" y1="85" x2="120" y2="100" stroke="#f97316" stroke-width="3" stroke-linecap="round" class="hidden" />
+                            <line id="hm-lleg" x1="100" y1="115" x2="80" y2="145" stroke="#f97316" stroke-width="3" stroke-linecap="round" class="hidden" />
+                            <line id="hm-rleg" x1="100" y1="115" x2="120" y2="145" stroke="#f97316" stroke-width="3" stroke-linecap="round" class="hidden" />
+                        </svg>
+                    </div>
+
+                    <div class="space-y-3">
+                        <div class="bg-white p-4 rounded-xl border border-orange-200 shadow-sm space-y-1.5 h-full flex flex-col justify-center">
+                            <span class="text-[10px] uppercase font-black tracking-widest text-orange-500">Meaning Hint</span>
+                            <p id="hangman-hint" class="text-sm md:text-base font-bold text-slate-800 leading-snug"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Word Display -->
+                <div id="hangman-word-display" class="flex flex-wrap justify-center gap-2 py-4 border-y border-orange-200 text-xl font-black font-mono tracking-widest text-orange-950">
+                </div>
+
+                <!-- Keyboard -->
+                <div id="hangman-keyboard" class="flex flex-wrap justify-center gap-1.5 max-w-lg mx-auto">
+                </div>
+
+                <div id="hangman-status-msg" class="text-center text-sm font-black hidden p-3 rounded-xl"></div>
+            </div>
+
+            <div id="hangman-success-box" class="max-w-md mx-auto bg-orange-50 border-4 border-orange-300 p-6 rounded-3xl text-center space-y-4 hidden shadow-sm">
+                <span class="text-5xl block animate-bounce">🎯🎮🏆</span>
+                <h4 class="text-2xl font-heading font-black text-orange-950">Hangman Mastered!</h4>
+                <p class="text-sm text-slate-700 font-medium">Fantastic job! You solved all 15 key vocabulary words. Next up: Sentence Builder!</p>
+                <button onclick="unlockAndGoToBuilder()" class="w-full py-3.5 bg-orange-500 hover:bg-orange-600 text-white font-black rounded-xl shadow-md transition cursor-pointer text-sm tracking-wide">Start Sentence Builder ➔</button>
+            </div>
+        </section>
+
+        <!-- TAB 4: SENTENCE BUILDER -->
+        <section id="tab-sentence-builder" class="tab-content hidden space-y-6">
+            <div class="bg-white p-6 rounded-3xl border border-orange-100 shadow-sm space-y-6">
+                <div class="text-center space-y-1.5">
+                    <span class="text-xs uppercase bg-orange-100 text-orange-900 font-black px-4 py-1.5 rounded-full tracking-wide">Task 2: Sentence Builder</span>
+                    <p class="text-xs md:text-sm text-slate-600 font-bold pt-1">Use the provided English keywords to construct complete, correct English sentences!</p>
+                </div>
+
+                <div id="builder-questions-container" class="space-y-6 max-w-2xl mx-auto">
+                    <!-- Dynamic rendering 10 questions -->
+                </div>
+
+                <div class="text-center pt-4">
+                    <button onclick="checkAllBuilderAnswers()" class="px-8 py-3.5 bg-orange-500 hover:bg-orange-600 text-white font-black rounded-xl text-sm shadow-md transition cursor-pointer">Check Answers ➔</button>
+                </div>
+            </div>
+
+            <div id="builder-success-box" class="max-w-md mx-auto bg-orange-50 border-4 border-orange-300 p-6 rounded-3xl text-center space-y-4 hidden shadow-sm">
+                <span class="text-5xl block animate-bounce">🧩📝✨</span>
+                <h4 class="text-2xl font-heading font-black text-orange-950">Builder Completed!</h4>
+                <p class="text-sm text-slate-700 font-medium">Great job on completing all structured sentences. Move on to Sentence Writing!</p>
+                <button onclick="unlockAndGoToWriting()" class="w-full py-3.5 bg-orange-500 hover:bg-orange-600 text-white font-black rounded-xl shadow-md transition cursor-pointer text-sm tracking-wide">Start Sentence Writing ➔</button>
+            </div>
+        </section>
+
+        <!-- TAB 5: SENTENCE WRITING -->
+        <section id="tab-sentence-writing" class="tab-content hidden space-y-6">
+            <div class="bg-white p-6 rounded-3xl border border-orange-100 shadow-sm space-y-6">
+                <div class="text-center space-y-1.5">
+                    <span class="text-xs uppercase bg-amber-100 text-amber-900 font-black px-4 py-1.5 rounded-full tracking-wide">Task 3: Sentence Writing</span>
+                    <p class="text-xs md:text-sm text-slate-600 font-bold pt-1">Choose any 5 vocabulary words/phrases learned today and write 5 original sentences in English.</p>
+                </div>
+
+                <div id="writing-boxes-container" class="space-y-6 max-w-2xl mx-auto">
+                    <!-- Dynamic rendering 5 boxes -->
+                </div>
+
+                <div class="text-center pt-4">
+                    <button onclick="submitWritingPractice()" class="px-8 py-3.5 bg-orange-500 hover:bg-orange-600 text-white font-black rounded-xl text-sm shadow-md transition cursor-pointer">Submit Writing ➔</button>
+                </div>
+            </div>
+
+            <div id="writing-success-box" class="max-w-2xl mx-auto bg-orange-50 border-4 border-orange-300 p-6 rounded-3xl space-y-6 hidden shadow-sm">
+                <div class="text-center space-y-2">
+                    <span class="text-5xl block animate-bounce">🎓✍️🌟</span>
+                    <h4 class="text-2xl font-heading font-black text-orange-950">Writing Submitted Successfully!</h4>
+                    <p class="text-sm text-slate-700 font-medium">Here are 5 model example sentences for your reference:</p>
+                </div>
+
+                <div id="model-answers-list" class="space-y-3 bg-white p-4 rounded-2xl border border-orange-200 text-xs md:text-sm text-slate-800">
+                    <!-- Suggested Answers Rendered Here -->
+                </div>
+
+                <button onclick="unlockAndGoToCompletion()" class="w-full py-3.5 bg-orange-500 hover:bg-orange-600 text-white font-black rounded-xl shadow-md transition cursor-pointer text-sm tracking-wide">View Lesson Summary ➔</button>
+            </div>
+        </section>
+
+        <!-- TAB 6: COMPLETION / SUMMARY -->
+        <section id="tab-completion" class="tab-content hidden space-y-6">
+            <div class="max-w-2xl mx-auto bg-white border-4 border-orange-300 p-8 rounded-3xl space-y-6 shadow-xl text-center">
+                <div class="space-y-2">
+                    <span class="text-6xl block animate-bounce">🎓🏆🌟</span>
+                    <h3 class="text-3xl font-heading font-black text-orange-950">Congratulations!</h3>
+                    <p class="text-sm text-slate-600 font-bold">You have successfully completed <span class="text-orange-600 font-black">IELTS A_S5_Lesson 1</span>!</p>
+                </div>
+
+                <div class="bg-orange-50/60 p-5 rounded-2xl border border-orange-200 space-y-3 text-left">
+                    <h4 class="text-base font-black text-orange-950 border-b border-orange-200 pb-2">💡 Key Highlights:</h4>
+                    <ul class="space-y-2 text-xs md:text-sm text-slate-700 font-bold">
+                        <li class="flex items-start gap-2"><span class="text-orange-600 font-black">1.</span> <span><b>35 IELTS Vocabulary Units:</b> Covering Education, Environment, Technology, Health & Society.</span></li>
+                        <li class="flex items-start gap-2"><span class="text-orange-600 font-black">2.</span> <span><b>Collocations & Academic Phrases:</b> Step out of one's comfort zone, Make a conscious decision, Yield positive results, etc.</span></li>
+                        <li class="flex items-start gap-2"><span class="text-orange-600 font-black">3.</span> <span><b>Practical Writing & Output:</b> Constructed & written original sentences tailored for High School & IELTS B2+.</span></li>
+                    </ul>
+                </div>
+
+                <div class="text-center pt-2">
+                    <button onclick="location.reload()" class="px-8 py-3.5 bg-orange-500 hover:bg-orange-600 text-white font-black rounded-xl shadow-md transition cursor-pointer text-sm">🔄 Restart Lesson</button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        // FULL IELTS VOCABULARY DATA
+        const vocabularyData = [
+            { word: "Maintain contact with", ipa: "/meɪnˈteɪn ˈkɒntækt wɪð/", vi: "Giữ liên lạc với", ex: "I still maintain contact with my former homeroom teacher via text messaging.", icon: "📱" },
+            { word: "Knowledgeable", ipa: "/ˈnɒlɪdʒəbl/", vi: "Có kiến thức rộng, hiểu biết", ex: "My teacher is very knowledgeable and always gives us useful advice.", icon: "🧠" },
+            { word: "Memorize by heart", ipa: "/ˈmeməraɪz baɪ hɑːt/", vi: "Học thuộc lòng", ex: "For chemistry, I had to memorize by heart all the elements' symbols.", icon: "📖" },
+            { word: "Stimulate one's brain", ipa: "/ˈstɪmjuleɪt wʌnz breɪn/", vi: "Kích thích não bộ", ex: "Playing a musical instrument is a great activity to stimulate children's brains.", icon: "💡" },
+            { word: "Pick up a skill", ipa: "/pɪk ʌp ə skɪl/", vi: "Học/tiếp thu một kỹ năng mới tự nhiên", ex: "I recently picked up the skill of editing short videos for school projects.", icon: "🎨" },
+            { word: "Step out of one's comfort zone", ipa: "/step aʊt əv wʌnz ˈkʌmfət zəʊn/", vi: "Bước ra khỏi vùng an toàn", ex: "Joining the public speaking club helped me step out of my comfort zone.", icon: "🚀" },
+            { word: "Make a conscious decision", ipa: "/meɪk ə ˈkɒnʃəs dɪˈsɪʒn/", vi: "Đưa ra quyết định có chủ đích", ex: "I made a conscious decision to practise English speaking for 15 minutes every day.", icon: "🎯" },
+            { word: "Adapt to changing circumstances", ipa: "/əˈdæpt tuː ˈtʃeɪndʒɪŋ ˈsɜːkəmstənsɪz/", vi: "Thích nghi với hoàn cảnh thay đổi", ex: "When our study plan was cancelled, we had to adapt to changing circumstances.", icon: "🔄" },
+            { word: "Overcome a language barrier", ipa: "/ˌəʊvəˈkʌm ə ˈlæŋɡwɪdʒ ˈbæriə/", vi: "Vượt qua rào cản ngôn ngữ", ex: "Practising English regularly helped me overcome the language barrier when talking to foreign students.", icon: "🗣️" },
+            { word: "Yield positive results", ipa: "/jiːld ˈpɒzətɪv rɪˈzʌlts/", vi: "Mang lại kết quả tích cực", ex: "Using a clear study plan yielded positive results in my English test.", icon: "📈" },
+            { word: "Apply oneself to", ipa: "/əˈplaɪ wʌnˈself tuː/", vi: "Chuyên tâm, nỗ lực làm gì", ex: "Students who apply themselves to their studies are more likely to achieve good results.", icon: "✍️" },
+            { word: "A break from routine", ipa: "/ə breɪk frəm ruːˈtiːn/", vi: "Sự thay đổi/thư giãn khỏi thói quen hàng ngày", ex: "Joining a sports club gives students a break from their daily routine of studying.", icon: "☕" },
+            { word: "Get cold feet", ipa: "/ɡet kəʊld fiːt/", vi: "Mất dũng khí, lo sợ vào phút chót", ex: "I usually get cold feet whenever I have to give a presentation in front of the class.", icon: "🥶" },
+            { word: "Feel left out", ipa: "/fiːl left aʊt/", vi: "Cảm thấy bị bỏ rơi, cô lập", ex: "Students may feel left out if their classmates do not invite them to join group activities.", icon: "🥺" },
+            { word: "Save time on one's commute", ipa: "/seɪv taɪm ɒn wʌnz kəˈmjuːt/", vi: "Tiết kiệm thời gian đi lại", ex: "Using public transport can help students save time on their daily commute.", icon: "🚌" },
+            { word: "Arid", ipa: "/ˈærɪd/", vi: "Kô hạn, cằn cỗi", ex: "Many plants cannot survive in arid regions because there is very little rainfall.", icon: "🌵" },
+            { word: "Squeeze", ipa: "/skwiːz/", vi: "Ép, vắt", ex: "You can squeeze a lemon to add some fresh juice to your drink.", icon: "🍋" },
+            { word: "Fragile", ipa: "/ˈfrædʒaɪl/", vi: "Mong manh, dễ vỡ/dễ bị tổn thương", ex: "Coral reefs are extremely fragile and can be damaged by pollution and rising sea temperatures.", icon: "🪴" },
+            { word: "Suck up", ipa: "/sʌk ʌp/", vi: "Hút lên (nước, dưỡng chất)", ex: "Plants suck up water from the soil through their roots.", icon: "🌱" },
+            { word: "Withstand", ipa: "/wɪðˈstænd/", vi: "Chịu đựng, chống chịu", ex: "Buildings in earthquake-prone areas need to be strong enough to withstand strong vibrations.", icon: "🏛️" },
+            { word: "A pioneering project", ipa: "/ə ˌpaɪəˈnɪərɪŋ ˈprɒdʒekt/", vi: "Dự án tiên phong", ex: "The solar-powered school is a pioneering project that could inspire other schools to use clean energy.", icon: "☀️" },
+            { word: "Prejudice", ipa: "/ˈpredʒədɪs/", vi: "Định kiến, thành kiến", ex: "Education can help young people challenge prejudice and develop greater respect for others.", icon: "🤝" },
+            { word: "Resuscitation", ipa: "/rɪˌsʌsɪˈteɪʃn/", vi: "Sự hồi sức, cấp cứu hồi sinh", ex: "The student received resuscitation after losing consciousness during the accident.", icon: "🏥" },
+            { word: "Habitat", ipa: "/ˈhæbɪtæt/", vi: "Môi trường sống tự nhiên", ex: "Deforestation destroys the natural habitat of many wild animals.", icon: "🌲" },
+            { word: "Restoration", ipa: "/ˌrestəˈreɪʃn/", vi: "Sự phục hồi, khôi phục", ex: "The restoration of damaged forests can help protect endangered species.", icon: "🏞️" },
+            { word: "Evaporation", ipa: "/ɪˌvæpəˈreɪʃn/", vi: "Sự bốc hơi nước", ex: "High temperatures increase the rate of evaporation from rivers and lakes.", icon: "💨" },
+            { word: "Expanse", ipa: "/ɪkˈspæns/", vi: "Dải rộng, khoảng rộng lớn (đất, biển...)", ex: "The Sahara Desert is a vast expanse of dry land.", icon: "🏜️" },
+            { word: "Desalination", ipa: "/ˌdiːsæləˈneɪʃn/", vi: "Sự khử muối (biến nước biển thành nước ngọt)", ex: "Desalination could provide drinking water for countries that suffer from water shortages.", icon: "🌊" },
+            { word: "Be confronted with", ipa: "/biː kənˈfrʌntɪd wɪð/", vi: "Đối mặt với (vấn đề khó khăn)", ex: "Many cities are confronted with serious problems caused by air pollution.", icon: "⚠️" },
+            { word: "Distilled water", ipa: "/dɪˌstɪld ˈwɔːtə(r)/", vi: "Nước cất tinh khiết", ex: "Distilled water is often used in laboratories because it contains very few impurities.", icon: "🧪" },
+            { word: "Lease", ipa: "/liːs/", vi: "Cho thuê / thuê (hợp đồng)", ex: "The company leased a large building to use as a new training centre.", icon: "🏢" },
+            { word: "Dispose of", ipa: "/dɪˈspəʊz əv/", vi: "Loại bỏ/trừ khử", ex: "In the novel, the villain tries to dispose of his rival to gain control of the organisation.", icon: "🤺" },
+            { word: "Be attributed to", ipa: "/biː əˈtrɪbjʊtɪd tuː/", vi: "Được quy cho, do nguyên nhân là", ex: "The decline in exam results can be attributed to several factors, including a lack of motivation.", icon: "📌" },
+            { word: "Blood-thirsty", ipa: "/ˈblʌd θɜːsti/", vi: "Tàn bạo, hiếu sát", ex: "The documentary describes how some ancient rulers were portrayed as blood-thirsty leaders.", icon: "⚔️" },
+            { word: "Gruesome", ipa: "/ˈɡruːsəm/", vi: "Kinh hãi, ghê rợn", ex: "The film contains some gruesome scenes, so it may not be suitable for younger viewers.", icon: "🎬" }
+        ];
+
+        // EXACTLY 15 TOP IELTS ITEMS FOR HANGMAN
+        const hangmanVocabulary = [
+            { word: "Knowledgeable", vi: "Có kiến thức rộng, hiểu biết sâu rộng" },
+            { word: "Comfort zone", vi: "Vùng an toàn" },
+            { word: "Overcome", vi: "Vượt qua (rào cản, khó khăn)" },
+            { word: "Circumstances", vi: "Hoàn cảnh, tình huống" },
+            { word: "Fragile", vi: "Mong manh, dễ tổn thương" },
+            { word: "Withstand", vi: "Chịu đựng, chống chịu" },
+            { word: "Pioneering", vi: "Tiên phong, đi đầu" },
+            { word: "Prejudice", vi: "Định kiến, thành kiến" },
+            { word: "Habitat", vi: "Môi trường sống tự nhiên" },
+            { word: "Restoration", vi: "Sự phục hồi, khôi phục" },
+            { word: "Evaporation", vi: "Sự bốc hơi nước" },
+            { word: "Desalination", vi: "Sự khử muối (làm ngọt nước biển)" },
+            { word: "Confronted", vi: "Đối mặt với (vấn đề)" },
+            { word: "Attributed", vi: "Được quy cho (nguyên nhân do)" },
+            { word: "Gruesome", vi: "Kinh hãi, ghê rợn" }
+        ];
+
+        // 10 SENTENCE BUILDER QUESTIONS
+        const builderQuestions = [
+            {
+                keywords: "prepare / IELTS exam / students / need / apply / study / every day",
+                en: "To prepare for the IELTS exam, students need to apply themselves to studying every day.",
+                targetWord: "apply themselves to"
+            },
+            {
+                keywords: "practise / speaking skill / help / step / comfort zone",
+                en: "Practising speaking skills helps you step out of your comfort zone.",
+                targetWord: "step out of one's comfort zone"
+            },
+            {
+                keywords: "pioneering project / solar energy / yield / positive result",
+                en: "The pioneering project on solar energy yielded positive results.",
+                targetWord: "yield positive results"
+            },
+            {
+                keywords: "many species / in danger / natural habitat / destroy",
+                en: "Many species are in danger when their natural habitat is destroyed.",
+                targetWord: "habitat"
+            },
+            {
+                keywords: "decline / academic result / attribute / lack / focus",
+                en: "The decline in academic results can be attributed to a lack of focus.",
+                targetWord: "be attributed to"
+            },
+            {
+                keywords: "many cities / confront / serious problem / air pollution",
+                en: "Many cities are confronted with serious problems caused by air pollution.",
+                targetWord: "be confronted with"
+            },
+            {
+                keywords: "education / help / young people / challenge / prejudice",
+                en: "Education can help young people challenge prejudice and respect others.",
+                targetWord: "prejudice"
+            },
+            {
+                keywords: "coral reefs / extremely fragile / damage / climate change",
+                en: "Coral reefs are extremely fragile and can be damaged by climate change.",
+                targetWord: "fragile"
+            },
+            {
+                keywords: "playing / musical instrument / great way / stimulate / brain",
+                en: "Playing a musical instrument is a great way to stimulate your brain.",
+                targetWord: "stimulate one's brain"
+            },
+            {
+                keywords: "public transport / help / students / save time / daily commute",
+                en: "Using public transport helps students save time on their daily commute.",
+                targetWord: "save time on one's commute"
+            }
+        ];
+
+        // MODEL WRITING ANSWERS FOR REFERENCE
+        const writingModelAnswers = [
+            "1. Joining the English speaking club allowed me to <b>step out of my comfort zone</b>.",
+            "2. Regular review of IELTS vocabulary will certainly <b>yield positive results</b>.",
+            "3. High school students should <b>make a conscious decision</b> to balance study and relaxation.",
+            "4. Solar energy implementation in high schools is truly a <b>pioneering project</b>.",
+            "5. Environmental degradation causes serious harm to the natural <b>habitat</b> of wild animals."
+        ];
+
+        // STATE MANAGEMENT
+        let currentTab = 'reference';
+        let flashcardQueue = [];
+        let currentCard = null;
+        let isFlipped = false;
+        let initialQueueLength = 0;
+
+        // HANGMAN STATE
+        let hangmanTarget = null;
+        let hangmanGuessedLetters = new Set();
+        let hangmanLives = 6;
+        let hangmanScore = 0;
+        let hangmanPlayedIndices = new Set();
+
+        function speakText(text, e) {
+            if (e) e.stopPropagation();
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'en-US';
+                utterance.rate = 0.85;
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('bg-white', 'text-orange-600', 'shadow-sm');
+                btn.classList.add('text-slate-500');
+            });
+
+            document.getElementById(`tab-${tabId}`).classList.remove('hidden');
+            const activeBtn = document.getElementById(`btn-${tabId}`);
+            if (activeBtn) {
+                activeBtn.classList.remove('text-slate-500');
+                activeBtn.classList.add('bg-white', 'text-orange-600', 'shadow-sm');
+            }
+            currentTab = tabId;
+
+            if (tabId === 'sentence-builder') {
+                renderBuilderQuestions();
+            } else if (tabId === 'sentence-writing') {
+                renderWritingBoxes();
+            } else if (tabId === 'hangman-game' && !hangmanTarget) {
+                initHangmanGame();
+            }
+        }
+
+        // 1. VOCABULARY BANK RENDER
+        function renderWordBank() {
+            const tbody = document.getElementById('reference-table-body');
+            tbody.innerHTML = vocabularyData.map(item => `
+                <tr class="hover:bg-slate-50 transition">
+                    <td class="p-3.5 font-bold text-orange-950 flex items-center gap-2"><span>${item.icon || '📌'}</span> ${item.word}</td>
+                    <td class="p-3.5 text-orange-600 font-mono">${item.ipa}</td>
+                    <td class="p-3.5 text-slate-600">${item.vi}</td>
+                    <td class="p-3.5 text-slate-600 font-normal">${item.ex}</td>
+                </tr>
+            `).join('');
+        }
+
+        // 2. FLASHCARDS LOGIC
+        function initFlashcards() {
+            flashcardQueue = vocabularyData.map(item => ({
+                ...item,
+                frontType: Math.random() < 0.5 ? 'vi' : 'en'
+            }));
+            initialQueueLength = flashcardQueue.length;
+            updateQueueUI();
+            nextCard();
+        }
+
+        function updateQueueUI() {
+            document.getElementById('queue-text').innerText = `${flashcardQueue.length} cards`;
+            const percent = ((initialQueueLength - flashcardQueue.length) / initialQueueLength) * 100;
+            document.getElementById('progress-bar').style.width = `${percent}%`;
+        }
+
+        function nextCard() {
+            if (flashcardQueue.length === 0) {
+                document.getElementById('flashcard-container').classList.add('hidden');
+                document.getElementById('flashcard-success-box').classList.remove('hidden');
+                return;
+            }
+            currentCard = flashcardQueue[0];
+            isFlipped = false;
+            
+            const cardInner = document.getElementById('flashcard-inner');
+            cardInner.classList.remove('card-flipped');
+
+            setTimeout(() => {
+                const fExtra = document.getElementById('f-extra-content');
+                const bExtra = document.getElementById('b-extra-content');
+
+                if (currentCard.frontType === 'vi') {
+                    document.getElementById('f-prompt').innerText = `${currentCard.icon || ''} ${currentCard.vi}`;
+                    fExtra.classList.add('hidden');
+
+                    document.getElementById('b-answer').innerText = currentCard.word;
+                    document.getElementById('b-ipa').innerText = currentCard.ipa;
+                    document.getElementById('b-example').innerText = `"${currentCard.ex}"`;
+                    bExtra.classList.remove('hidden');
+                } else {
+                    document.getElementById('f-prompt').innerText = `${currentCard.icon || ''} ${currentCard.word}`;
+                    document.getElementById('f-ipa').innerText = currentCard.ipa;
+                    document.getElementById('f-example').innerText = `"${currentCard.ex}"`;
+                    fExtra.classList.remove('hidden');
+
+                    document.getElementById('b-answer').innerText = currentCard.vi;
+                    bExtra.classList.add('hidden');
+                }
+            }, 150);
+        }
+
+        function flipCard() {
+            isFlipped = !isFlipped;
+            const cardInner = document.getElementById('flashcard-inner');
+            if (isFlipped) {
+                cardInner.classList.add('card-flipped');
+            } else {
+                cardInner.classList.remove('card-flipped');
+            }
+        }
+
+        function handleAnkiAction(action) {
+            if (!currentCard) return;
+            if (action === 'again') {
+                const card = flashcardQueue.shift();
+                flashcardQueue.push(card);
+            } else {
+                flashcardQueue.shift();
+            }
+            updateQueueUI();
+            nextCard();
+        }
+
+        function resetProgress() {
+            document.getElementById('flashcard-container').classList.remove('hidden');
+            document.getElementById('flashcard-success-box').classList.add('hidden');
+            initFlashcards();
+        }
+
+        function unlockAndGoToHangman() {
+            document.getElementById('btn-hangman-game').classList.remove('disabled-tab');
+            switchTab('hangman-game');
+        }
+
+        // 3. HANGMAN GAME LOGIC (Must play all 15 items to pass)
+        function initHangmanGame() {
+            if (hangmanPlayedIndices.size >= hangmanVocabulary.length) {
+                hangmanPlayedIndices.clear();
+            }
+
+            let randomIndex;
+            do {
+                randomIndex = Math.floor(Math.random() * hangmanVocabulary.length);
+            } while (hangmanPlayedIndices.has(randomIndex));
+
+            hangmanPlayedIndices.add(randomIndex);
+            hangmanTarget = hangmanVocabulary[randomIndex];
+            hangmanGuessedLetters = new Set();
+            hangmanLives = 6;
+
+            document.getElementById('hangman-hint').innerText = hangmanTarget.vi;
+            document.getElementById('hangman-lives').innerText = `${hangmanLives} ❤️`;
+            document.getElementById('hangman-score').innerText = `${hangmanScore} / 15`;
+
+            const statusMsg = document.getElementById('hangman-status-msg');
+            statusMsg.classList.add('hidden');
+
+            renderHangmanBody();
+            renderHangmanDisplay();
+            renderHangmanKeyboard();
+        }
+
+        function renderHangmanBody() {
+            const parts = ['hm-head', 'hm-body', 'hm-larm', 'hm-rarm', 'hm-lleg', 'hm-rleg'];
+            const wrongCount = 6 - hangmanLives;
+            parts.forEach((p, idx) => {
+                const el = document.getElementById(p);
+                if (idx < wrongCount) el.classList.remove('hidden');
+                else el.classList.add('hidden');
+            });
+        }
+
+        function renderHangmanDisplay() {
+            const word = hangmanTarget.word.toUpperCase();
+            const container = document.getElementById('hangman-word-display');
+            container.innerHTML = '';
+
+            let isWin = true;
+            for (let char of word) {
+                if (/[A-Z]/.test(char)) {
+                    if (hangmanGuessedLetters.has(char)) {
+                        container.innerHTML += `<span class="border-b-4 border-orange-500 px-2 py-1">${char}</span>`;
+                    } else {
+                        container.innerHTML += `<span class="border-b-4 border-slate-300 px-2 py-1 text-transparent">_</span>`;
+                        isWin = false;
+                    }
+                } else {
+                    container.innerHTML += `<span class="px-1 py-1 text-slate-400">${char}</span>`;
+                }
+            }
+
+            if (isWin && hangmanLives > 0) {
+                handleHangmanWin();
+            }
+        }
+
+        function renderHangmanKeyboard() {
+            const container = document.getElementById('hangman-keyboard');
+            container.innerHTML = '';
+            const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+
+            alphabet.forEach(letter => {
+                const isGuessed = hangmanGuessedLetters.has(letter);
+                const btn = document.createElement('button');
+                btn.innerText = letter;
+                btn.className = `w-9 h-9 md:w-10 md:h-10 text-xs md:text-sm font-black rounded-xl border transition ${
+                    isGuessed ? 'bg-slate-200 text-slate-400 border-slate-300 cursor-not-allowed' : 'bg-white text-orange-950 border-orange-200 hover:bg-orange-100 cursor-pointer shadow-sm'
+                }`;
+                btn.disabled = isGuessed || hangmanLives <= 0;
+                btn.onclick = () => guessHangmanLetter(letter);
+                container.appendChild(btn);
+            });
+        }
+
+        function guessHangmanLetter(letter) {
+            if (hangmanLives <= 0 || hangmanGuessedLetters.has(letter)) return;
+
+            hangmanGuessedLetters.add(letter);
+            const targetUpper = hangmanTarget.word.toUpperCase();
+
+            if (!targetUpper.includes(letter)) {
+                hangmanLives--;
+                document.getElementById('hangman-lives').innerText = `${hangmanLives} ❤️`;
+                renderHangmanBody();
+            }
+
+            renderHangmanDisplay();
+            renderHangmanKeyboard();
+
+            if (hangmanLives <= 0) {
+                handleHangmanLoss();
+            }
+        }
+
+        function handleHangmanWin() {
+            speakText(hangmanTarget.word);
+            hangmanScore++;
+            document.getElementById('hangman-score').innerText = `${hangmanScore} / 15`;
+
+            const statusMsg = document.getElementById('hangman-status-msg');
+            statusMsg.className = "text-center text-xs md:text-sm font-black p-3 rounded-xl bg-emerald-100 text-emerald-800";
+            statusMsg.innerHTML = `✨ Correct! The word was: <b>${hangmanTarget.word}</b>`;
+            statusMsg.classList.remove('hidden');
+
+            if (hangmanScore >= 15) {
+                setTimeout(() => {
+                    document.getElementById('hangman-success-box').classList.remove('hidden');
+                }, 1000);
+            } else {
+                setTimeout(initHangmanGame, 1800);
+            }
+        }
+
+        function handleHangmanLoss() {
+            const statusMsg = document.getElementById('hangman-status-msg');
+            statusMsg.className = "text-center text-xs md:text-sm font-black p-3 rounded-xl bg-rose-100 text-rose-800";
+            statusMsg.innerHTML = `❌ Out of lives! Word was: <b>${hangmanTarget.word}</b>`;
+            statusMsg.classList.remove('hidden');
+
+            // Re-try current word without adding to score until solved
+            hangmanPlayedIndices.delete(Array.from(hangmanPlayedIndices).pop());
+            setTimeout(initHangmanGame, 2200);
+        }
+
+        function unlockAndGoToBuilder() {
+            document.getElementById('btn-sentence-builder').classList.remove('disabled-tab');
+            switchTab('sentence-builder');
+        }
+
+        // 4. SENTENCE BUILDER LOGIC (10 Questions)
+        function renderBuilderQuestions() {
+            const container = document.getElementById('builder-questions-container');
+            container.innerHTML = builderQuestions.map((q, idx) => `
+                <div class="bg-orange-50/50 p-4 rounded-2xl border border-orange-200 space-y-3">
+                    <div class="flex items-center justify-between gap-2">
+                        <span class="text-xs font-black uppercase text-orange-700 bg-orange-100 px-3 py-1 rounded-full">Sentence ${idx + 1}</span>
+                        <span class="text-[11px] text-slate-500 font-black">Target: ${q.targetWord}</span>
+                    </div>
+                    
+                    <div class="bg-white p-3 rounded-xl border border-orange-200 shadow-sm space-y-1">
+                        <span class="text-[10px] uppercase font-black text-orange-500 tracking-wider">Given Keywords</span>
+                        <p class="text-xs md:text-sm font-mono font-bold text-amber-900">${q.keywords}</p>
+                    </div>
+
+                    <div class="space-y-1">
+                        <input type="text" id="builder-input-${idx}" placeholder="Write the complete English sentence..." class="w-full p-3 bg-white border-2 border-orange-200 rounded-xl font-bold text-xs md:text-sm text-slate-800 outline-none focus:border-orange-500">
+                    </div>
+                    <div id="builder-feedback-${idx}" class="hidden p-3 rounded-xl text-xs font-black"></div>
+                </div>
+            `).join('');
+        }
+
+        function checkAllBuilderAnswers() {
+            let allFilled = true;
+            builderQuestions.forEach((q, idx) => {
+                const val = document.getElementById(`builder-input-${idx}`).value.trim();
+                if (!val) allFilled = false;
+            });
+
+            if (!allFilled) {
+                alert("⚠️ Please complete all 10 sentences before checking!");
+                return;
+            }
+
+            builderQuestions.forEach((q, idx) => {
+                const val = document.getElementById(`builder-input-${idx}`).value.trim();
+                const feedback = document.getElementById(`builder-feedback-${idx}`);
+                feedback.classList.remove('hidden');
+
+                if (val.toLowerCase() === q.en.toLowerCase()) {
+                    feedback.className = "p-3 rounded-xl text-xs font-black bg-emerald-100 text-emerald-800";
+                    feedback.innerHTML = `✨ Perfect sentence!`;
+                } else {
+                    feedback.className = "p-3 rounded-xl text-xs font-black bg-amber-100 text-amber-900";
+                    feedback.innerHTML = `💡 Model Answer: <b>${q.en}</b>`;
+                }
+            });
+
+            document.getElementById('builder-success-box').classList.remove('hidden');
+            document.getElementById('builder-success-box').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function unlockAndGoToWriting() {
+            document.getElementById('btn-sentence-writing').classList.remove('disabled-tab');
+            switchTab('sentence-writing');
+        }
+
+        // 5. SENTENCE WRITING LOGIC
+        function renderWritingBoxes() {
+            const container = document.getElementById('writing-boxes-container');
+            container.innerHTML = [1, 2, 3, 4, 5].map(num => `
+                <div class="bg-orange-50/50 p-4 rounded-2xl border border-orange-200 space-y-3">
+                    <span class="text-xs font-black uppercase text-orange-700 bg-orange-100 px-3 py-1 rounded-full">Sentence ${num}</span>
+                    <textarea id="writing-text-${num}" rows="2" placeholder="Write your original English sentence using any learned vocabulary item..." class="w-full p-3 bg-white border-2 border-orange-200 rounded-xl font-bold text-xs md:text-sm text-slate-800 outline-none focus:border-orange-500"></textarea>
+                </div>
+            `).join('');
+        }
+
+        function submitWritingPractice() {
+            let allFilled = true;
+            for (let i = 1; i <= 5; i++) {
+                const text = document.getElementById(`writing-text-${i}`).value.trim();
+                if (!text) {
+                    allFilled = false;
+                    break;
+                }
+            }
+
+            if (!allFilled) {
+                alert("⚠️ Please write all 5 sentences before submitting!");
+                return;
+            }
+
+            const modelContainer = document.getElementById('model-answers-list');
+            modelContainer.innerHTML = writingModelAnswers.map(ans => `<p class="p-2 border-b border-orange-100 last:border-0">${ans}</p>`).join('');
+
+            document.getElementById('writing-success-box').classList.remove('hidden');
+            document.getElementById('writing-success-box').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function unlockAndGoToCompletion() {
+            document.getElementById('btn-completion').classList.remove('disabled-tab');
+            switchTab('completion');
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            renderWordBank();
+            initFlashcards();
+        });
+    </script>
+</body>
+</html>
