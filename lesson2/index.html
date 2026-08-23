@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IELTS A_S5_Lesson 2</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    
+    <style>
+        *, body, html, button, span, h1, h2, h3, p, div, input, select, textarea { 
+            font-family: 'Quicksand', sans-serif; 
+            font-weight: 600;
+        }
+        h1, h2, h3, .font-heading {
+            font-family: 'Fredoka', sans-serif;
+        }
+        .perspective { perspective: 1000px; }
+        .backface-hidden { backface-visibility: hidden; }
+        .card-inner { transition: transform 0.5s; transform-style: preserve-3d; }
+        .card-flipped { transform: rotateY(180deg); }
+        .disabled-tab { opacity: 0.4; cursor: not-allowed !important; pointer-events: none; }
+        
+        .quiz-option-btn {
+            transition: all 0.2s ease;
+        }
+    </style>
+</head>
+<body class="bg-[#fffaf7] text-slate-800 min-h-screen flex flex-col selection:bg-orange-200 pb-12">
+
+    <!-- HEADER -->
+    <header class="bg-gradient-to-r from-[#FFEDD5] via-[#FED7AA] to-[#FDE68A] border-b-4 border-dashed border-orange-300 shadow-sm p-6 text-center rounded-b-3xl">
+        <h1 class="text-3xl md:text-4xl font-black tracking-wide drop-shadow-sm text-orange-950">📚 IELTS A_S5_Lesson 2 🎯</h1>
+    </header>
+
+    <!-- NAVIGATION TABS -->
+    <div class="max-w-4xl w-full mx-auto px-4 mt-6">
+        <div class="flex bg-orange-100/70 p-1.5 rounded-2xl border border-orange-200 shadow-inner overflow-x-auto">
+            <button onclick="switchTab('reference')" id="btn-reference" class="tab-btn flex-1 py-3 px-2 text-xs md:text-sm font-black rounded-xl text-center bg-white text-orange-600 shadow-sm transition cursor-pointer whitespace-nowrap">📖 Vocabulary bank</button>
+            <button onclick="switchTab('flashcard')" id="btn-flashcard" class="tab-btn flex-1 py-3 px-2 text-xs md:text-sm font-black rounded-xl text-center text-slate-500 transition cursor-pointer whitespace-nowrap">🎴 Flashcards</button>
+            <button onclick="switchTab('quiz-game')" id="btn-quiz-game" class="tab-btn disabled-tab flex-1 py-3 px-2 text-xs md:text-sm font-black rounded-xl text-center text-slate-500 transition whitespace-nowrap">🧠 Vocab Quiz</button>
+            <button onclick="switchTab('translation')" id="btn-translation" class="tab-btn disabled-tab flex-1 py-3 px-2 text-xs md:text-sm font-black rounded-xl text-center text-slate-500 transition whitespace-nowrap">🌐 Translation</button>
+            <button onclick="switchTab('sentence-writing')" id="btn-sentence-writing" class="tab-btn disabled-tab flex-1 py-3 px-2 text-xs md:text-sm font-black rounded-xl text-center text-slate-500 transition whitespace-nowrap">✍️ Sentence writing</button>
+            <button onclick="switchTab('completion')" id="btn-completion" class="tab-btn disabled-tab flex-1 py-3 px-2 text-xs md:text-sm font-black rounded-xl text-center text-slate-500 transition whitespace-nowrap">🎉 Completion</button>
+        </div>
+    </div>
+
+    <main class="flex-1 max-w-4xl w-full mx-auto px-4 py-6">
+        
+        <!-- TAB 1: VOCABULARY BANK -->
+        <section id="tab-reference" class="tab-content block space-y-6">
+            <div class="bg-white p-6 rounded-3xl border border-orange-100 shadow-sm space-y-4">
+                <div>
+                    <h2 class="text-2xl font-black text-orange-950 font-heading">📖 IELTS Vocabulary Bank - Lesson 2</h2>
+                </div>
+
+                <div class="overflow-x-auto rounded-2xl border border-slate-200">
+                    <table class="w-full text-left border-collapse bg-white">
+                        <thead>
+                            <tr class="bg-orange-50 border-b border-slate-200 text-orange-950 text-xs uppercase tracking-wider font-black">
+                                <th class="p-3.5">Lexical Item</th>
+                                <th class="p-3.5">Pronunciation</th>
+                                <th class="p-3.5">Meaning</th>
+                                <th class="p-3.5">Example Sentence</th>
+                            </tr>
+                        </thead>
+                        <tbody id="reference-table-body" class="divide-y divide-slate-100 text-xs md:text-sm">
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="text-center pt-2">
+                    <button onclick="switchTab('flashcard')" class="px-8 py-3.5 bg-orange-500 hover:bg-orange-600 text-white font-black rounded-xl text-sm shadow-sm transition cursor-pointer">Start flashcards practice ➔</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: FLASHCARDS -->
+        <section id="tab-flashcard" class="tab-content hidden space-y-6">
+            <div class="bg-white p-4 rounded-2xl border-2 border-dashed border-orange-300 shadow-sm flex justify-between items-center flex-wrap gap-2">
+                <div class="text-sm font-black text-slate-600">Remaining queue: <span id="queue-text" class="text-orange-600 font-extrabold">0 cards</span></div>
+                <div class="w-full sm:w-1/3 bg-slate-100 h-4 rounded-full overflow-hidden p-0.5 border border-slate-200">
+                    <div id="progress-bar" class="bg-gradient-to-r from-orange-400 to-amber-500 h-full rounded-full transition-all duration-500" style="width: 0%"></div>
+                </div>
+                <button onclick="resetProgress()" class="text-xs text-rose-500 hover:underline font-black cursor-pointer">🔄 Reset session</button>
+            </div>
+            
+            <div id="flashcard-container" class="space-y-6">
+                <div id="card-arena" class="perspective w-full max-w-md mx-auto h-[420px] cursor-pointer">
+                    <div id="flashcard-inner" onclick="flipCard()" class="card-inner w-full h-full relative border-4 border-orange-300 rounded-3xl shadow-md bg-white">
+                        
+                        <!-- FRONT SIDE -->
+                        <div class="backface-hidden absolute inset-0 p-6 flex flex-col justify-between items-center text-center bg-orange-50/30 rounded-[20px]">
+                            <span id="f-badge" class="text-xs font-black text-orange-700 uppercase tracking-widest bg-orange-100 px-4 py-1.5 rounded-full">Prompt</span>
+                            
+                            <div class="space-y-3 my-auto w-full">
+                                <h3 id="f-prompt" class="text-2xl md:text-3xl font-black text-orange-950"></h3>
+                                
+                                <div id="f-extra-content" class="hidden space-y-2 pt-2 border-t border-orange-200">
+                                    <div class="flex justify-center items-center space-x-2">
+                                        <span id="f-ipa" class="text-orange-600 font-bold text-sm font-mono"></span>
+                                        <button id="f-audio-btn" onclick="speakText(currentCard.word, event)" class="w-7 h-7 bg-orange-500 hover:bg-orange-600 text-white rounded-full transition flex items-center justify-center text-xs cursor-pointer shadow-sm">🔊</button>
+                                    </div>
+                                    <p id="f-example" class="text-slate-600 text-xs px-2 font-medium leading-relaxed"></p>
+                                </div>
+                            </div>
+
+                            <p class="text-xs text-orange-600 font-black">👉 Tap card to reveal answer 👈</p>
+                        </div>
+
+                        <!-- BACK SIDE -->
+                        <div class="backface-hidden w-full h-full absolute inset-0 p-6 flex flex-col justify-between bg-slate-900 text-white rounded-[22px]" style="transform: rotateY(180deg);">
+                            <span id="b-badge" class="text-xs font-black text-orange-400 uppercase tracking-widest bg-slate-800 px-4 py-1.5 rounded-full w-max mx-auto">Answer</span>
+                            
+                            <div class="my-auto space-y-3 text-center">
+                                <h2 id="b-answer" class="text-2xl md:text-3xl font-black text-amber-300"></h2>
+                                
+                                <div id="b-extra-content" class="space-y-2 border-t border-slate-800 pt-3">
+                                    <div class="flex justify-center items-center space-x-2">
+                                        <span id="b-ipa" class="text-orange-300 font-bold text-sm font-mono"></span>
+                                        <button id="b-audio-btn" onclick="speakText(currentCard.word, event)" class="w-7 h-7 bg-orange-900 hover:bg-orange-800 text-orange-200 rounded-full transition flex items-center justify-center text-xs cursor-pointer shadow-sm">🔊</button>
+                                    </div>
+                                    <p id="b-example" class="text-slate-300 text-xs px-2 font-medium leading-relaxed"></p>
+                                </div>
+                            </div>
+
+                            <p class="text-xs text-center text-slate-500 font-bold">Rate how well you recalled this 👇</p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="w-full max-w-md mx-auto bg-white p-4 rounded-2xl border border-slate-200 shadow-sm grid grid-cols-4 gap-2">
+                    <button onclick="handleAnkiAction('again')" class="p-2 bg-rose-50 hover:bg-rose-100 border border-rose-200 rounded-xl text-center transition cursor-pointer">
+                        <span class="block text-xs font-black text-rose-600">Again</span>
+                        <span class="text-[10px] text-rose-400 font-bold block mt-0.5">&lt; 1m</span>
+                    </button>
+                    <button onclick="handleAnkiAction('hard')" class="p-2 bg-amber-50 hover:bg-amber-100 border border-amber-200 rounded-xl text-center transition cursor-pointer">
+                        <span class="block text-xs font-black text-amber-600">Hard</span>
+                        <span class="text-[10px] text-amber-400 font-bold block mt-0.5">10m</span>
+                    </button>
+                    <button onclick="handleAnkiAction('good')" class="p-2 bg-orange-50 hover:bg-orange-100 border border-orange-200 rounded-xl text-center transition cursor-pointer">
+                        <span class="block text-xs font-black text-orange-600">Good</span>
+                        <span class="text-[10px] text-orange-400 font-bold block mt-0.5">1d</span>
+                    </button>
+                    <button onclick="handleAnkiAction('easy')" class="p-2 bg-teal-50 hover:bg-teal-100 border border-teal-200 rounded-xl text-center transition shadow-sm cursor-pointer">
+                        <span class="block text-xs font-black text-teal-600">Easy</span>
+                        <span class="text-[10px] text-teal-400 font-bold block mt-0.5">4d</span>
+                    </button>
+                </div>
+            </div>
+
+            <div id="flashcard-success-box" class="max-w-md mx-auto bg-orange-50 border-4 border-orange-300 p-6 rounded-3xl text-center space-y-4 hidden shadow-sm">
+                <span class="text-5xl block animate-bounce">🎓🧠✨</span>
+                <h4 class="text-2xl font-heading font-black text-orange-950">Vocabulary Mastered!</h4>
+                <p class="text-sm text-slate-700 font-medium leading-relaxed">Awesome work! You completed all vocabulary flashcards. Ready for the Vocab Quiz?</p>
+                <button onclick="unlockAndGoToQuiz()" class="w-full py-3.5 bg-orange-500 hover:bg-orange-600 text-white font-black rounded-xl shadow-md transition cursor-pointer text-sm tracking-wide">Start Vocab Quiz ➔</button>
+            </div>
+        </section>
+
+        <!-- TAB 3: VOCAB QUIZ (CONTEXTUAL FILL-IN-THE-BLANK) -->
+        <section id="tab-quiz-game" class="tab-content hidden space-y-6">
+            <div class="bg-white p-6 rounded-3xl border border-orange-100 shadow-sm space-y-6 max-w-2xl mx-auto">
+                <div class="text-center space-y-1.5">
+                    <span class="text-xs uppercase bg-amber-100 text-amber-900 font-black px-4 py-1.5 rounded-full tracking-wide">Task 1: Vocabulary Quiz</span>
+                    <p class="text-xs md:text-sm text-slate-600 font-bold pt-1">Đọc bối cảnh câu và gõ từ/cụm từ thích hợp nhất vào ô trống!</p>
+                </div>
+
+                <div class="flex justify-between items-center bg-orange-50 p-4 rounded-2xl border border-orange-200">
+                    <div class="text-xs font-black text-orange-950">
+                        Question: <span id="quiz-step" class="text-orange-600 text-base font-extrabold">1 / 15</span>
+                    </div>
+                    <div class="text-xs font-black text-slate-600">
+                        Score: <span id="quiz-score" class="text-emerald-600 text-base font-extrabold">0</span>
+                    </div>
+                </div>
+
+                <div class="bg-orange-50/40 p-6 rounded-2xl border border-orange-100 space-y-4">
+                    <div class="flex justify-between items-center flex-wrap gap-2">
+                        <span id="quiz-type-badge" class="text-[10px] font-black uppercase tracking-wider bg-orange-200 text-orange-900 px-3 py-1 rounded-full">Contextual Fill-in-the-blank</span>
+                        <span id="quiz-hint-length" class="text-xs font-extrabold text-orange-700 bg-orange-100 px-3 py-1 rounded-full border border-orange-200"></span>
+                    </div>
+                    <h3 id="quiz-question-prompt" class="text-base md:text-lg font-black text-orange-950 leading-relaxed pt-2">
+                        <!-- Context Sentence with Blank -->
+                    </h3>
+                    <p id="quiz-vi-meaning" class="text-xs text-slate-500 italic font-medium pt-1 border-t border-orange-100"></p>
+                </div>
+
+                <!-- Fill-in-the-blank Input Area -->
+                <div id="quiz-input-container" class="space-y-3">
+                    <div class="flex gap-2">
+                        <input type="text" id="quiz-user-input" placeholder="Type your answer here..." autocomplete="off" class="flex-1 px-4 py-3 bg-slate-50 border-2 border-slate-200 rounded-xl focus:outline-none focus:border-orange-500 text-sm font-bold transition">
+                        <button id="quiz-submit-btn" onclick="checkQuizAnswer()" class="px-6 py-3 bg-orange-500 hover:bg-orange-600 text-white font-black rounded-xl text-sm transition cursor-pointer shadow-sm">Submit ➔</button>
+                    </div>
+                </div>
+
+                <div id="quiz-feedback-msg" class="text-center text-sm font-black hidden p-3.5 rounded-xl leading-relaxed"></div>
+
+                <div class="text-right">
+                    <button id="quiz-next-btn" onclick="nextQuizQuestion()" class="hidden px-6 py-2.5 bg-orange-500 hover:bg-orange-600 text-white font-black rounded-xl text-xs md:text-sm shadow-sm transition cursor-pointer">Next Question ➔</button>
+                </div>
+            </div>
+
+            <div id="quiz-success-box" class="max-w-md mx-auto bg-orange-50 border-4 border-orange-300 p-6 rounded-3xl text-center space-y-4 hidden shadow-sm">
+                <span class="text-5xl block animate-bounce">🎯🎮🏆</span>
+                <h4 class="text-2xl font-heading font-black text-orange-950">Quiz Completed!</h4>
+                <p id="quiz-final-score-text" class="text-sm text-slate-700 font-medium">Fantastic job! You completed all quiz questions. Next up: Translation Challenge!</p>
+                <button onclick="unlockAndGoToTranslation()" class="w-full py-3.5 bg-orange-500 hover:bg-orange-600 text-white font-black rounded-xl shadow-md transition cursor-pointer text-sm tracking-wide">Start Translation Challenge ➔</button>
+            </div>
+        </section>
+
+        <!-- TAB 4: TRANSLATION (5 VIETNAMESE TO ENGLISH SENTENCES) -->
+        <section id="tab-translation" class="tab-content hidden space-y-6">
+            <div class="bg-white p-6 rounded-3xl border border-orange-100 shadow-sm space-y-6">
+                <div class="text-center space-y-1.5">
+                    <span class="text-xs uppercase bg-orange-100 text-orange-900 font-black px-4 py-1.5 rounded-full tracking-wide">Task 2: Translation Practice</span>
+                    <p class="text-xs md:text-sm text-slate-600 font-bold pt-1">Dịch <b>đủ cả 5 câu</b> tiếng Việt dưới đây sang tiếng Anh để kiểm tra đáp án!</p>
+                </div>
+
+                <div id="translation-questions-container" class="space-y-6 max-w-2xl mx-auto">
+                    <!-- Dynamic rendering 5 translation questions -->
+                </div>
+
+                <div id="trans-warning-msg" class="hidden text-center text-xs font-black text-rose-600 bg-rose-50 border border-rose-200 p-3 rounded-xl max-w-2xl mx-auto">
+                    ⚠️ Vui lòng hoàn thiện bản dịch cho tất cả 5 câu trước khi kiểm tra đáp án!
+                </div>
+
+                <div class="text-center pt-2">
+                    <button onclick="checkAllTranslationAnswers()" class="px-8 py-3.5 bg-orange-500 hover:bg-orange-600 text-white font-black rounded-xl text-sm shadow-md transition cursor-pointer">Kiểm tra đáp án gợi ý ➔</button>
+                </div>
+            </div>
+
+            <div id="translation-success-box" class="max-w-2xl mx-auto bg-orange-50 border-4 border-orange-300 p-6 rounded-3xl space-y-4 hidden shadow-sm">
+                <div class="text-center space-y-2">
+                    <span class="text-5xl block animate-bounce">🧩🌐✨</span>
+                    <h4 class="text-2xl font-heading font-black text-orange-950">Hoàn thành bài Dịch!</h4>
+                    <p class="text-sm text-slate-700 font-medium">Bạn đã hoàn thành và so sánh câu trả lời với đáp án gợi ý. Tiếp tục đến phần Viết câu tự do!</p>
+                </div>
+                <button onclick="unlockAndGoToWriting()" class="w-full py-3.5 bg-orange-500 hover:bg-orange-600 text-white font-black rounded-xl shadow-md transition cursor-pointer text-sm tracking-wide">Start Sentence Writing ➔</button>
+            </div>
+        </section>
+
+        <!-- TAB 5: SENTENCE WRITING -->
+        <section id="tab-sentence-writing" class="tab-content hidden space-y-6">
+            <div class="bg-white p-6 rounded-3xl border border-orange-100 shadow-sm space-y-6">
+                <div class="text-center space-y-1.5">
+                    <span class="text-xs uppercase bg-amber-100 text-amber-900 font-black px-4 py-1.5 rounded-full tracking-wide">Task 3: Free Sentence Writing</span>
+                    <p class="text-xs md:text-sm text-slate-600 font-bold pt-1">Write <b>5 original sentences</b> in English using vocabulary learned today.</p>
+                </div>
+
+                <div id="writing-boxes-container" class="space-y-6 max-w-2xl mx-auto">
+                    <!-- Dynamic rendering 5 writing boxes -->
+                </div>
+
+                <div id="writing-warning-msg" class="hidden text-center text-xs font-black text-rose-600 bg-rose-50 border border-rose-200 p-3 rounded-xl max-w-2xl mx-auto">
+                    ⚠️ Vui lòng viết hoàn chỉnh cả 5 câu trước khi nộp bài!
+                </div>
+
+                <div class="text-center pt-2">
+                    <button onclick="submitWritingPractice()" class="px-8 py-3.5 bg-orange-500 hover:bg-orange-600 text-white font-black rounded-xl text-sm shadow-md transition cursor-pointer">Submit Writing ➔</button>
+                </div>
+            </div>
+
+            <div id="writing-success-box" class="max-w-2xl mx-auto bg-orange-50 border-4 border-orange-300 p-6 rounded-3xl space-y-6 hidden shadow-sm">
+                <div class="text-center space-y-2">
+                    <span class="text-5xl block animate-bounce">🎓✍️🌟</span>
+                    <h4 class="text-2xl font-heading font-black text-orange-950">Writing Submitted Successfully!</h4>
+                    <p class="text-sm text-slate-700 font-medium">Here are 5 model example sentences for your reference:</p>
+                </div>
+
+                <div id="model-answers-list" class="space-y-3 bg-white p-4 rounded-2xl border border-orange-200 text-xs md:text-sm text-slate-800">
+                    <!-- Suggested Answers Rendered Here -->
+                </div>
+
+                <button onclick="unlockAndGoToCompletion()" class="w-full py-3.5 bg-orange-500 hover:bg-orange-600 text-white font-black rounded-xl shadow-md transition cursor-pointer text-sm tracking-wide">View Lesson Summary ➔</button>
+            </div>
+        </section>
+
+        <!-- TAB 6: COMPLETION / SUMMARY -->
+        <section id="tab-completion" class="tab-content hidden space-y-6">
+            <div class="max-w-2xl mx-auto bg-white border-4 border-orange-300 p-8 rounded-3xl space-y-6 shadow-xl text-center">
+                <div class="space-y-2">
+                    <span class="text-6xl block animate-bounce">🎓🏆🌟</span>
+                    <h3 class="text-3xl font-heading font-black text-orange-950">Congratulations!</h3>
+                    <p class="text-sm text-slate-600 font-bold">You have successfully completed <span class="text-orange-600 font-black">IELTS A_S5_Lesson 2</span>!</p>
+                </div>
+
+                <div class="bg-orange-50/60 p-5 rounded-2xl border border-orange-200 space-y-3 text-left">
+                    <h4 class="text-base font-black text-orange-950 border-b border-orange-200 pb-2">💡 Key Highlights:</h4>
+                    <ul class="space-y-2 text-xs md:text-sm text-slate-700 font-bold">
+                        <li class="flex items-start gap-2"><span class="text-orange-600 font-black">1.</span> <span><b>24 IELTS Lexical Items:</b> Advanced collocations, verbs, and adjectives related to Childhood, Technology, Society & Media.</span></li>
+                        <li class="flex items-start gap-2"><span class="text-orange-600 font-black">2.</span> <span><b>Academic Lexis:</b> Feature advanced technologies, Take to sth naturally, Gender stereotype, Exert a strong influence on, Dogmatic, etc.</span></li>
+                        <li class="flex items-start gap-2"><span class="text-orange-600 font-black">3.</span> <span><b>Translation & Output:</b> Translated complex Vietnamese sentences to IELTS Band 6.5+ structures and wrote original sentences.</span></li>
+                    </ul>
+                </div>
+
+                <div class="text-center pt-2">
+                    <button onclick="location.reload()" class="px-8 py-3.5 bg-orange-500 hover:bg-orange-600 text-white font-black rounded-xl shadow-md transition cursor-pointer text-sm">🔄 Restart Lesson</button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        // LESSON 2 IELTS VOCABULARY DATA
+        const vocabularyData = [
+            { word: "a stuffed dog", rawWord: "A stuffed animal / dog", ipa: "/ə ˌstʌft dɒɡ/", vi: "Thú nhồi bông (con chó)", simple: "A toy animal made of fabric and filled with soft material.", ex: "My favorite childhood toy was a stuffed dog that provided immense emotional comfort during my early school years.", icon: "🧸" },
+            { word: "run on batteries", rawWord: "Run on batteries", ipa: "/rʌn ɒn ˈbæt.ər.iz/", vi: "Chạy bằng pin", simple: "To operate using electricity stored in small power cells.", ex: "Interactive gadgets that run on batteries tend to captivate young children far more than traditional wooden blocks.", icon: "🔋" },
+            { word: "was never without", rawWord: "Be never without [sth]", ipa: "/bi ˈnev.ər wɪðˈaʊt/", vi: "Luôn mang theo/không bao giờ rời xa", simple: "To carry or have something with you at all times.", ex: "When I was primary school age, I was never without my favorite action figure, taking it along on every family trip.", icon: "🎒" },
+            { word: "treat", rawWord: "Treat [sb/sth] like...", ipa: "/triːt laɪk/", vi: "Đối xử với ai/cái gì như...", simple: "To behave toward someone or something in a particular way.", ex: "Many young children often treat their favorite toys like real companions, confiding their secrets and thoughts to them.", icon: "🐶" },
+            { word: "show off", rawWord: "Show off", ipa: "/ʃəʊ ɒf/", vi: "Khoe khoang, phô trương", simple: "To display something proudly to attract attention or praise.", ex: "Children naturally love to show off their newest possessions to their peers on the playground.", icon: "✨" },
+            { word: "a good substitute for", rawWord: "A good substitute for...", ipa: "/ə ɡʊd ˈsʌb.stɪ.tjuːt fɔːr/", vi: "Sự thay thế tốt cho...", simple: "A person or thing that successfully replaces another.", ex: "Adopting a robotic pet can be a good substitute for a real animal for families living in small urban apartments.", icon: "🤖" },
+            { word: "feature advanced technologies", rawWord: "Feature advanced technologies", ipa: "/ˈfiː.tʃər ədˈvɑːnst tekˈnɒl.ə.dʒiz/", vi: "Sở hữu/tích hợp công nghệ tiên tiến", simple: "To include or incorporate modern electronic systems.", ex: "Modern educational playthings often feature advanced technologies, such as voice recognition and artificial intelligence.", icon: "📱" },
+            { word: "take to", rawWord: "Take to [sth] naturally", ipa: "/teɪk tuː ˈnætʃ.ər.əl.i/", vi: "Bắt nhịp/thích nghi với cái gì một cách tự nhiên", simple: "To start liking or being good at something easily without special effort.", ex: "Growing up in a digital age, toddlers tend to take to smart devices naturally without needing much instruction.", icon: "👶" },
+            { word: "educational toys", rawWord: "Educational toys", ipa: "/ˌedʒ.ʊˈkeɪ.ʃən.əl tɔɪz/", vi: "Đồ chơi giáo dục", simple: "Objects designed for children that stimulate learning while playing.", ex: "Investing in educational toys can foster critical thinking and problem-solving abilities from an early development stage.", icon: "🧩" },
+            { word: "gender stereotypes", rawWord: "Gender stereotype", ipa: "/ˈdʒen.dər ˈster.i.ə.taɪp/", vi: "Định kiến giới", simple: "A fixed, oversimplified belief about how males or females should behave.", ex: "Relying on gender stereotypes when choosing gifts can unnecessarily limit a child's range of interests and skills.", icon: "⚖️" },
+            { word: "assume that", rawWord: "Assume that...", ipa: "/əˈsjuːm ðæt/", vi: "Cho rằng/giả định rằng...", simple: "To accept something as true without having actual proof.", ex: "Societies frequently assume that male students are inherently more inclined toward STEM disciplines than female students.", icon: "💭" },
+            { word: "hands-on and physically energetic", rawWord: "Hands-on and physically energetic", ipa: "/ˌhændzˈɒn ænd ˈfɪz.ɪ.kəl.i ˌen.əˈdʒet.ɪk/", vi: "Thực hành và giàu năng lượng thể chất", simple: "Involving active physical participation and high levels of body movement.", ex: "Activities that are hands-on and physically energetic allow children to release excess energy while developing fine motor skills.", icon: "⚽" },
+            { word: "crudely", rawWord: "Crudely", ipa: "/ˈkruːd.li/", vi: "Thô sơ, đơn sơ", simple: "In a simple, rough, or unrefined manner.", ex: "Traditional wooden toys were often crudely fashioned compared to today's precision-engineered plastic models.", icon: "🔨" },
+            { word: "storage space", rawWord: "Storage space", ipa: "/ˈstɔː.rɪdʒ speɪs/", vi: "Không gian lưu trữ/cất giữ", simple: "The amount of room available to keep or store items.", ex: "Bulky playsets consume a significant amount of storage space, making compact digital gadgets more appealing to modern families.", icon: "📦" },
+            { word: "conglomeration", rawWord: "A conglomeration (of sth)", ipa: "/ə kənˌɡlɒm.əˈreɪ.ʃən/", vi: "Sự kết hợp/hỗn hợp của nhiều thứ", simple: "A large collection or mixture of different things.", ex: "Theme parks usually feature a conglomeration of interactive games and entertainment designed to engage visitors.", icon: "🎡" },
+            { word: "in reverse", rawWord: "In reverse", ipa: "/ɪn rɪˈvɜːs/", vi: "Theo chiều ngược lại", simple: "In the opposite order, direction, or manner.", ex: "While older generations moved from physical toys to digital media, modern children often experience this process in reverse.", icon: "🔄" },
+            { word: "predominant", rawWord: "Predominant", ipa: "/prɪˈdɒm.ɪ.nənt/", vi: "Chiếm ưu thế, chủ đạo", simple: "Being the most noticeable, frequent, or dominant element.", ex: "Digital entertainment has become the predominant form of leisure among urban youth today.", icon: "👑" },
+            { word: "exert a strong influence on", rawWord: "Exert a strong influence on", ipa: "/ɪɡˈzɜːt ə strɒŋ ˈɪn.flu.əns ɒn/", vi: "Gây ra ảnh hưởng mạnh mẽ lên", simple: "To have a powerful effect on someone or something.", ex: "Peers and social media exert a strong influence on young students' choices of lifestyle and preferences.", icon: "🌟" },
+            { word: "dogmatic", rawWord: "Dogmatic", ipa: "/dɒɡˈmæt.ɪk/", vi: "Máy móc, giáo điều, độc đoán", simple: "Insisting on beliefs as unquestionable truth without accepting debate.", ex: "Educators should avoid being dogmatic about teaching methods, as students have diverse learning styles.", icon: "📜" },
+            { word: "enormous potential", rawWord: "Enormous potential", ipa: "/ɪˈnɔː.məs pəˈten.ʃəl/", vi: "Tiềm năng to lớn", simple: "A vast or immense capacity to develop or succeed.", ex: "Incorporating gamification into the classroom holds enormous potential for enhancing student engagement.", icon: "🚀" },
+            { word: "tremendous", rawWord: "Tremendous", ipa: "/trɪˈmen.dəs/", vi: "Rất lớn, to lớn, ấn tượng", simple: "Very great, immense, or impressive in amount or degree.", ex: "Consistent daily speaking practice yields tremendous improvements in fluently expressing complex ideas.", icon: "💪" },
+            { word: "material aspirations", rawWord: "Material aspirations", ipa: "/məˈtɪə.ri.əl ˌæs.pɪˈreɪ.ʃanz/", vi: "Khát vọng/mơ ước về vật chất", simple: "Strong desires to acquire wealth, goods, or physical possessions.", ex: "Aggressive toy advertising directly stimulates material aspirations among young children.", icon: "💎" },
+            { word: "glamorise", rawWord: "Glamorise", ipa: "/ˈɡlæm.ər.aɪz/", vi: "Tô hồng, làm cho có vẻ hấp dẫn", simple: "To make something seem charming, attractive, or desirable.", ex: "Commercials often glamorise high-tech gadgets, prompting youngsters to demand the latest models.", icon: "✨" },
+            { word: "notorious for", rawWord: "Notorious for", ipa: "/nəʊˈtɔː.ri.əs fɔːr/", vi: "Nổi tiếng xấu/tai tiếng về...", simple: "Well known for a particular bad quality or negative trait.", ex: "Fast-fashion brands are notorious for promoting excessive consumerism among young shoppers.", icon: "⚠️" }
+        ];
+
+        // 5 TRANSLATION QUESTIONS (VIETNAMESE TO ENGLISH)
+        const translationQuestions = [
+            {
+                vi: "1. Các thiết bị tương tác chạy bằng pin có xu hướng thu hút trẻ nhỏ nhiều hơn so với các khối gỗ truyền thống.",
+                suggested: "Interactive gadgets that run on batteries tend to captivate young children far more than traditional wooden blocks.",
+                targetLexis: "run on batteries"
+            },
+            {
+                vi: "2. Việc đầu tư vào đồ chơi giáo dục có thể thúc đẩy tư duy phản biện và khả năng giải quyết vấn đề từ giai đoạn phát triển sớm.",
+                suggested: "Investing in educational toys can foster critical thinking and problem-solving abilities from an early development stage.",
+                targetLexis: "educational toys"
+            },
+            {
+                vi: "3. Bạn bè và mạng xã hội gây ra ảnh hưởng mạnh mẽ lên sự lựa chọn lối sống và sở thích của các học sinh trẻ.",
+                suggested: "Peers and social media exert a strong influence on young students' choices of lifestyle and preferences.",
+                targetLexis: "exert a strong influence on"
+            },
+            {
+                vi: "4. Các nhà giáo dục nên tránh trở nên giáo điều về các phương pháp giảng dạy, vì học sinh có các phong cách học tập đa dạng.",
+                suggested: "Educators should avoid being dogmatic about teaching methods, as students have diverse learning styles.",
+                targetLexis: "dogmatic"
+            },
+            {
+                vi: "5. Các thương hiệu thời trang nhanh nổi tiếng xấu về việc thúc đẩy chủ nghĩa tiêu dùng quá độ trong giới trẻ.",
+                suggested: "Fast-fashion brands are notorious for promoting excessive consumerism among young shoppers.",
+                targetLexis: "notorious for"
+            }
+        ];
+
+        // MODEL WRITING ANSWERS FOR REFERENCE
+        const writingModelAnswers = [
+            "1. Many parents believe that digital pets are <b>a good substitute for</b> real animals in small urban apartments.",
+            "2. Modern learning apps <b>feature advanced technologies</b> to deliver personalized practice for IELTS students.",
+            "3. Basing career choices strictly on <b>gender stereotypes</b> can limit a young person's future growth.",
+            "4. Integrating gamified learning activities into IELTS classes holds <b>enormous potential</b>.",
+            "5. Commercial advertisements frequently <b>glamorise</b> luxurious products to stimulate consumer demand."
+        ];
+
+        // STATE MANAGEMENT
+        let currentTab = 'reference';
+        let flashcardQueue = [];
+        let currentCard = null;
+        let isCardFlipped = false;
+        
+        // Quiz State
+        let quizList = [];
+        let quizCurrentIndex = 0;
+        let quizScore = 0;
+        let quizAnswered = false;
+
+        // INITIALIZATION
+        window.addEventListener('DOMContentLoaded', () => {
+            renderReferenceTable();
+            initFlashcards();
+            initQuiz();
+            renderTranslationSection();
+            renderWritingSection();
+
+            // Bind Enter key on Quiz input
+            const quizInput = document.getElementById('quiz-user-input');
+            if (quizInput) {
+                quizInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        if (!quizAnswered) {
+                            checkQuizAnswer();
+                        } else {
+                            nextQuizQuestion();
+                        }
+                    }
+                });
+            }
+        });
+
+        // TAB NAVIGATION LOGIC
+        function switchTab(tabId) {
+            const btn = document.getElementById(`btn-${tabId}`);
+            if (btn && btn.classList.contains('disabled-tab')) return;
+
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(el => {
+                el.classList.remove('bg-white', 'text-orange-600', 'shadow-sm');
+                el.classList.add('text-slate-500');
+            });
+
+            const activeTab = document.getElementById(`tab-${tabId}`);
+            if (activeTab) activeTab.classList.remove('hidden');
+
+            if (btn) {
+                btn.classList.remove('text-slate-500');
+                btn.classList.add('bg-white', 'text-orange-600', 'shadow-sm');
+            }
+
+            currentTab = tabId;
+        }
+
+        function unlockTab(tabId) {
+            const btn = document.getElementById(`btn-${tabId}`);
+            if (btn) {
+                btn.classList.remove('disabled-tab');
+            }
+        }
+
+        // TAB 1: REFERENCE TABLE
+        function renderReferenceTable() {
+            const tbody = document.getElementById('reference-table-body');
+            tbody.innerHTML = vocabularyData.map(item => `
+                <tr class="hover:bg-orange-50/50 transition">
+                    <td class="p-3.5 font-extrabold text-orange-950">
+                        <span class="mr-1">${item.icon}</span> ${item.rawWord || item.word}
+                    </td>
+                    <td class="p-3.5 font-mono text-orange-600 text-xs">${item.ipa}</td>
+                    <td class="p-3.5 text-slate-700">
+                        <span class="block font-bold text-slate-900">${item.simple}</span>
+                        <span class="block text-xs text-orange-700 font-semibold mt-0.5">🇻🇳 ${item.vi}</span>
+                    </td>
+                    <td class="p-3.5 text-slate-600 italic leading-snug text-xs">${item.ex}</td>
+                </tr>
+            `).join('');
+        }
+
+        // SPEECH SYNTHESIS
+        function speakText(text, event) {
+            if (event) event.stopPropagation();
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const cleanText = text.replace(/\[.*?\]/g, '').replace(/\//g, '');
+                const utterance = new SpeechSynthesisUtterance(cleanText);
+                utterance.lang = 'en-US';
+                utterance.rate = 0.9;
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        // TAB 2: FLASHCARDS (ANKI SYSTEM)
+        function initFlashcards() {
+            flashcardQueue = [...vocabularyData].map(item => ({ ...item }));
+            shuffleArray(flashcardQueue);
+            updateProgressBar();
+            loadNextCard();
+        }
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        function loadNextCard() {
+            if (flashcardQueue.length === 0) {
+                document.getElementById('flashcard-container').classList.add('hidden');
+                document.getElementById('flashcard-success-box').classList.remove('hidden');
+                unlockTab('quiz-game');
+                return;
+            }
+
+            currentCard = flashcardQueue[0];
+            isCardFlipped = false;
+            
+            const cardInner = document.getElementById('flashcard-inner');
+            cardInner.classList.remove('card-flipped');
+
+            // Render Front
+            document.getElementById('f-prompt').textContent = currentCard.rawWord || currentCard.word;
+            document.getElementById('f-ipa').textContent = currentCard.ipa;
+            document.getElementById('f-example').textContent = `"${currentCard.ex}"`;
+
+            // Render Back
+            document.getElementById('b-answer').textContent = currentCard.vi;
+            document.getElementById('b-ipa').textContent = currentCard.ipa;
+            document.getElementById('b-example').textContent = `Definition: ${currentCard.simple}`;
+
+            document.getElementById('queue-text').textContent = `${flashcardQueue.length} cards`;
+        }
+
+        function flipCard() {
+            const cardInner = document.getElementById('flashcard-inner');
+            isCardFlipped = !isCardFlipped;
+            if (isCardFlipped) {
+                cardInner.classList.add('card-flipped');
+            } else {
+                cardInner.classList.remove('card-flipped');
+            }
+        }
+
+        function handleAnkiAction(rating) {
+            if (!currentCard) return;
+
+            if (rating === 'again') {
+                const card = flashcardQueue.shift();
+                const reinsertIdx = Math.min(3, flashcardQueue.length);
+                flashcardQueue.splice(reinsertIdx, 0, card);
+            } else if (rating === 'hard') {
+                const card = flashcardQueue.shift();
+                const reinsertIdx = Math.min(5, flashcardQueue.length);
+                flashcardQueue.splice(reinsertIdx, 0, card);
+            } else {
+                flashcardQueue.shift();
+            }
+
+            updateProgressBar();
+            loadNextCard();
+        }
+
+        function updateProgressBar() {
+            const total = vocabularyData.length;
+            const remaining = flashcardQueue.length;
+            const completed = Math.max(0, total - remaining);
+            const percentage = Math.round((completed / total) * 100);
+            document.getElementById('progress-bar').style.width = `${percentage}%`;
+        }
+
+        function resetProgress() {
+            document.getElementById('flashcard-container').classList.remove('hidden');
+            document.getElementById('flashcard-success-box').classList.add('hidden');
+            initFlashcards();
+        }
+
+        function unlockAndGoToQuiz() {
+            unlockTab('quiz-game');
+            switchTab('quiz-game');
+        }
+
+        // TAB 3: CONTEXTUAL VOCAB QUIZ (FILL-IN-THE-BLANK)
+        function initQuiz() {
+            quizList = vocabularyData.map(item => {
+                const target = item.word.toLowerCase();
+                const regexPattern = new RegExp(target.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+                const wordLengths = target.split(' ').map(w => '_'.repeat(w.length)).join(' ');
+                
+                let contextSentence = item.ex;
+                if (regexPattern.test(item.ex)) {
+                    contextSentence = item.ex.replace(regexPattern, `<u class="text-orange-600 font-extrabold px-1 text-lg">${wordLengths}</u>`);
+                } else {
+                    contextSentence = `${item.simple} ➔ <u class="text-orange-600 font-extrabold px-1 text-lg">${wordLengths}</u>`;
+                }
+
+                const charHint = target.split(' ').map(w => `${w.length} letters`).join(' + ');
+
+                return {
+                    targetWord: target,
+                    rawWord: item.rawWord || item.word,
+                    contextSentence: contextSentence,
+                    charHint: charHint,
+                    vi: item.vi
+                };
+            });
+
+            shuffleArray(quizList);
+            quizList = quizList.slice(0, 15);
+            quizCurrentIndex = 0;
+            quizScore = 0;
+            renderQuizStep();
+        }
+
+        function renderQuizStep() {
+            if (quizCurrentIndex >= quizList.length) {
+                document.getElementById('quiz-question-prompt').parentNode.parentNode.classList.add('hidden');
+                document.getElementById('quiz-success-box').classList.remove('hidden');
+                document.getElementById('quiz-final-score-text').textContent = `Fantastic job! You scored ${quizScore} out of ${quizList.length}. Next up: Translation Challenge!`;
+                unlockTab('translation');
+                return;
+            }
+
+            quizAnswered = false;
+            const currentQuiz = quizList[quizCurrentIndex];
+
+            document.getElementById('quiz-step').textContent = `${quizCurrentIndex + 1} / ${quizList.length}`;
+            document.getElementById('quiz-score').textContent = quizScore;
+
+            document.getElementById('quiz-question-prompt').innerHTML = currentQuiz.contextSentence;
+            document.getElementById('quiz-vi-meaning').textContent = `Gợi ý nghĩa: ${currentQuiz.vi}`;
+            document.getElementById('quiz-hint-length').textContent = `🔍 Pattern: ${currentQuiz.charHint}`;
+
+            const userInput = document.getElementById('quiz-user-input');
+            userInput.value = '';
+            userInput.disabled = false;
+            userInput.className = "flex-1 px-4 py-3 bg-slate-50 border-2 border-slate-200 rounded-xl focus:outline-none focus:border-orange-500 text-sm font-bold transition";
+            userInput.focus();
+
+            const submitBtn = document.getElementById('quiz-submit-btn');
+            submitBtn.disabled = false;
+            submitBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+
+            const feedbackMsg = document.getElementById('quiz-feedback-msg');
+            feedbackMsg.className = "text-center text-sm font-black hidden p-3.5 rounded-xl leading-relaxed";
+            feedbackMsg.innerHTML = '';
+
+            document.getElementById('quiz-next-btn').classList.add('hidden');
+        }
+
+        function checkQuizAnswer() {
+            if (quizAnswered) return;
+
+            const userInput = document.getElementById('quiz-user-input').value.trim().toLowerCase();
+            const currentQuiz = quizList[quizCurrentIndex];
+            const target = currentQuiz.targetWord.toLowerCase();
+
+            if (!userInput) return;
+
+            quizAnswered = true;
+            document.getElementById('quiz-user-input').disabled = true;
+            
+            const submitBtn = document.getElementById('quiz-submit-btn');
+            submitBtn.disabled = true;
+            submitBtn.classList.add('opacity-50', 'cursor-not-allowed');
+
+            const feedbackMsg = document.getElementById('quiz-feedback-msg');
+            feedbackMsg.classList.remove('hidden');
+
+            if (userInput === target) {
+                quizScore += 1;
+                document.getElementById('quiz-score').textContent = quizScore;
+                document.getElementById('quiz-user-input').classList.add('border-emerald-500', 'bg-emerald-50');
+                feedbackMsg.classList.add('bg-emerald-100', 'text-emerald-900', 'border', 'border-emerald-200');
+                feedbackMsg.innerHTML = `🎉 <b>Correct!</b> Excellent context identification!`;
+            } else {
+                document.getElementById('quiz-user-input').classList.add('border-rose-500', 'bg-rose-50');
+                feedbackMsg.classList.add('bg-rose-100', 'text-rose-900', 'border', 'border-rose-200');
+                feedbackMsg.innerHTML = `❌ <b>Incorrect!</b> Expected answer: <span class="underline font-black text-rose-950">${currentQuiz.rawWord}</span>`;
+            }
+
+            document.getElementById('quiz-next-btn').classList.remove('hidden');
+        }
+
+        function nextQuizQuestion() {
+            quizCurrentIndex += 1;
+            renderQuizStep();
+        }
+
+        function unlockAndGoToTranslation() {
+            unlockTab('translation');
+            switchTab('translation');
+        }
+
+        // TAB 4: TRANSLATION PRACTICE (STRICT REQUIREMENT FOR ALL 5 QUESTIONS)
+        function renderTranslationSection() {
+            const container = document.getElementById('translation-questions-container');
+            container.innerHTML = translationQuestions.map((q, idx) => `
+                <div class="bg-orange-50/40 p-5 rounded-2xl border border-orange-100 space-y-3">
+                    <p class="text-xs md:text-sm font-black text-slate-800 leading-relaxed">${q.vi}</p>
+                    <div class="space-y-2">
+                        <textarea id="trans-input-${idx}" rows="2" placeholder="Nhập câu dịch tiếng Anh của bạn tại đây..." class="w-full p-3 bg-white border border-slate-200 rounded-xl text-xs md:text-sm font-medium focus:outline-none focus:border-orange-500 transition"></textarea>
+                        <div id="trans-suggested-${idx}" class="hidden p-3 bg-amber-50 border border-amber-200 rounded-xl text-xs space-y-1">
+                            <span class="font-black text-amber-900 block">💡 Đáp án gợi ý:</span>
+                            <p class="text-slate-800 font-bold">${q.suggested}</p>
+                            <span class="text-[10px] text-amber-700 font-semibold block pt-0.5">Target lexical item: <b>${q.targetLexis}</b></span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function checkAllTranslationAnswers() {
+            let allFilled = true;
+            const warningMsg = document.getElementById('trans-warning-msg');
+
+            // Verify that all 5 inputs have text
+            translationQuestions.forEach((_, idx) => {
+                const inputEl = document.getElementById(`trans-input-${idx}`);
+                if (!inputEl || inputEl.value.trim().length === 0) {
+                    allFilled = false;
+                    if (inputEl) {
+                        inputEl.classList.add('border-rose-400', 'bg-rose-50');
+                    }
+                } else {
+                    if (inputEl) {
+                        inputEl.classList.remove('border-rose-400', 'bg-rose-50');
+                    }
+                }
+            });
+
+            if (!allFilled) {
+                warningMsg.classList.remove('hidden');
+                return;
+            }
+
+            warningMsg.classList.add('hidden');
+
+            // Show suggested answers
+            translationQuestions.forEach((_, idx) => {
+                const box = document.getElementById(`trans-suggested-${idx}`);
+                if (box) box.classList.remove('hidden');
+            });
+
+            document.getElementById('translation-success-box').classList.remove('hidden');
+            unlockTab('sentence-writing');
+        }
+
+        function unlockAndGoToWriting() {
+            unlockTab('sentence-writing');
+            switchTab('sentence-writing');
+        }
+
+        // TAB 5: FREE SENTENCE WRITING (STRICT REQUIREMENT FOR ALL 5 SENTENCES)
+        function renderWritingSection() {
+            const container = document.getElementById('writing-boxes-container');
+            const items = [1, 2, 3, 4, 5];
+            
+            container.innerHTML = items.map(num => `
+                <div class="bg-orange-50/40 p-5 rounded-2xl border border-orange-100 space-y-3">
+                    <label class="block text-xs font-black text-orange-950 uppercase tracking-wider">Sentence ${num}:</label>
+                    <textarea id="writing-input-${num}" rows="2" placeholder="Write your original English sentence incorporating learned vocabulary..." class="w-full p-3 bg-white border border-slate-200 rounded-xl text-xs md:text-sm font-medium focus:outline-none focus:border-orange-500 transition"></textarea>
+                </div>
+            `).join('');
+        }
+
+        function submitWritingPractice() {
+            let allFilled = true;
+            const warningMsg = document.getElementById('writing-warning-msg');
+
+            // Verify that all 5 writing inputs have text
+            for (let i = 1; i <= 5; i++) {
+                const inputEl = document.getElementById(`writing-input-${i}`);
+                if (!inputEl || inputEl.value.trim().length === 0) {
+                    allFilled = false;
+                    if (inputEl) {
+                        inputEl.classList.add('border-rose-400', 'bg-rose-50');
+                    }
+                } else {
+                    if (inputEl) {
+                        inputEl.classList.remove('border-rose-400', 'bg-rose-50');
+                    }
+                }
+            }
+
+            if (!allFilled) {
+                warningMsg.classList.remove('hidden');
+                return;
+            }
+
+            warningMsg.classList.add('hidden');
+
+            const modelList = document.getElementById('model-answers-list');
+            modelList.innerHTML = writingModelAnswers.map(ans => `
+                <div class="p-2.5 bg-orange-50/60 rounded-xl border border-orange-100">
+                    <p class="text-xs md:text-sm text-slate-800 font-medium">${ans}</p>
+                </div>
+            `).join('');
+
+            document.getElementById('writing-success-box').classList.remove('hidden');
+            unlockTab('completion');
+        }
+
+        function unlockAndGoToCompletion() {
+            unlockTab('completion');
+            switchTab('completion');
+        }
+    </script>
+</body>
+</html>
