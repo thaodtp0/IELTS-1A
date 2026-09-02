@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IELTS 1A_S5_Lesson 3</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    
+    <style>
+        *, body, html, button, span, h1, h2, h3, p, div, input, select, textarea { 
+            font-family: 'Quicksand', sans-serif; 
+            font-weight: 600;
+        }
+        h1, h2, h3, .font-heading {
+            font-family: 'Fredoka', sans-serif;
+        }
+        .perspective { perspective: 1000px; }
+        .backface-hidden { backface-visibility: hidden; }
+        .card-inner { transition: transform 0.5s; transform-style: preserve-3d; }
+        .card-flipped { transform: rotateY(180deg); }
+        .disabled-tab { opacity: 0.4; cursor: not-allowed !important; pointer-events: none; }
+        
+        .bingo-tile.correct {
+            background-color: #0284c7 !important;
+            color: #ffffff !important;
+            border-color: #0369a1 !important;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .bingo-tile.wrong {
+            animation: shake 0.4s ease-in-out;
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-5px); }
+            40%, 80% { transform: translateX(5px); }
+        }
+    </style>
+</head>
+<body class="bg-[#F0F9FF] text-slate-700 min-h-screen flex flex-col selection:bg-sky-200 pb-12">
+
+    <!-- HEADER -->
+    <header class="bg-gradient-to-r from-[#E0F2FE] via-[#BAE6FD] to-[#7DD3FC] border-b-4 border-dashed border-sky-300 shadow-sm p-6 text-center rounded-b-3xl">
+        <h1 class="text-3xl md:text-4xl font-black tracking-wide drop-shadow-sm text-sky-950">🗣️ IELTS 1A_S5_Lesson 3 💬</h1>
+    </header>
+
+    <!-- NAVIGATION TABS -->
+    <div class="max-w-4xl w-full mx-auto px-4 mt-6">
+        <div class="flex bg-sky-200/60 p-1.5 rounded-2xl border border-sky-300/80 shadow-inner overflow-x-auto">
+            <button onclick="switchTab('reference')" id="btn-reference" class="tab-btn flex-1 py-3 px-2 text-xs md:text-sm font-black rounded-xl text-center bg-white text-sky-600 shadow-sm transition cursor-pointer whitespace-nowrap">📚 Word Bank</button>
+            <button onclick="switchTab('flashcard')" id="btn-flashcard" class="tab-btn flex-1 py-3 px-2 text-xs md:text-sm font-black rounded-xl text-center text-slate-500 transition cursor-pointer whitespace-nowrap">🎴 Flashcards</button>
+            <button onclick="switchTab('bingo')" id="btn-bingo" class="tab-btn disabled-tab flex-1 py-3 px-2 text-xs md:text-sm font-black rounded-xl text-center text-slate-500 transition whitespace-nowrap">🎯 Bingo</button>
+            <button onclick="switchTab('completion-sentences')" id="btn-completion-sentences" class="tab-btn disabled-tab flex-1 py-3 px-2 text-xs md:text-sm font-black rounded-xl text-center text-slate-500 transition whitespace-nowrap">✍️ Complete Sentences</button>
+            <button onclick="switchTab('summary')" id="btn-summary" class="tab-btn disabled-tab flex-1 py-3 px-2 text-xs md:text-sm font-black rounded-xl text-center text-slate-500 transition whitespace-nowrap">🎉 Completion</button>
+        </div>
+    </div>
+
+    <main class="flex-1 max-w-4xl w-full mx-auto px-4 py-6">
+        
+        <!-- TAB 1: WORD BANK -->
+        <section id="tab-reference" class="tab-content block space-y-6">
+            <div class="bg-white p-6 rounded-3xl border border-sky-100 shadow-sm space-y-4">
+                <div class="flex justify-between items-center flex-wrap gap-2">
+                    <h2 class="text-2xl font-black text-sky-950 font-heading">📖 S5_Lesson 3: Vocabulary List</h2>
+                    <span class="text-xs bg-sky-100 text-sky-700 px-3 py-1 rounded-full font-bold">24 Core Items</span>
+                </div>
+
+                <div class="overflow-x-auto rounded-2xl border border-sky-100 max-h-[500px]">
+                    <table class="w-full text-left border-collapse bg-white">
+                        <thead class="sticky top-0 bg-sky-50/90 border-b border-sky-200 text-sky-900 text-xs uppercase tracking-wider font-black z-10">
+                            <tr>
+                                <th class="p-3.5">Vocabulary</th>
+                                <th class="p-3.5">IPA</th>
+                                <th class="p-3.5">Meaning</th>
+                                <th class="p-3.5">Example Sentence</th>
+                            </tr>
+                        </thead>
+                        <tbody id="reference-table-body" class="divide-y divide-sky-50 text-xs md:text-sm">
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="text-center pt-2">
+                    <button onclick="switchTab('flashcard')" class="px-8 py-3.5 bg-sky-500 hover:bg-sky-600 text-white font-black rounded-xl text-sm shadow-sm transition cursor-pointer">Start Flashcards Practice ➔</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: FLASHCARDS -->
+        <section id="tab-flashcard" class="tab-content hidden space-y-6">
+            <div class="bg-white p-4 rounded-2xl border-2 border-dashed border-sky-300 shadow-sm flex justify-between items-center flex-wrap gap-2">
+                <div class="text-sm font-black text-slate-600">Remaining Queue: <span id="queue-text" class="text-sky-600 font-extrabold">0 cards</span></div>
+                <div class="w-full sm:w-1/3 bg-slate-100 h-4 rounded-full overflow-hidden p-0.5 border border-slate-200">
+                    <div id="progress-bar" class="bg-gradient-to-r from-sky-400 to-indigo-500 h-full rounded-full transition-all duration-500" style="width: 0%"></div>
+                </div>
+                <button onclick="resetProgress()" class="text-xs text-sky-500 hover:underline font-black cursor-pointer">🔄 Reset Session</button>
+            </div>
+            
+            <div id="flashcard-container" class="space-y-6">
+                <div id="card-arena" class="perspective w-full max-w-md mx-auto h-[420px] cursor-pointer">
+                    <div id="flashcard-inner" onclick="flipCard()" class="card-inner w-full h-full relative border-4 border-sky-300 rounded-3xl shadow-md bg-white">
+                        
+                        <!-- FRONT SIDE -->
+                        <div class="backface-hidden absolute inset-0 p-6 flex flex-col justify-between items-center text-center bg-sky-50/30 rounded-[20px]">
+                            <span id="f-badge" class="text-xs font-black text-sky-700 uppercase tracking-widest bg-sky-100/80 px-4 py-1.5 rounded-full">Meaning / Definition</span>
+                            
+                            <div class="space-y-3 my-auto w-full">
+                                <h3 id="f-prompt" class="text-lg md:text-xl font-black text-sky-950 px-2 leading-snug"></h3>
+                                <p id="f-vi" class="text-xs font-bold text-sky-700 bg-sky-100/60 py-1.5 px-3 rounded-xl inline-block max-w-full"></p>
+                                
+                                <div id="f-extra-content" class="hidden space-y-2 pt-2 border-t border-sky-200/60">
+                                    <div class="flex justify-center items-center space-x-2">
+                                        <span id="f-ipa" class="text-sky-600 font-bold text-sm font-mono"></span>
+                                        <button id="f-audio-btn" onclick="speakText(currentCard.word, event)" class="w-7 h-7 bg-sky-500 hover:bg-sky-600 text-white rounded-full transition flex items-center justify-center text-xs cursor-pointer shadow-sm">🔊</button>
+                                    </div>
+                                    <p id="f-example" class="text-slate-600 text-xs px-2 font-medium leading-relaxed"></p>
+                                </div>
+                            </div>
+
+                            <p class="text-xs text-sky-500 font-black">👉 Tap card to reveal word 👈</p>
+                        </div>
+
+                        <!-- BACK SIDE -->
+                        <div class="backface-hidden w-full h-full absolute inset-0 p-6 flex flex-col justify-between bg-slate-800 text-white rounded-[22px]" style="transform: rotateY(180deg);">
+                            <span id="b-badge" class="text-xs font-black text-sky-300 uppercase tracking-widest bg-slate-700/80 px-4 py-1.5 rounded-full w-max mx-auto">Target Word</span>
+                            
+                            <div class="my-auto space-y-3 text-center">
+                                <h2 id="b-answer" class="text-2xl md:text-3xl font-black text-amber-300"></h2>
+                                
+                                <div id="b-extra-content" class="space-y-2 border-t border-slate-700 pt-3">
+                                    <div class="flex justify-center items-center space-x-2">
+                                        <span id="b-ipa" class="text-sky-300 font-bold text-sm font-mono"></span>
+                                        <button id="b-audio-btn" onclick="speakText(currentCard.word, event)" class="w-7 h-7 bg-sky-900 hover:bg-sky-800 text-sky-100 rounded-full transition flex items-center justify-center text-xs cursor-pointer shadow-sm">🔊</button>
+                                    </div>
+                                    <p id="b-example" class="text-slate-300 text-xs px-2 font-medium leading-relaxed"></p>
+                                </div>
+                            </div>
+
+                            <p class="text-xs text-center text-slate-400 font-bold">Rate how well you recalled this 👇</p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="w-full max-w-md mx-auto bg-white p-4 rounded-2xl border border-sky-100 shadow-sm grid grid-cols-4 gap-2">
+                    <button onclick="handleAnkiAction('again')" class="p-2 bg-rose-50 hover:bg-rose-100 border border-rose-200 rounded-xl text-center transition cursor-pointer">
+                        <span class="block text-xs font-black text-rose-600">Again</span>
+                        <span class="text-[10px] text-rose-400 font-bold block mt-0.5">&lt; 1m</span>
+                    </button>
+                    <button onclick="handleAnkiAction('hard')" class="p-2 bg-amber-50 hover:bg-amber-100 border border-amber-200 rounded-xl text-center transition cursor-pointer">
+                        <span class="block text-xs font-black text-amber-600">Hard</span>
+                        <span class="text-[10px] text-amber-400 font-bold block mt-0.5">2m</span>
+                    </button>
+                    <button onclick="handleAnkiAction('good')" class="p-2 bg-sky-50 hover:bg-sky-100 border border-sky-200 rounded-xl text-center transition cursor-pointer">
+                        <span class="block text-xs font-black text-sky-600">Good</span>
+                        <span class="text-[10px] text-sky-500 font-bold block mt-0.5">1d</span>
+                    </button>
+                    <button onclick="handleAnkiAction('easy')" class="p-2 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 rounded-xl text-center transition shadow-sm cursor-pointer">
+                        <span class="block text-xs font-black text-emerald-600">Easy</span>
+                        <span class="text-[10px] text-emerald-500 font-bold block mt-0.5">4d</span>
+                    </button>
+                </div>
+            </div>
+
+            <div id="flashcard-success-box" class="max-w-md mx-auto bg-emerald-50 border-4 border-emerald-300 p-6 rounded-3xl text-center space-y-4 hidden shadow-sm">
+                <span class="text-5xl block animate-bounce">🌟🗣️🎉</span>
+                <h4 class="text-2xl font-heading font-black text-emerald-900">Flashcards Completed!</h4>
+                <p class="text-sm text-slate-700 font-medium leading-relaxed">Great job! You have reviewed all 24 communication vocabulary items.</p>
+                <button onclick="unlockAndGoToBingo()" class="w-full py-3.5 bg-sky-500 hover:bg-sky-600 text-white font-black rounded-xl shadow-md transition cursor-pointer text-sm tracking-wide">Start Bingo ➔</button>
+            </div>
+        </section>
+
+        <!-- TAB 3: BINGO (INTERACTIVE PROMPT-BASED) -->
+        <section id="tab-bingo" class="tab-content hidden space-y-6">
+            <div class="bg-white p-6 rounded-3xl border border-sky-100 shadow-sm space-y-6">
+                
+                <!-- PROMPT DISPLAY BOX -->
+                <div class="bg-gradient-to-r from-sky-50 to-indigo-50 border-2 border-sky-300 p-5 rounded-2xl text-center space-y-2 shadow-sm">
+                    <div class="flex justify-between items-center text-xs font-black text-sky-700">
+                        <span>Round: <span id="bingo-round-count" class="text-sky-900 text-sm">1</span> / 16</span>
+                        <span>Lines Achieved: <span id="bingo-lines-count" class="text-amber-600 text-sm">0</span> / 5</span>
+                    </div>
+                    <span class="text-xs uppercase bg-sky-200 text-sky-800 font-black px-3 py-1 rounded-full inline-block">Find the matching vocabulary:</span>
+                    <h4 id="bingo-current-prompt" class="text-base md:text-lg font-black text-sky-950 leading-snug min-h-[48px] flex items-center justify-center">
+                        <!-- Dynamic prompt -->
+                    </h4>
+                </div>
+
+                <!-- 4x4 BINGO GRID (WORDS ONLY) -->
+                <div id="bingo-grid" class="grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-2xl mx-auto">
+                    <!-- Dynamic rendering via JS -->
+                </div>
+
+                <div class="text-center pt-2">
+                    <button onclick="checkBingoSuccess()" class="px-8 py-3.5 bg-sky-500 hover:bg-sky-600 text-white font-black rounded-xl text-sm shadow-md transition cursor-pointer">Verify Bingo Lines & Continue ➔</button>
+                </div>
+            </div>
+
+            <div id="bingo-success-box" class="max-w-md mx-auto bg-emerald-50 border-4 border-emerald-300 p-6 rounded-3xl text-center space-y-4 hidden shadow-sm">
+                <span class="text-5xl block animate-bounce">🎯🏆✨</span>
+                <h4 class="text-2xl font-heading font-black text-emerald-900">Bingo Completed!</h4>
+                <p class="text-sm text-slate-700 font-medium">Awesome! You achieved 5 or more completed lines!</p>
+                <button onclick="unlockAndGoToSentenceCompletion()" class="w-full py-3.5 bg-sky-500 hover:bg-sky-600 text-white font-black rounded-xl shadow-md transition cursor-pointer text-sm tracking-wide">Go to Sentence Completion ➔</button>
+            </div>
+        </section>
+
+        <!-- TAB 4: COMPLETE THE SENTENCES (IELTS SPEAKING PART 1 & PART 2 CONTEXTS) -->
+        <section id="tab-completion-sentences" class="tab-content hidden space-y-6">
+            <div class="bg-white p-6 rounded-3xl border border-sky-100 shadow-sm space-y-6">
+                
+                <div id="sentence-items-container" class="space-y-6 max-w-2xl mx-auto">
+                    <!-- JS dynamic render -->
+                </div>
+
+                <div class="text-center pt-4 border-t border-slate-100">
+                    <button onclick="submitSentenceCompletion()" class="px-8 py-3.5 bg-sky-500 hover:bg-sky-600 text-white font-black rounded-xl text-sm shadow-md transition cursor-pointer">Submit & Reveal Model Answers ➔</button>
+                </div>
+            </div>
+
+            <div id="sentence-success-box" class="max-w-md mx-auto bg-emerald-50 border-4 border-emerald-300 p-6 rounded-3xl text-center space-y-4 hidden shadow-sm">
+                <span class="text-5xl block animate-bounce">✍️🌟🎉</span>
+                <h4 class="text-2xl font-heading font-black text-emerald-900">Task Completed!</h4>
+                <p class="text-sm text-slate-700 font-medium">Great work utilizing today's communication vocabulary in IELTS Speaking contexts!</p>
+                <button onclick="unlockAndGoToSummary()" class="w-full py-3.5 bg-sky-500 hover:bg-sky-600 text-white font-black rounded-xl shadow-md transition cursor-pointer text-sm tracking-wide">Go to Summary & Completion ➔</button>
+            </div>
+        </section>
+
+        <!-- TAB 5: COMPLETION / SUMMARY -->
+        <section id="tab-summary" class="tab-content hidden space-y-6">
+            <div class="max-w-2xl mx-auto bg-white border-4 border-sky-200 p-8 rounded-3xl space-y-6 shadow-xl text-center">
+                <div class="space-y-2">
+                    <span class="text-6xl block animate-bounce">🎓🗣️🎉</span>
+                    <h3 class="text-3xl font-heading font-black text-sky-950">Congratulations!</h3>
+                    <p class="text-sm text-slate-600 font-bold">You have successfully finished <span class="text-sky-600 font-black">IELTS 1A_S5_Lesson 3</span>.</p>
+                </div>
+
+                <div class="bg-sky-50/60 p-5 rounded-2xl border border-sky-200 space-y-3 text-left">
+                    <h4 class="text-base font-black text-sky-900 border-b border-sky-200 pb-2">💡 Key Takeaways for Communication Topics in IELTS:</h4>
+                    <ul class="space-y-2.5 text-xs md:text-sm text-slate-700 font-bold">
+                        <li class="flex items-start gap-2">
+                            <span class="text-sky-600 font-black">1.</span> 
+                            <span><b>Language & Heritage:</b> Express cultural identity using <i>indigenous people, ceremonial practice, native language</i>, and <i>recurring theme</i>.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-sky-600 font-black">2.</span> 
+                            <span><b>Fluency & Speaking Challenges:</b> Talk about test anxiety or language barriers with <i>lack fluency, freeze up, command of a language</i>, and <i>break down language barriers</i>.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-sky-600 font-black">3.</span> 
+                            <span><b>Handwriting vs Digital Messages:</b> Compare personal cards and technology with <i>penmanship, legible, digital medium</i>, and <i>expressive and personal</i>.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="text-center pt-2">
+                    <button onclick="location.reload()" class="px-8 py-3.5 bg-sky-500 hover:bg-sky-600 text-white font-black rounded-xl shadow-md transition cursor-pointer text-sm">🔄 Restart Lesson</button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        // FULL VOCABULARY DATA (NO ENDING PERIODS ON EN MEANINGS + INCLUDES VI TRANSLATION)
+        const vocabularyData = [
+            { word: "Indigenous people", ipa: "/ɪnˈdɪdʒ.ɪ.nəs ˈpiː.pəl/", meaningEn: "Native inhabitants who have lived in a region from the earliest times", meaningVi: "Người bản địa", ex: "Preserving native languages is crucial to maintaining the cultural heritage of indigenous people." },
+            { word: "Ceremonial practice", ipa: "/ˌser.ɪˈməʊ.ni.əl ˈpræk.tɪs/", meaningEn: "An action or event performed as part of a formal ritual or tradition", meaningVi: "Nghi thức truyền thống", ex: "Chanting and storytelling remain central to the ceremonial practices of many traditional communities." },
+            { word: "Variation", ipa: "/ˌveə.riˈeɪ.ʃən/", meaningEn: "A change or slight difference in condition, amount, or level", meaningVi: "Sự biến thể, sự thay đổi", ex: "Regional variations in pronunciation often make listening comprehension challenging for language learners." },
+            { word: "Grind", ipa: "/ɡraɪnd/", meaningEn: "To crush or break something into small particles or powder", meaningVi: "Xay, tán nhỏ", ex: "Ancient artists used to grind natural minerals to produce durable pigments for cave paintings." },
+            { word: "Bind", ipa: "/baɪnd/", meaningEn: "To stick or hold things closely together", meaningVi: "Gắn kết, buộc chặt", ex: "Shared linguistic roots often bind different ethnic groups together despite political boundaries." },
+            { word: "Fluid", ipa: "/ˈfluː.ɪd/", meaningEn: "Smooth, graceful, and continuous in movement or change", meaningVi: "Trôi chảy, linh hoạt", ex: "Her handwriting was so fluid and elegant that it resembled classical calligraphy." },
+            { word: "Take off", ipa: "/teɪk ɒf/", meaningEn: "To suddenly become successful, popular, or widely adopted", meaningVi: "Trở nên phổ biến, phát triển nhanh", ex: "Online language learning platforms really began to take off during the global shift to remote education." },
+            { word: "Recurring theme", ipa: "/rɪˈkɜː.rɪŋ θiːm/", meaningEn: "An idea or subject that repeats continuously in a work or discussion", meaningVi: "Chủ đề lặp đi lặp lại", ex: "The struggle to overcome language barriers is a recurring theme in migrant literature." },
+            { word: "Charcoal", ipa: "/ˈtʃɑː.kəʊl/", meaningEn: "A black substance made from burnt wood, used for drawing or fuel", meaningVi: "Than chì, than vẽ", ex: "Before modern pens were invented, artists often used charcoal to sketch rapid preliminary designs." },
+            { word: "Silhouette", ipa: "/ˌsɪl.uˈet/", meaningEn: "The dark shape and outline of someone or something visible against a lighter background", meaningVi: "Hình bóng, nét in bóng", ex: "The artist drew a striking silhouette of a storyteller sitting beside a traditional campfire." },
+            { word: "Portray", ipa: "/pɔːˈtreɪ/", meaningEn: "To depict, describe, or represent someone or something in a particular way", meaningVi: "Mô tả, khắc họa", ex: "Documentaries often portray body language as a universal tool for human connection." },
+            { word: "Hallucination", ipa: "/həˌluː.sɪˈneɪ.ʃən/", meaningEn: "An experience involving the perception of something not present", meaningVi: "Ảo giác", ex: "Certain traditional rituals involved sensory deprivation to induce vivid hallucinations for spiritual insight." },
+            { word: "Vivid colors", ipa: "/ˈvɪv.ɪd ˈkʌl.əz/", meaningEn: "Very strong, bright, and clear colors", meaningVi: "Màu sắc rực rỡ, sống động", ex: "Children's picture books rely heavily on vivid colors to stimulate early language acquisition." },
+            { word: "Native language", ipa: "/ˈneɪ.tɪv ˈlæŋ.ɡwɪdʒ/", meaningEn: "The main language that a person has spoken from earliest childhood", meaningVi: "Tiếng mẹ đẻ", ex: "Children usually acquire their native language effortlessly without formal grammatical instruction." },
+            { word: "Command of a language", ipa: "/kəˈmɑːnd əv ə ˈlæŋ.ɡwɪdʒ/", meaningEn: "The ability to speak or write a language fluently and accurately", meaningVi: "Kỹ năng làm chủ ngôn ngữ", ex: "Having a strong command of English opens up numerous opportunities in today's job market." },
+            { word: "Lack fluency", ipa: "/læk ˈfluː.ən.si/", meaningEn: "To be unable to speak a language smoothly, easily, or without hesitation", meaningVi: "Thiếu sự trôi chảy", ex: "When I first tried speaking to native speakers, I lacked fluency and hesitated frequently." },
+            { word: "Break down language barriers", ipa: "/breɪk daʊn ˈlæŋ.ɡwɪdʒ ˌbær.i.əz/", meaningEn: "To make communication possible between people of different languages", meaningVi: "Xóa bỏ rào cản ngôn ngữ", ex: "Effective translation tools can help break down language barriers in global trade." },
+            { word: "Nuances of communication", ipa: "/ˈnjuː.ɑːnsɪz əv kəˌmjuː.nɪˈkeɪ.ʃən/", meaningEn: "Small, subtle differences in meaning, tone, or body language", meaningVi: "Sắc thái tinh tế trong giao tiếp", ex: "Understanding the subtle nuances of communication requires deep cultural immersion." },
+            { word: "Penmanship", ipa: "/ˈpen.mən.ʃɪp/", meaningEn: "The art, skill, or style of writing by hand", meaningVi: "Nghệ thuật viết chữ đẹp / Nét chữ", ex: "In classical education, neat penmanship was considered an essential indicator of personal discipline." },
+            { word: "Legible", ipa: "/ˈledʒ.ə.bəl/", meaningEn: "Clear enough to be read easily", meaningVi: "Dễ đọc, rõ ràng", ex: "Students must ensure that their handwritten examination scripts are completely legible." },
+            { word: "Digital medium", ipa: "/ˈdʒɪ.təl ˈmiː.di.əm/", meaningEn: "An electronic means of communication, such as smartphones or computers", meaningVi: "Phương tiện kỹ thuật số", ex: "Most young people nowadays prefer conveying messages via a digital medium rather than writing physical letters." },
+            { word: "Expressive and personal", ipa: "/ɪkˈspres.ɪv ænd ˈpɜː.sən.əl/", meaningEn: "Showing true feelings and having a unique personal touch", meaningVi: "Giàu cảm xúc và mang tính cá nhân", ex: "A handwritten birthday card feels much more expressive and personal than a standardized text message." },
+            { word: "Freeze up", ipa: "/friːz ʌp/", meaningEn: "To suddenly become unable to speak or act because of anxiety", meaningVi: "Cứng đờ, đơ cứng vì lo lắng", ex: "When the foreign tourist asked me for directions, I completely froze up due to sudden panic." },
+            { word: "A sense of accomplishment", ipa: "/ə sens əv əˈkʌm.plɪʃ.mənt/", meaningEn: "A proud feeling of having achieved something difficult or meaningful", meaningVi: "Cảm giác tự hào, tự hào về thành tựu", ex: "Successfully completing my first full conversation in a foreign language gave me a immense sense of accomplishment." }
+        ];
+
+        // 16 ITEMS FOR BINGO GRID (WORDS ONLY ON TILES, MEANING PROMPTED AT TOP)
+        const bingoItems = [
+            { id: 0, word: "Indigenous people", hint: "Native inhabitants who have lived in a region from the earliest times" },
+            { id: 1, word: "Take off", hint: "To suddenly become successful, popular, or widely adopted" },
+            { id: 2, word: "Break down language barriers", hint: "To make communication possible between people of different languages" },
+            { id: 3, word: "Legible", hint: "Clear enough to be read easily" },
+            { id: 4, word: "Digital medium", hint: "An electronic means of communication, such as smartphones or computers" },
+            { id: 5, word: "Freeze up", hint: "To suddenly become unable to speak or act because of anxiety" },
+            { id: 6, word: "Command of a language", hint: "The ability to speak or write a language fluently and accurately" },
+            { id: 7, word: "Expressive and personal", hint: "Showing true feelings and having a unique personal touch" },
+            { id: 8, word: "A sense of accomplishment", hint: "A proud feeling of having achieved something difficult or meaningful" },
+            { id: 9, word: "Lack fluency", hint: "To be unable to speak a language smoothly or without hesitation" },
+            { id: 10, word: "Ceremonial practice", hint: "An action or event performed as part of a formal ritual or tradition" },
+            { id: 11, word: "Nuances of communication", hint: "Small, subtle differences in meaning, tone, or body language" },
+            { id: 12, word: "Penmanship", hint: "The art, skill, or style of writing by hand" },
+            { id: 13, word: "Recurring theme", hint: "An idea or subject that repeats continuously in a work or discussion" },
+            { id: 14, word: "Portray", hint: "To depict, describe, or represent someone in a particular way" },
+            { id: 15, word: "Native language", hint: "The main language that a person has spoken from earliest childhood" }
+        ];
+
+        // TASK 2 SENTENCE COMPLETION (IELTS SPEAKING PART 1 & PART 2 CONTEXTS)
+        const sentenceCompletionItems = [
+            {
+                id: 1,
+                prompt: "[IELTS Speaking Part 1 - Languages] When I first started learning English, I used to...",
+                placeholder: "e.g., lack fluency and freeze up whenever I had to speak to native speakers.",
+                models: "lack fluency and freeze up during classroom presentations due to sudden nerves."
+            },
+            {
+                id: 2,
+                prompt: "[IELTS Speaking Part 1 - Technology] In my daily life, I prefer communicating via a...",
+                placeholder: "e.g., digital medium like messaging apps because it is quick and convenient.",
+                models: "digital medium because sending text messages allows me to respond at my own pace."
+            },
+            {
+                id: 3,
+                prompt: "[IELTS Speaking Part 1 - Writing] Compared to typing, receiving a handwritten letter feels much more...",
+                placeholder: "e.g., expressive and personal because of the effort and unique penmanship.",
+                models: "expressive and personal, especially when you can admire the sender's unique penmanship."
+            },
+            {
+                id: 4,
+                prompt: "[IELTS Speaking Part 2 - Describe a language experience] After delivering my first full speech in English, I felt...",
+                placeholder: "e.g., an immense sense of accomplishment that boosted my confidence.",
+                models: "an overwhelming sense of accomplishment because I finally proved I had a strong command of a language."
+            },
+            {
+                id: 5,
+                prompt: "[IELTS Speaking Part 1 - Communication] To connect with people from different countries, technology can help...",
+                placeholder: "e.g., break down language barriers through real-time translation apps.",
+                models: "break down language barriers and allow instant understanding between different cultures."
+            },
+            {
+                id: 6,
+                prompt: "[IELTS Speaking Part 2 - Describe a culture/tradition] During traditional festivals in my country, people engage in...",
+                placeholder: "e.g., ceremonial practices that bring local communities together.",
+                models: "ceremonial practices that have been preserved for centuries by indigenous people."
+            },
+            {
+                id: 7,
+                prompt: "[IELTS Speaking Part 1 - Handwriting] Teachers always used to emphasize that our handwriting must be...",
+                placeholder: "e.g., neat and legible so that examiners could read our answers easily.",
+                models: "completely legible, as good penmanship was considered an important academic habit."
+            },
+            {
+                id: 8,
+                prompt: "[IELTS Speaking Part 2 - Describe a film/book] In many famous movies I have watched, cultural conflict is...",
+                placeholder: "e.g., a recurring theme used to portray the difficulty of moving abroad.",
+                models: "a recurring theme that authors use to portray the deep nuances of communication."
+            },
+            {
+                id: 9,
+                prompt: "[IELTS Speaking Part 1 - Learning Languages] Most young children pick up their...",
+                placeholder: "e.g., native language effortlessly before formally studying grammar in school.",
+                models: "native language naturally without worrying about subtle variations in grammar."
+            },
+            {
+                id: 10,
+                prompt: "[IELTS Speaking Part 2 - Describe a skill] Mastering foreign vocabulary really helped my language skills...",
+                placeholder: "e.g., take off and gave me better fluency in spontaneous conversations.",
+                models: "take off rapidly, giving me greater confidence when expressing complex ideas."
+            }
+        ];
+
+        // GLOBAL STATE
+        let activeTab = 'reference';
+        let flashcardQueue = [];
+        let currentCard = null;
+        let totalCards = vocabularyData.length;
+        
+        // BINGO STATE
+        let bingoQueue = [];
+        let currentBingoPrompt = null;
+        let correctBingoIndices = new Set();
+        let bingoRoundIndex = 0;
+
+        // TAB NAVIGATION
+        function switchTab(tabId) {
+            const btn = document.getElementById(`btn-${tabId}`);
+            if (btn && btn.classList.contains('disabled-tab')) return;
+
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(el => {
+                el.classList.remove('bg-white', 'text-sky-600', 'shadow-sm');
+                el.classList.add('text-slate-500');
+            });
+
+            document.getElementById(`tab-${tabId}`).classList.remove('hidden');
+            if (btn) {
+                btn.classList.add('bg-white', 'text-sky-600', 'shadow-sm');
+                btn.classList.remove('text-slate-500');
+            }
+            activeTab = tabId;
+        }
+
+        function unlockTab(tabId) {
+            const btn = document.getElementById(`btn-${tabId}`);
+            if (btn) {
+                btn.classList.remove('disabled-tab');
+                btn.classList.add('cursor-pointer');
+            }
+        }
+
+        // TEXT TO SPEECH
+        function speakText(text, event) {
+            if (event) event.stopPropagation();
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'en-US';
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        // INITIALIZATION
+        window.addEventListener('DOMContentLoaded', () => {
+            renderWordBank();
+            initFlashcards();
+            initBingoGame();
+            renderSentenceCompletion();
+        });
+
+        // --- TAB 1: WORD BANK ---
+        function renderWordBank() {
+            const tbody = document.getElementById('reference-table-body');
+            tbody.innerHTML = vocabularyData.map(v => `
+                <tr class="hover:bg-sky-50/40 transition">
+                    <td class="p-3.5 font-black text-sky-950 flex items-center gap-2">
+                        <span>${v.word}</span>
+                        <button onclick="speakText('${v.word}', event)" class="text-sky-500 hover:text-sky-700 text-xs p-1">🔊</button>
+                    </td>
+                    <td class="p-3.5 text-sky-600 font-mono text-xs font-bold">${v.ipa}</td>
+                    <td class="p-3.5 text-slate-700 font-bold space-y-0.5">
+                        <div class="text-slate-800">${v.meaningEn}</div>
+                        <div class="text-xs text-sky-600 font-semibold">👉 ${v.meaningVi}</div>
+                    </td>
+                    <td class="p-3.5 text-slate-600 italic font-medium">${v.ex}</td>
+                </tr>
+            `).join('');
+        }
+
+        // --- TAB 2: FLASHCARDS ---
+        function initFlashcards() {
+            flashcardQueue = [...vocabularyData.map((v, i) => ({ ...v, id: i }))];
+            totalCards = flashcardQueue.length;
+            updateFlashcardUI();
+            loadNextCard();
+        }
+
+        function loadNextCard() {
+            if (flashcardQueue.length === 0) {
+                document.getElementById('flashcard-container').classList.add('hidden');
+                document.getElementById('flashcard-success-box').classList.remove('hidden');
+                unlockTab('bingo');
+                return;
+            }
+
+            currentCard = flashcardQueue[0];
+            const inner = document.getElementById('flashcard-inner');
+            inner.classList.remove('card-flipped');
+
+            setTimeout(() => {
+                document.getElementById('f-prompt').textContent = currentCard.meaningEn;
+                document.getElementById('f-vi').textContent = `🇻🇳 ${currentCard.meaningVi}`;
+                document.getElementById('f-ipa').textContent = currentCard.ipa;
+                document.getElementById('f-example').textContent = `"${currentCard.ex}"`;
+
+                document.getElementById('b-answer').textContent = currentCard.word;
+                document.getElementById('b-ipa').textContent = currentCard.ipa;
+                document.getElementById('b-example').textContent = `"${currentCard.ex}"`;
+            }, 150);
+
+            updateFlashcardUI();
+        }
+
+        function flipCard() {
+            document.getElementById('flashcard-inner').classList.toggle('card-flipped');
+        }
+
+        function handleAnkiAction(action) {
+            if (!currentCard) return;
+
+            if (action === 'again') {
+                const item = flashcardQueue.shift();
+                flashcardQueue.push(item);
+            } else if (action === 'hard') {
+                const item = flashcardQueue.shift();
+                const insertIndex = Math.min(3, flashcardQueue.length);
+                flashcardQueue.splice(insertIndex, 0, item);
+            } else {
+                flashcardQueue.shift();
+            }
+
+            loadNextCard();
+        }
+
+        function updateFlashcardUI() {
+            const remaining = flashcardQueue.length;
+            document.getElementById('queue-text').textContent = `${remaining} cards`;
+            const pct = Math.round(((totalCards - remaining) / totalCards) * 100);
+            document.getElementById('progress-bar').style.width = `${pct}%`;
+        }
+
+        function resetProgress() {
+            document.getElementById('flashcard-container').classList.remove('hidden');
+            document.getElementById('flashcard-success-box').classList.add('hidden');
+            initFlashcards();
+        }
+
+        function unlockAndGoToBingo() {
+            unlockTab('bingo');
+            switchTab('bingo');
+        }
+
+        // --- TAB 3: BINGO (INTERACTIVE PROMPT-BASED) ---
+        function initBingoGame() {
+            bingoQueue = [...bingoItems].sort(() => Math.random() - 0.5);
+            correctBingoIndices.clear();
+            bingoRoundIndex = 0;
+            renderBingoGrid();
+            loadNextBingoPrompt();
+        }
+
+        function renderBingoGrid() {
+            const grid = document.getElementById('bingo-grid');
+            grid.innerHTML = bingoItems.map((item, idx) => `
+                <button id="bingo-tile-${idx}" onclick="handleBingoTileClick(${idx})" class="bingo-tile bg-sky-50/70 hover:bg-sky-100 border-2 border-sky-200 p-4 rounded-2xl cursor-pointer flex flex-col justify-center items-center text-center transition min-h-[90px] shadow-sm">
+                    <span class="text-xs md:text-sm font-black text-sky-950">${item.word}</span>
+                </button>
+            `).join('');
+        }
+
+        function loadNextBingoPrompt() {
+            if (bingoRoundIndex >= bingoQueue.length) {
+                document.getElementById('bingo-current-prompt').textContent = "🎉 All prompts completed! Check your lines below.";
+                return;
+            }
+
+            currentBingoPrompt = bingoQueue[bingoRoundIndex];
+            document.getElementById('bingo-round-count').textContent = bingoRoundIndex + 1;
+            document.getElementById('bingo-current-prompt').textContent = `"${currentBingoPrompt.hint}"`;
+        }
+
+        function handleBingoTileClick(idx) {
+            if (correctBingoIndices.has(idx) || !currentBingoPrompt) return;
+
+            const tile = document.getElementById(`bingo-tile-${idx}`);
+            const selectedItem = bingoItems[idx];
+
+            if (selectedItem.id === currentBingoPrompt.id) {
+                // Correct match
+                correctBingoIndices.add(idx);
+                tile.classList.add('correct');
+                tile.classList.remove('hover:bg-sky-100');
+                
+                bingoRoundIndex++;
+                calculateBingoLines();
+                loadNextBingoPrompt();
+            } else {
+                // Incorrect match animation
+                tile.classList.add('wrong', 'border-rose-400', 'bg-rose-50');
+                setTimeout(() => {
+                    tile.classList.remove('wrong', 'border-rose-400', 'bg-rose-50');
+                }, 500);
+            }
+        }
+
+        function calculateBingoLines() {
+            let completedLines = 0;
+
+            // Rows (4 rows)
+            for (let r = 0; r < 4; r++) {
+                if ([0,1,2,3].every(c => correctBingoIndices.has(r * 4 + c))) completedLines++;
+            }
+            // Columns (4 columns)
+            for (let c = 0; c < 4; c++) {
+                if ([0,1,2,3].every(r => correctBingoIndices.has(r * 4 + c))) completedLines++;
+            }
+            // Diagonals (2 diagonals)
+            if ([0, 5, 10, 15].every(i => correctBingoIndices.has(i))) completedLines++;
+            if ([3, 6, 9, 12].every(i => correctBingoIndices.has(i))) completedLines++;
+
+            document.getElementById('bingo-lines-count').textContent = completedLines;
+            return completedLines;
+        }
+
+        function checkBingoSuccess() {
+            const lines = calculateBingoLines();
+            if (lines >= 5) {
+                document.getElementById('bingo-success-box').classList.remove('hidden');
+                unlockTab('completion-sentences');
+            } else {
+                alert(`⚠️ You currently have ${lines} completed line(s). You need at least 5 lines (horizontal, vertical, or diagonal) to pass! Continue matching the remaining prompts above.`);
+            }
+        }
+
+        function unlockAndGoToSentenceCompletion() {
+            unlockTab('completion-sentences');
+            switchTab('completion-sentences');
+        }
+
+        // --- TAB 4: SENTENCE COMPLETION ---
+        function renderSentenceCompletion() {
+            const container = document.getElementById('sentence-items-container');
+            container.innerHTML = sentenceCompletionItems.map((item, idx) => `
+                <div class="bg-sky-50/30 p-5 rounded-2xl border border-sky-100 space-y-3">
+                    <label class="block font-black text-sky-950 text-xs md:text-sm leading-relaxed">${item.prompt}</label>
+                    <textarea id="sentence-input-${idx}" rows="2" placeholder="${item.placeholder}" class="w-full p-3 bg-white border-2 border-slate-200 rounded-xl text-xs md:text-sm focus:border-sky-400 outline-none transition"></textarea>
+                    
+                    <div id="sentence-model-${idx}" class="hidden bg-emerald-50 border border-emerald-200 p-3.5 rounded-xl space-y-1">
+                        <span class="text-xs font-black text-emerald-900 flex items-center gap-1">💡 Model IELTS Answer:</span>
+                        <p class="text-xs text-slate-700 italic font-medium">"... ${item.models}"</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function submitSentenceCompletion() {
+            let allFilled = true;
+            let missingVocabIdx = -1;
+
+            const targetWords = vocabularyData.map(v => v.word.toLowerCase());
+
+            sentenceCompletionItems.forEach((item, idx) => {
+                const inputVal = document.getElementById(`sentence-input-${idx}`).value.trim();
+                if (!inputVal) {
+                    allFilled = false;
+                }
+            });
+
+            if (!allFilled) {
+                alert("⚠️ Please complete ALL 10 sentence endings before submitting! Fields cannot be left blank.");
+                return;
+            }
+
+            sentenceCompletionItems.forEach((item, idx) => {
+                const inputVal = document.getElementById(`sentence-input-${idx}`).value.toLowerCase();
+                const containsVocab = targetWords.some(w => inputVal.includes(w) || inputVal.includes(w.replace('s', '')));
+                if (!containsVocab && missingVocabIdx === -1) {
+                    missingVocabIdx = idx;
+                }
+            });
+
+            if (missingVocabIdx !== -1) {
+                const proceed = confirm(`⚠️ Hint: Sentence #${missingVocabIdx + 1} does not seem to contain any target vocabulary from the Word Bank. Do you still want to proceed and reveal model answers?`);
+                if (!proceed) return;
+            }
+
+            sentenceCompletionItems.forEach((item, idx) => {
+                document.getElementById(`sentence-model-${idx}`).classList.remove('hidden');
+            });
+
+            document.getElementById('sentence-success-box').classList.remove('hidden');
+            unlockTab('summary');
+        }
+
+        function unlockAndGoToSummary() {
+            unlockTab('summary');
+            switchTab('summary');
+        }
+    </script>
+</body>
+</html>
