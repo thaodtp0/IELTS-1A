@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IELTS A_S5_Lesson 4 - Communication</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    
+    <style>
+        *, body, html, button, span, h1, h2, h3, p, div, input, select, textarea { 
+            font-family: 'Quicksand', sans-serif; 
+            font-weight: 600;
+        }
+        h1, h2, h3, .font-heading {
+            font-family: 'Fredoka', sans-serif;
+        }
+        .perspective { perspective: 1000px; }
+        .backface-hidden { backface-visibility: hidden; }
+        .card-inner { transition: transform 0.5s; transform-style: preserve-3d; }
+        .card-flipped { transform: rotateY(180deg); }
+        .disabled-tab { opacity: 0.4; cursor: not-allowed !important; pointer-events: none; }
+        
+        .match-card { transition: all 0.2s ease; }
+        .match-card.selected { border-color: #0d9488; background-color: #ccfbf1; transform: scale(1.02); }
+        .match-card.matched { border-color: #10b981; background-color: #d1fae5; opacity: 0.6; pointer-events: none; }
+        .match-card.wrong { animation: shake 0.4s ease-in-out; border-color: #f43f5e; background-color: #ffe4e6; }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-5px); }
+            40%, 80% { transform: translateX(5px); }
+        }
+    </style>
+</head>
+<body class="bg-[#F0FDFA] text-slate-700 min-h-screen flex flex-col selection:bg-teal-200 pb-12">
+
+    <!-- HEADER -->
+    <header class="bg-gradient-to-r from-[#CCFBF1] via-[#99F6E4] to-[#2DD4BF] border-b-4 border-dashed border-teal-300 shadow-sm p-6 text-center rounded-b-3xl">
+        <h1 class="text-3xl md:text-4xl font-black tracking-wide drop-shadow-sm text-teal-950">🗣️ IELTS A_S5_Lesson 4: Communication 💬</h1>
+    </header>
+
+    <!-- NAVIGATION TABS -->
+    <div class="max-w-5xl w-full mx-auto px-4 mt-6">
+        <div class="flex bg-teal-200/60 p-1.5 rounded-2xl border border-teal-300/80 shadow-inner overflow-x-auto">
+            <button onclick="switchTab('reference')" id="btn-reference" class="tab-btn flex-1 py-3 px-2 text-xs md:text-sm font-black rounded-xl text-center bg-white text-teal-700 shadow-sm transition cursor-pointer whitespace-nowrap">📚 Vocab Bank</button>
+            <button onclick="switchTab('flashcard')" id="btn-flashcard" class="tab-btn flex-1 py-3 px-2 text-xs md:text-sm font-black rounded-xl text-center text-slate-500 transition cursor-pointer whitespace-nowrap">🎴 Flashcards</button>
+            <button onclick="switchTab('matching')" id="btn-matching" class="tab-btn disabled-tab flex-1 py-3 px-2 text-xs md:text-sm font-black rounded-xl text-center text-slate-500 transition whitespace-nowrap">🧩 Sentence Matching</button>
+            <button onclick="switchTab('story')" id="btn-story" class="tab-btn disabled-tab flex-1 py-3 px-2 text-xs md:text-sm font-black rounded-xl text-center text-slate-500 transition whitespace-nowrap">✍️ Crafting a Story</button>
+            <button onclick="switchTab('summary')" id="btn-summary" class="tab-btn disabled-tab flex-1 py-3 px-2 text-xs md:text-sm font-black rounded-xl text-center text-slate-500 transition whitespace-nowrap">🎉 Completion</button>
+        </div>
+    </div>
+
+    <main class="flex-1 max-w-5xl w-full mx-auto px-4 py-6">
+        
+        <!-- TAB 1: VOCAB BANK -->
+        <section id="tab-reference" class="tab-content block space-y-6">
+            <div class="bg-white p-6 rounded-3xl border border-teal-100 shadow-sm space-y-4">
+                <div class="flex justify-between items-center flex-wrap gap-2">
+                    <h2 class="text-2xl font-black text-teal-950 font-heading">📖 Lesson 4: Communication Vocabulary</h2>
+                    <span class="text-xs bg-teal-100 text-teal-800 px-3 py-1 rounded-full font-bold">24 Items</span>
+                </div>
+
+                <div class="overflow-x-auto rounded-2xl border border-teal-100 max-h-[500px]">
+                    <table class="w-full text-left border-collapse bg-white">
+                        <thead class="sticky top-0 bg-teal-50/90 border-b border-teal-200 text-teal-900 text-xs uppercase tracking-wider font-black z-10">
+                            <tr>
+                                <th class="p-3.5">Vocabulary</th>
+                                <th class="p-3.5">IPA</th>
+                                <th class="p-3.5">Meaning</th>
+                                <th class="p-3.5">Example Sentence</th>
+                            </tr>
+                        </thead>
+                        <tbody id="reference-table-body" class="divide-y divide-teal-50 text-xs md:text-sm">
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="text-center pt-2">
+                    <button onclick="switchTab('flashcard')" class="px-8 py-3.5 bg-teal-600 hover:bg-teal-700 text-white font-black rounded-xl text-sm shadow-sm transition cursor-pointer">Start Flashcards ➔</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: FLASHCARDS -->
+        <section id="tab-flashcard" class="tab-content hidden space-y-6">
+            <div class="bg-white p-4 rounded-2xl border-2 border-dashed border-teal-300 shadow-sm flex justify-between items-center flex-wrap gap-2">
+                <div class="text-sm font-black text-slate-600">Remaining Queue: <span id="queue-text" class="text-teal-600 font-extrabold">0 cards</span></div>
+                <div class="w-full sm:w-1/3 bg-slate-100 h-4 rounded-full overflow-hidden p-0.5 border border-slate-200">
+                    <div id="progress-bar" class="bg-gradient-to-r from-teal-400 to-cyan-500 h-full rounded-full transition-all duration-500" style="width: 0%"></div>
+                </div>
+                <button onclick="resetProgress()" class="text-xs text-teal-600 hover:underline font-black cursor-pointer">🔄 Reset Session</button>
+            </div>
+            
+            <div id="flashcard-container" class="space-y-6">
+                <div id="card-arena" class="perspective w-full max-w-md mx-auto h-[420px] cursor-pointer">
+                    <div id="flashcard-inner" onclick="flipCard()" class="card-inner w-full h-full relative border-4 border-teal-300 rounded-3xl shadow-md bg-white">
+                        
+                        <!-- FRONT SIDE -->
+                        <div class="backface-hidden absolute inset-0 p-6 flex flex-col justify-between items-center text-center bg-teal-50/30 rounded-[20px]">
+                            <span id="f-badge" class="text-xs font-black text-teal-700 uppercase tracking-widest bg-teal-100/80 px-4 py-1.5 rounded-full">Definition / Meaning</span>
+                            
+                            <div class="space-y-3 my-auto w-full">
+                                <h3 id="f-prompt" class="text-lg md:text-xl font-black text-teal-950 px-2 leading-snug"></h3>
+                            </div>
+
+                            <p class="text-xs text-teal-600 font-black">👉 Tap card to reveal vocabulary 👈</p>
+                        </div>
+
+                        <!-- BACK SIDE -->
+                        <div class="backface-hidden w-full h-full absolute inset-0 p-6 flex flex-col justify-between bg-slate-800 text-white rounded-[22px]" style="transform: rotateY(180deg);">
+                            <span id="b-badge" class="text-xs font-black text-teal-300 uppercase tracking-widest bg-slate-700/80 px-4 py-1.5 rounded-full w-max mx-auto">Target Vocabulary</span>
+                            
+                            <div class="my-auto space-y-3 text-center">
+                                <h2 id="b-answer" class="text-2xl md:text-3xl font-black text-amber-300"></h2>
+                                
+                                <div id="b-extra-content" class="space-y-2 border-t border-slate-700 pt-3">
+                                    <div class="flex justify-center items-center space-x-2">
+                                        <span id="b-ipa" class="text-teal-300 font-bold text-sm font-mono"></span>
+                                        <button id="b-audio-btn" onclick="speakText(currentCard.word, event)" class="w-7 h-7 bg-teal-900 hover:bg-teal-800 text-teal-100 rounded-full transition flex items-center justify-center text-xs cursor-pointer shadow-sm">🔊</button>
+                                    </div>
+                                    <p id="b-example" class="text-slate-300 text-xs px-2 font-medium leading-relaxed"></p>
+                                </div>
+                            </div>
+
+                            <p class="text-xs text-center text-slate-400 font-bold">Rate your recall difficulty 👇</p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="w-full max-w-md mx-auto bg-white p-4 rounded-2xl border border-teal-100 shadow-sm grid grid-cols-4 gap-2">
+                    <button onclick="handleAnkiAction('again')" class="p-2 bg-rose-50 hover:bg-rose-100 border border-rose-200 rounded-xl text-center transition cursor-pointer">
+                        <span class="block text-xs font-black text-rose-600">Again</span>
+                        <span class="text-[10px] text-rose-400 font-bold block mt-0.5">&lt; 1m</span>
+                    </button>
+                    <button onclick="handleAnkiAction('hard')" class="p-2 bg-amber-50 hover:bg-amber-100 border border-amber-200 rounded-xl text-center transition cursor-pointer">
+                        <span class="block text-xs font-black text-amber-600">Hard</span>
+                        <span class="text-[10px] text-amber-400 font-bold block mt-0.5">10m</span>
+                    </button>
+                    <button onclick="handleAnkiAction('good')" class="p-2 bg-teal-50 hover:bg-teal-100 border border-teal-200 rounded-xl text-center transition cursor-pointer">
+                        <span class="block text-xs font-black text-teal-600">Good</span>
+                        <span class="text-[10px] text-teal-500 font-bold block mt-0.5">1d</span>
+                    </button>
+                    <button onclick="handleAnkiAction('easy')" class="p-2 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 rounded-xl text-center transition shadow-sm cursor-pointer">
+                        <span class="block text-xs font-black text-emerald-600">Easy</span>
+                        <span class="text-[10px] text-emerald-500 font-bold block mt-0.5">4d</span>
+                    </button>
+                </div>
+            </div>
+
+            <div id="flashcard-success-box" class="max-w-md mx-auto bg-emerald-50 border-4 border-emerald-300 p-6 rounded-3xl text-center space-y-4 hidden shadow-sm">
+                <span class="text-5xl block animate-bounce">🌟🗣️🎉</span>
+                <h4 class="text-2xl font-heading font-black text-emerald-900">Flashcards Mastered!</h4>
+                <p class="text-sm text-slate-700 font-medium leading-relaxed">Awesome! You have reviewed all 24 items in your session.</p>
+                <button onclick="unlockAndGoToMatching()" class="w-full py-3.5 bg-teal-600 hover:bg-teal-700 text-white font-black rounded-xl shadow-md transition cursor-pointer text-sm tracking-wide">Start Sentence Matching ➔</button>
+            </div>
+        </section>
+
+        <!-- TAB 3: MATCHING SENTENCES -->
+        <section id="tab-matching" class="tab-content hidden space-y-6">
+            <div class="bg-white p-6 rounded-3xl border border-teal-100 shadow-sm space-y-6">
+                <div class="flex justify-between items-center border-b border-teal-100 pb-4 flex-wrap gap-2">
+                    <div>
+                        <h3 class="text-xl font-black text-teal-950 font-heading">🔗 Match Sentence Beginnings & Endings</h3>
+                        <p class="text-xs text-slate-500 font-bold">Select a beginning on the left, then click its corresponding ending on the right.</p>
+                    </div>
+                    <span class="text-xs bg-teal-100 text-teal-800 font-black px-3 py-1.5 rounded-full">Round <span id="matching-round-num">1</span> / 3</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- BEGINNINGS COLUMN -->
+                    <div class="space-y-3" id="beginnings-container">
+                        <!-- JS Dynamic Render -->
+                    </div>
+
+                    <!-- ENDINGS COLUMN -->
+                    <div class="space-y-3" id="endings-container">
+                        <!-- JS Dynamic Render -->
+                    </div>
+                </div>
+
+                <div class="text-center pt-2">
+                    <button id="matching-next-btn" onclick="nextMatchingRound()" class="hidden px-8 py-3.5 bg-teal-600 hover:bg-teal-700 text-white font-black rounded-xl text-sm shadow-md transition cursor-pointer">Next Round ➔</button>
+                </div>
+            </div>
+
+            <div id="matching-success-box" class="max-w-md mx-auto bg-emerald-50 border-4 border-emerald-300 p-6 rounded-3xl text-center space-y-4 hidden shadow-sm">
+                <span class="text-5xl block animate-bounce">🧩🏆✨</span>
+                <h4 class="text-2xl font-heading font-black text-emerald-900">Matching Complete!</h4>
+                <p class="text-sm text-slate-700 font-medium">Excellent work! You matched all sentences accurately across 3 rounds.</p>
+                <button onclick="unlockAndGoToStory()" class="w-full py-3.5 bg-teal-600 hover:bg-teal-700 text-white font-black rounded-xl shadow-md transition cursor-pointer text-sm tracking-wide">Crafting a Story ➔</button>
+            </div>
+        </section>
+
+        <!-- TAB 4: CRAFTING A STORY -->
+        <section id="tab-story" class="tab-content hidden space-y-6">
+            <div class="bg-white p-6 rounded-3xl border border-teal-100 shadow-sm space-y-6">
+                <div>
+                    <h3 class="text-xl font-black text-teal-950 font-heading">✍️ Crafting a Story Activity</h3>
+                    <p class="text-xs text-slate-600 font-bold mt-1 leading-relaxed">
+                        Write a paragraph or short story about a memorable communication experience, a speech, or human interaction. Try to include as many target vocabulary items from today's lesson as possible! (Minimum 50 words required)
+                    </p>
+                </div>
+
+                <div class="space-y-3">
+                    <textarea id="user-story-input" rows="6" oninput="analyzeUserStory()" placeholder="Write your story here... (e.g. During my early childhood, I used to address large groups...)" class="w-full p-4 bg-teal-50/30 border-2 border-teal-200 rounded-2xl text-xs md:text-sm focus:border-teal-400 outline-none transition font-medium"></textarea>
+                    
+                    <div class="flex justify-between items-center text-xs font-bold text-slate-500 flex-wrap gap-2">
+                        <div>
+                            <span>Word Count: <span id="story-word-count" class="text-teal-600 font-black text-sm">0</span> words</span>
+                            <span class="text-[11px] text-slate-400 ml-2">(Min: 50 words)</span>
+                        </div>
+                        <button onclick="submitUserStory()" class="px-6 py-2.5 bg-teal-600 hover:bg-teal-700 text-white font-black rounded-xl shadow-sm transition cursor-pointer">Submit Story & View Model Answer</button>
+                    </div>
+                </div>
+
+                <!-- MODEL SUGGESTED ANSWER (HIDDEN INITIALLY) -->
+                <div id="model-story-box" class="hidden bg-emerald-50 border-2 border-emerald-300 p-5 rounded-2xl space-y-3">
+                    <h4 class="text-sm font-black text-emerald-950 flex items-center gap-2">
+                        <span>💡 Model Paragraph Suggestion:</span>
+                    </h4>
+                    <p class="text-xs md:text-sm text-slate-700 italic leading-relaxed">
+                        "During my <b>early childhood</b>, I was quite <b>a handful</b> and hated having to <b>address large groups</b>. Whenever I stood on stage, it would <b>lead to increased nervousness</b> and I would freeze up. However, my teacher guided me <b>on a one-on-one basis</b> to build my confidence. She taught me to <b>get directly to the point</b> and naturally <b>incorporate emotions into</b> my speeches rather than remaining cold and <b>unsentimental</b>. Over time, I developed a <b>spontaneous conversation</b> style that left audiences <b>amused by</b> my stories. Clear expression plays a <b>crucial</b> role in human connection."
+                    </p>
+                </div>
+            </div>
+
+            <div id="story-success-box" class="max-w-md mx-auto bg-emerald-50 border-4 border-emerald-300 p-6 rounded-3xl text-center space-y-4 hidden shadow-sm">
+                <span class="text-5xl block animate-bounce">📝🌟🎉</span>
+                <h4 class="text-2xl font-heading font-black text-emerald-900">Story Submitted!</h4>
+                <p class="text-sm text-slate-700 font-medium">Great effort putting target vocabulary into real contextual practice!</p>
+                <button onclick="unlockAndGoToSummary()" class="w-full py-3.5 bg-teal-600 hover:bg-teal-700 text-white font-black rounded-xl shadow-md transition cursor-pointer text-sm tracking-wide">Go to Lesson Summary ➔</button>
+            </div>
+        </section>
+
+        <!-- TAB 5: COMPLETION / SUMMARY -->
+        <section id="tab-summary" class="tab-content hidden space-y-6">
+            <div class="max-w-2xl mx-auto bg-white border-4 border-teal-200 p-8 rounded-3xl space-y-6 shadow-xl text-center">
+                <div class="space-y-2">
+                    <span class="text-6xl block animate-bounce">🎓🗣️🎉</span>
+                    <h3 class="text-3xl font-heading font-black text-teal-950">Congratulations!</h3>
+                    <p class="text-sm text-slate-600 font-bold">You have successfully completed <span class="text-teal-600 font-black">IELTS A_S5_Lesson 4</span>.</p>
+                </div>
+
+                <div class="bg-teal-50/60 p-5 rounded-2xl border border-teal-200 space-y-3 text-left">
+                    <h4 class="text-base font-black text-teal-900 border-b border-teal-200 pb-2">💡 Key Takeaways for Communication Topics in IELTS:</h4>
+                    <ul class="space-y-2.5 text-xs md:text-sm text-slate-700 font-bold">
+                        <li class="flex items-start gap-2">
+                            <span class="text-teal-600 font-black">1.</span> 
+                            <span><b>Public Speaking & Anxiety:</b> Describe confidence or panic with <i>address large groups, lead to increased nervousness, on a one-on-one basis</i>, and <i>spontaneous conversation</i>.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-teal-600 font-black">2.</span> 
+                            <span><b>Tone & Expression:</b> Express style differences using <i>get directly to the point, unsentimental, incorporate emotions into</i>, and <i>amused by</i>.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-teal-600 font-black">3.</span> 
+                            <span><b>Scientific & Historical Contexts:</b> Discuss nature and evolution using <i>fossil, sediment, anthropologist, living organisms</i>, and <i>erosion</i>.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="text-center pt-2">
+                    <button onclick="location.reload()" class="px-8 py-3.5 bg-teal-600 hover:bg-teal-700 text-white font-black rounded-xl shadow-md transition cursor-pointer text-sm">🔄 Restart Lesson</button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        // FULL VOCABULARY DATA (24 ITEMS)
+        const vocabularyData = [
+            { word: "Be a handful", ipa: "/bi ə ˈhænd.fʊl/", meaning: "Difficult to control or manage", ex: "My younger brother is quite a handful when he gets energetic." },
+            { word: "Have a crush on", ipa: "/hæv ə krʌʃ ɒn/", meaning: "To have romantic feelings for someone", ex: "She has had a crush on her classmate since high school." },
+            { word: "Address large groups", ipa: "/əˈdres lɑːdʒ ɡruːps/", meaning: "To speak publicly to many people", ex: "Presenters need strong confidence to address large groups effectively." },
+            { word: "On a one-on-one basis", ipa: "/ɒn ə wʌn.ɒn.wʌn ˈbeɪ.sɪs/", meaning: "Interacting with one person directly", ex: "The teacher provides guidance to students on a one-on-one basis." },
+            { word: "Get directly to the point", ipa: "/ɡet dəˈrekt.li tə ðə pɔɪnt/", meaning: "To state the main idea without delay", ex: "Please get directly to the point because our meeting time is limited." },
+            { word: "Unsentimental", ipa: "/ˌʌn.sen.tɪˈmen.təl/", meaning: "Logical and not influenced by emotion", ex: "He gave an unsentimental assessment of the company's financial failure." },
+            { word: "Incorporate emotions into", ipa: "/ɪnˈkɔː.pər.eɪt ɪˈməʊ.ʃənz/", meaning: "To include feelings within something", ex: "Good storytellers naturally incorporate emotions into their narrative." },
+            { word: "International component", ipa: "/ˌɪn.təˈnæʃ.ən.əl kəmˈpəʊ.nənt/", meaning: "A part related to global activities", ex: "Most modern university courses now feature an international component." },
+            { word: "Multilingual people", ipa: "/ˌmʌl.tiˈlɪŋ.ɡwəl ˈpiː.pəl/", meaning: "Individuals who speak several languages", ex: "Multilingual people can adapt quickly when working in foreign environments." },
+            { word: "Crucial", ipa: "/ˈkruː.ʃəl/", meaning: "Extremely important or essential", ex: "Clear communication plays a crucial role in effective teamwork." },
+            { word: "Early childhood", ipa: "/ˈɜː.li ˈtʃaɪld.hʊd/", meaning: "The earliest period of a person's life", ex: "Language acquisition happens naturally during early childhood." },
+            { word: "Native speaker", ipa: "/ˈneɪ.tɪv ˈspiː.kər/", meaning: "Someone speaking their first language", ex: "She speaks fluent English almost like a native speaker." },
+            { word: "Amused by", ipa: "/əˈmjuːzd baɪ/", meaning: "Finding something funny or entertaining", ex: "The audience was greatly amused by his funny personal stories." },
+            { word: "Lead to increased nervousness", ipa: "/liːd tə ɪnˈkriːst ˈnɜː.vəsnəs/", meaning: "To make someone feel more anxious", ex: "Lack of preparation will usually lead to increased nervousness." },
+            { word: "Spontaneous conversation", ipa: "/spɒnˈteɪ.ni.əs kɒn.vəˈseɪ.ʃən/", meaning: "An unplanned, natural dialogue", ex: "They had a spontaneous conversation over coffee after class." },
+            { word: "Fossil", ipa: "/ˈfɒs.əl/", meaning: "The preserved remains of ancient life", ex: "Researchers found a rare dinosaur fossil embedded in the rock layer." },
+            { word: "Sediment", ipa: "/ˈsed.ɪ.mənt/", meaning: "Material that settles at the bottom", ex: "Layers of sediment accumulated over thousands of years on the riverbed." },
+            { word: "Anthropologist", ipa: "/ˌæn.θrəˈpɒl.ə.dʒɪst/", meaning: "A scientist studying human societies", ex: "The anthropologist studied ancient burial traditions across Asia." },
+            { word: "Remains (n)", ipa: "/rɪˈmeɪnz/", meaning: "Parts left over after death or destruction", ex: "Archaeologists uncovered the ancient remains of a Roman villa." },
+            { word: "Living organisms", ipa: "/ˈlɪv.ɪŋ ˈɔː.ɡən.ɪ.zəmz/", meaning: "Individual living things like plants or animals", ex: "Water is essential for the survival of all living organisms." },
+            { word: "Ocean bed", ipa: "/ˈəʊ.ʃən bed/", meaning: "The bottom surface of the ocean", ex: "Deep-sea creatures thrive under extreme pressure on the ocean bed." },
+            { word: "Fault line", ipa: "/ˈfɔːlt laɪn/", meaning: "A crack in the Earth's crust", ex: "Earthquakes occur frequently along this major fault line." },
+            { word: "Pile up", ipa: "/paɪl ʌp/", meaning: "To collect or accumulate in a heap", ex: "Unread messages began to pile up while she was away on vacation." },
+            { word: "Wear away / Erosion / Alter", ipa: "/weər əˈweɪ/", meaning: "To erode or change gradually over time", ex: "Strong ocean waves slowly wear away the rocky coastal cliffs." }
+        ];
+
+        // MATCHING GAME DATA (3 ROUNDS x 8 PAIRS = 24 ITEMS TOTAL)
+        const matchingDataRounds = [
+            // Round 1
+            [
+                { b: "My younger brother is quite a handful...", e: "...when he gets super energetic at home." },
+                { b: "Presenters need strong confidence to...", e: "...address large groups effectively." },
+                { b: "The teacher provides academic guidance...", e: "...on a one-on-one basis." },
+                { b: "Please get directly to the point...", e: "...because our meeting time is limited." },
+                { b: "He gave an unsentimental assessment...", e: "...of the company's recent financial failure." },
+                { b: "Good storytellers naturally incorporate...", e: "...emotions into their narrative performance." },
+                { b: "Most university courses now feature...", e: "...an international component for students." },
+                { b: "Multilingual people can adapt quickly...", e: "...when working in foreign cultural environments." }
+            ],
+            // Round 2
+            [
+                { b: "Clear communication plays a crucial role...", e: "...in building effective teamwork." },
+                { b: "Language acquisition happens naturally...", e: "...during early childhood years." },
+                { b: "She speaks fluent English almost...", e: "...like a native speaker." },
+                { b: "The audience was greatly amused by...", e: "...his funny personal anecdotes." },
+                { b: "A complete lack of preparation will usually...", e: "...lead to increased nervousness on stage." },
+                { b: "They enjoyed a spontaneous conversation...", e: "...over coffee after finishing class." },
+                { b: "Researchers discovered a rare dinosaur fossil...", e: "...embedded inside the rock layer." },
+                { b: "Layers of fine sediment accumulated...", e: "...over thousands of years on the riverbed." }
+            ],
+            // Round 3
+            [
+                { b: "The anthropologist spent years studying...", e: "...ancient cultural traditions across Asia." },
+                { b: "Archaeologists uncovered the ancient remains...", e: "...of an old Roman villa." },
+                { b: "Water is essential for the survival...", e: "...of all living organisms on Earth." },
+                { b: "Deep-sea creatures thrive under pressure...", e: "...on the dark ocean bed." },
+                { b: "Major earthquakes occur frequently...", e: "...along this tectonic fault line." },
+                { b: "Unread emails began to pile up...", e: "...while she was away on vacation." },
+                { b: "Strong ocean waves slowly wear away...", e: "...the rocky coastal cliffs over time." },
+                { b: "Climate change can significantly alter...", e: "...natural global weather patterns." }
+            ]
+        ];
+
+        // FLASHCARD STATE
+        let cardQueue = [];
+        let currentCard = null;
+        let isFlipped = false;
+        let totalCardsCount = vocabularyData.length;
+
+        // MATCHING STATE
+        let currentMatchingRound = 0;
+        let selectedBeginning = null;
+        let matchedPairsCount = 0;
+
+        // INITIALIZATION
+        window.onload = function() {
+            renderVocabTable();
+            initFlashcards();
+        };
+
+        // TAB SWITCHING
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('bg-white', 'text-teal-700', 'shadow-sm');
+                btn.classList.add('text-slate-500');
+            });
+
+            document.getElementById(`tab-${tabId}`).classList.remove('hidden');
+            const activeBtn = document.getElementById(`btn-${tabId}`);
+            if(activeBtn) {
+                activeBtn.classList.add('bg-white', 'text-teal-700', 'shadow-sm');
+                activeBtn.classList.remove('text-slate-500');
+            }
+        }
+
+        // RENDER VOCAB TABLE
+        function renderVocabTable() {
+            const tbody = document.getElementById('reference-table-body');
+            tbody.innerHTML = vocabularyData.map(item => `
+                <tr class="hover:bg-teal-50/50 transition">
+                    <td class="p-3.5 font-black text-teal-950">${item.word}</td>
+                    <td class="p-3.5 font-mono text-xs text-teal-700">${item.ipa}</td>
+                    <td class="p-3.5 text-slate-700">${item.meaning}</td>
+                    <td class="p-3.5 italic text-slate-500">${item.ex}</td>
+                </tr>
+            `).join('');
+        }
+
+        // SPEECH SYNTHESIS
+        function speakText(text, event) {
+            if (event) event.stopPropagation();
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'en-US';
+                utterance.rate = 0.9;
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        // FLASHCARD LOGIC
+        function initFlashcards() {
+            cardQueue = [...vocabularyData];
+            shuffleArray(cardQueue);
+            updateProgressBar();
+            showNextCard();
+        }
+
+        function resetProgress() {
+            document.getElementById('flashcard-container').classList.remove('hidden');
+            document.getElementById('flashcard-success-box').classList.add('hidden');
+            initFlashcards();
+        }
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        function showNextCard() {
+            if (cardQueue.length === 0) {
+                document.getElementById('flashcard-container').classList.add('hidden');
+                document.getElementById('flashcard-success-box').classList.remove('hidden');
+                return;
+            }
+
+            currentCard = cardQueue[0];
+            isFlipped = false;
+            document.getElementById('flashcard-inner').classList.remove('card-flipped');
+
+            // Render Front
+            document.getElementById('f-prompt').innerText = currentCard.meaning;
+            
+            // Render Back
+            document.getElementById('b-answer').innerText = currentCard.word;
+            document.getElementById('b-ipa').innerText = currentCard.ipa;
+            document.getElementById('b-example').innerText = `"${currentCard.ex}"`;
+
+            document.getElementById('queue-text').innerText = `${cardQueue.length} card${cardQueue.length > 1 ? 's' : ''}`;
+            updateProgressBar();
+        }
+
+        function flipCard() {
+            isFlipped = !isFlipped;
+            const inner = document.getElementById('flashcard-inner');
+            if (isFlipped) {
+                inner.classList.add('card-flipped');
+            } else {
+                inner.classList.remove('card-flipped');
+            }
+        }
+
+        function handleAnkiAction(type) {
+            if (!currentCard) return;
+
+            if (type === 'again') {
+                const card = cardQueue.shift();
+                cardQueue.push(card);
+            } else {
+                cardQueue.shift();
+            }
+
+            showNextCard();
+        }
+
+        function updateProgressBar() {
+            const completed = totalCardsCount - cardQueue.length;
+            const pct = Math.round((completed / totalCardsCount) * 100);
+            document.getElementById('progress-bar').style.width = `${pct}%`;
+        }
+
+        function unlockAndGoToMatching() {
+            const btn = document.getElementById('btn-matching');
+            btn.classList.remove('disabled-tab');
+            switchTab('matching');
+            initMatchingRound(0);
+        }
+
+        // SENTENCE MATCHING LOGIC
+        function initMatchingRound(roundIdx) {
+            currentMatchingRound = roundIdx;
+            selectedBeginning = null;
+            matchedPairsCount = 0;
+            document.getElementById('matching-round-num').innerText = roundIdx + 1;
+            document.getElementById('matching-next-btn').classList.add('hidden');
+
+            const currentPairs = matchingDataRounds[roundIdx];
+            const beginnings = currentPairs.map((p, idx) => ({ text: p.b, id: idx }));
+            const endings = currentPairs.map((p, idx) => ({ text: p.e, id: idx }));
+
+            shuffleArray(beginnings);
+            shuffleArray(endings);
+
+            const bContainer = document.getElementById('beginnings-container');
+            const eContainer = document.getElementById('endings-container');
+
+            bContainer.innerHTML = beginnings.map(item => `
+                <div onclick="selectBeginning(${item.id}, this)" class="match-card b-card p-3.5 bg-teal-50/50 border-2 border-teal-200 rounded-2xl text-xs md:text-sm font-bold cursor-pointer hover:border-teal-400 text-slate-800" data-id="${item.id}">
+                    ${item.text}
+                </div>
+            `).join('');
+
+            eContainer.innerHTML = endings.map(item => `
+                <div onclick="selectEnding(${item.id}, this)" class="match-card e-card p-3.5 bg-slate-50 border-2 border-slate-200 rounded-2xl text-xs md:text-sm font-bold cursor-pointer hover:border-slate-400 text-slate-700" data-id="${item.id}">
+                    ${item.text}
+                </div>
+            `).join('');
+        }
+
+        function selectBeginning(id, el) {
+            if (el.classList.contains('matched')) return;
+            
+            document.querySelectorAll('.b-card').forEach(c => c.classList.remove('selected'));
+            el.classList.add('selected');
+            selectedBeginning = { id: id, element: el };
+        }
+
+        function selectEnding(id, el) {
+            if (el.classList.contains('matched') || !selectedBeginning) return;
+
+            if (selectedBeginning.id === id) {
+                // Correct Match
+                selectedBeginning.element.classList.remove('selected');
+                selectedBeginning.element.classList.add('matched');
+                el.classList.add('matched');
+                selectedBeginning = null;
+                matchedPairsCount++;
+
+                if (matchedPairsCount === matchingDataRounds[currentMatchingRound].length) {
+                    if (currentMatchingRound < matchingDataRounds.length - 1) {
+                        document.getElementById('matching-next-btn').classList.remove('hidden');
+                    } else {
+                        document.getElementById('tab-matching').querySelector('.bg-white').classList.add('hidden');
+                        document.getElementById('matching-success-box').classList.remove('hidden');
+                    }
+                }
+            } else {
+                // Wrong Match
+                el.classList.add('wrong');
+                selectedBeginning.element.classList.add('wrong');
+                setTimeout(() => {
+                    el.classList.remove('wrong');
+                    if (selectedBeginning) {
+                        selectedBeginning.element.classList.remove('wrong', 'selected');
+                        selectedBeginning = null;
+                    }
+                }, 500);
+            }
+        }
+
+        function nextMatchingRound() {
+            initMatchingRound(currentMatchingRound + 1);
+        }
+
+        function unlockAndGoToStory() {
+            const btn = document.getElementById('btn-story');
+            btn.classList.remove('disabled-tab');
+            switchTab('story');
+        }
+
+        // STORY ACTIVITY LOGIC
+        function analyzeUserStory() {
+            const text = document.getElementById('user-story-input').value.trim();
+            const words = text ? text.split(/\s+/).filter(w => w.length > 0) : [];
+            document.getElementById('story-word-count').innerText = words.length;
+        }
+
+        function submitUserStory() {
+            const text = document.getElementById('user-story-input').value.trim();
+            const words = text ? text.split(/\s+/).filter(w => w.length > 0) : [];
+
+            if (words.length < 50) {
+                alert(`Bài viết hiện tại có ${words.length} từ. Vui lòng viết ít nhất 50 từ trước khi nộp bài!`);
+                return;
+            }
+
+            document.getElementById('model-story-box').classList.remove('hidden');
+            document.getElementById('story-success-box').classList.remove('hidden');
+        }
+
+        function unlockAndGoToSummary() {
+            const btn = document.getElementById('btn-summary');
+            btn.classList.remove('disabled-tab');
+            switchTab('summary');
+        }
+    </script>
+</body>
+</html>
