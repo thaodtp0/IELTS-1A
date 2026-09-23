@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IELTS 1A_S5_Lesson 5</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    
+    <style>
+        *, body, html, button, span, h1, h2, h3, p, div, input, select, textarea { 
+            font-family: 'Quicksand', sans-serif; 
+            font-weight: 600;
+        }
+        h1, h2, h3, .font-heading {
+            font-family: 'Fredoka', sans-serif;
+        }
+        .perspective { perspective: 1000px; }
+        .backface-hidden { backface-visibility: hidden; }
+        .card-inner { transition: transform 0.5s; transform-style: preserve-3d; }
+        .card-flipped { transform: rotateY(180deg); }
+        .disabled-tab { opacity: 0.4; cursor: not-allowed !important; pointer-events: none; }
+        
+        .match-card { transition: all 0.2s ease; }
+        .match-card.selected { border-color: #6366f1; background-color: #e0e7ff; transform: scale(1.02); }
+        .match-card.matched { border-color: #10b981; background-color: #d1fae5; opacity: 0.6; pointer-events: none; }
+        .match-card.wrong { animation: shake 0.4s ease-in-out; border-color: #f43f5e; background-color: #ffe4e6; }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-5px); }
+            40%, 80% { transform: translateX(5px); }
+        }
+    </style>
+</head>
+<body class="bg-[#F0F9FF] text-slate-700 min-h-screen flex flex-col selection:bg-cyan-200 pb-12">
+
+    <!-- HEADER -->
+    <header class="bg-gradient-to-r from-[#E0E7FF] via-[#C7D2FE] to-[#a5b4fc] border-b-4 border-dashed border-indigo-300 shadow-sm p-6 text-center rounded-b-3xl">
+        <h1 class="text-3xl md:text-4xl font-black tracking-wide drop-shadow-sm text-indigo-950">🔬 IELTS 1A_S5_Lesson 5: Science & Technology 🚀</h1>
+    </header>
+
+    <!-- NAVIGATION TABS -->
+    <div class="max-w-5xl w-full mx-auto px-4 mt-6">
+        <div class="flex bg-indigo-200/60 p-1.5 rounded-2xl border border-indigo-300/80 shadow-inner overflow-x-auto">
+            <button onclick="switchTab('reference')" id="btn-reference" class="tab-btn flex-1 py-3 px-2 text-xs md:text-sm font-black rounded-xl text-center bg-white text-indigo-700 shadow-sm transition cursor-pointer whitespace-nowrap">📚 Vocab Bank</button>
+            <button onclick="switchTab('flashcard')" id="btn-flashcard" class="tab-btn flex-1 py-3 px-2 text-xs md:text-sm font-black rounded-xl text-center text-slate-500 transition cursor-pointer whitespace-nowrap">🎴 Flashcards</button>
+            <button onclick="switchTab('gapfill')" id="btn-gapfill" class="tab-btn disabled-tab flex-1 py-3 px-2 text-xs md:text-sm font-black rounded-xl text-center text-slate-500 transition whitespace-nowrap">✏️ Gap-Filling</button>
+            <button onclick="switchTab('appdesc')" id="btn-appdesc" class="tab-btn disabled-tab flex-1 py-3 px-2 text-xs md:text-sm font-black rounded-xl text-center text-slate-500 transition whitespace-nowrap">📱 App Description</button>
+            <button onclick="switchTab('summary')" id="btn-summary" class="tab-btn disabled-tab flex-1 py-3 px-2 text-xs md:text-sm font-black rounded-xl text-center text-slate-500 transition whitespace-nowrap">🎉 Completion</button>
+        </div>
+    </div>
+
+    <main class="flex-1 max-w-5xl w-full mx-auto px-4 py-6">
+        
+        <!-- TAB 1: VOCAB BANK -->
+        <section id="tab-reference" class="tab-content block space-y-6">
+            <div class="bg-white p-6 rounded-3xl border border-indigo-100 shadow-sm space-y-4">
+                <div class="flex justify-between items-center flex-wrap gap-2">
+                    <h2 class="text-2xl font-black text-indigo-950 font-heading">📖 Science & Technology Vocabulary Table</h2>
+                    <span class="text-xs bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full font-bold">25 Items</span>
+                </div>
+
+                <div class="overflow-x-auto rounded-2xl border border-indigo-100 max-h-[500px]">
+                    <table class="w-full text-left border-collapse bg-white">
+                        <thead class="sticky top-0 bg-indigo-50/90 border-b border-indigo-200 text-indigo-900 text-xs uppercase tracking-wider font-black z-10">
+                            <tr>
+                                <th class="p-3.5">Vocabulary</th>
+                                <th class="p-3.5">Pronunciation</th>
+                                <th class="p-3.5">Meaning</th>
+                                <th class="p-3.5">Example Sentence</th>
+                            </tr>
+                        </thead>
+                        <tbody id="reference-table-body" class="divide-y divide-indigo-50 text-xs md:text-sm">
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="text-center pt-2">
+                    <button onclick="switchTab('flashcard')" class="px-8 py-3.5 bg-indigo-600 hover:bg-indigo-700 text-white font-black rounded-xl text-sm shadow-sm transition cursor-pointer">Start Flashcards ➔</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: FLASHCARDS -->
+        <section id="tab-flashcard" class="tab-content hidden space-y-6">
+            <div class="bg-white p-4 rounded-2xl border-2 border-dashed border-indigo-300 shadow-sm flex justify-between items-center flex-wrap gap-2">
+                <div class="text-sm font-black text-slate-600">Remaining Queue: <span id="queue-text" class="text-indigo-600 font-extrabold">0 cards</span></div>
+                <div class="w-full sm:w-1/3 bg-slate-100 h-4 rounded-full overflow-hidden p-0.5 border border-slate-200">
+                    <div id="progress-bar" class="bg-gradient-to-r from-indigo-400 to-cyan-500 h-full rounded-full transition-all duration-500" style="width: 0%"></div>
+                </div>
+                <button onclick="resetProgress()" class="text-xs text-indigo-600 hover:underline font-black cursor-pointer">🔄 Reset Session</button>
+            </div>
+            
+            <div id="flashcard-container" class="space-y-6">
+                <div id="card-arena" class="perspective w-full max-w-md mx-auto h-[420px] cursor-pointer">
+                    <div id="flashcard-inner" onclick="flipCard()" class="card-inner w-full h-full relative border-4 border-indigo-300 rounded-3xl shadow-md bg-white">
+                        
+                        <!-- FRONT SIDE -->
+                        <div class="backface-hidden absolute inset-0 p-6 flex flex-col justify-between items-center text-center bg-indigo-50/30 rounded-[20px]">
+                            <span id="f-badge" class="text-xs font-black text-indigo-700 uppercase tracking-widest bg-indigo-100/80 px-4 py-1.5 rounded-full">Definition / Meaning</span>
+                            
+                            <div class="space-y-3 my-auto w-full">
+                                <h3 id="f-prompt" class="text-lg md:text-xl font-black text-indigo-950 px-2 leading-snug"></h3>
+                            </div>
+
+                            <p class="text-xs text-indigo-600 font-black">👉 Tap card to reveal vocabulary 👈</p>
+                        </div>
+
+                        <!-- BACK SIDE -->
+                        <div class="backface-hidden w-full h-full absolute inset-0 p-6 flex flex-col justify-between bg-slate-800 text-white rounded-[22px]" style="transform: rotateY(180deg);">
+                            <span id="b-badge" class="text-xs font-black text-indigo-300 uppercase tracking-widest bg-slate-700/80 px-4 py-1.5 rounded-full w-max mx-auto">Target Vocabulary</span>
+                            
+                            <div class="my-auto space-y-3 text-center">
+                                <h2 id="b-answer" class="text-2xl md:text-3xl font-black text-amber-300"></h2>
+                                
+                                <div id="b-extra-content" class="space-y-2 border-t border-slate-700 pt-3">
+                                    <div class="flex justify-center items-center space-x-2">
+                                        <span id="b-ipa" class="text-indigo-300 font-bold text-sm font-mono"></span>
+                                        <button id="b-audio-btn" onclick="speakText(currentCard.word, event)" class="w-7 h-7 bg-indigo-900 hover:bg-indigo-800 text-indigo-100 rounded-full transition flex items-center justify-center text-xs cursor-pointer shadow-sm">🔊</button>
+                                    </div>
+                                    <p id="b-example" class="text-slate-300 text-xs px-2 font-medium leading-relaxed"></p>
+                                </div>
+                            </div>
+
+                            <p class="text-xs text-center text-slate-400 font-bold">Rate your recall difficulty 👇</p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="w-full max-w-md mx-auto bg-white p-4 rounded-2xl border border-indigo-100 shadow-sm grid grid-cols-4 gap-2">
+                    <button onclick="handleAnkiAction('again')" class="p-2 bg-rose-50 hover:bg-rose-100 border border-rose-200 rounded-xl text-center transition cursor-pointer">
+                        <span class="block text-xs font-black text-rose-600">Again</span>
+                        <span class="text-[10px] text-rose-400 font-bold block mt-0.5">&lt; 1m</span>
+                    </button>
+                    <button onclick="handleAnkiAction('hard')" class="p-2 bg-amber-50 hover:bg-amber-100 border border-amber-200 rounded-xl text-center transition cursor-pointer">
+                        <span class="block text-xs font-black text-amber-600">Hard</span>
+                        <span class="text-[10px] text-amber-400 font-bold block mt-0.5">10m</span>
+                    </button>
+                    <button onclick="handleAnkiAction('good')" class="p-2 bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 rounded-xl text-center transition cursor-pointer">
+                        <span class="block text-xs font-black text-indigo-600">Good</span>
+                        <span class="text-[10px] text-indigo-500 font-bold block mt-0.5">1d</span>
+                    </button>
+                    <button onclick="handleAnkiAction('easy')" class="p-2 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 rounded-xl text-center transition shadow-sm cursor-pointer">
+                        <span class="block text-xs font-black text-emerald-600">Easy</span>
+                        <span class="text-[10px] text-emerald-500 font-bold block mt-0.5">4d</span>
+                    </button>
+                </div>
+            </div>
+
+            <div id="flashcard-success-box" class="max-w-md mx-auto bg-emerald-50 border-4 border-emerald-300 p-6 rounded-3xl text-center space-y-4 hidden shadow-sm">
+                <span class="text-5xl block animate-bounce">🌟🔬🎉</span>
+                <h4 class="text-2xl font-heading font-black text-emerald-900">Flashcards Mastered!</h4>
+                <p class="text-sm text-slate-700 font-medium leading-relaxed">Awesome! You have reviewed all 25 vocabulary items.</p>
+                <button onclick="unlockAndGoToGapfill()" class="w-full py-3.5 bg-indigo-600 hover:bg-indigo-700 text-white font-black rounded-xl shadow-md transition cursor-pointer text-sm tracking-wide">Start Gap-Filling Practice ➔</button>
+            </div>
+        </section>
+
+        <!-- TAB 3: GAP FILLING -->
+        <section id="tab-gapfill" class="tab-content hidden space-y-6">
+            <div class="bg-white p-6 rounded-3xl border border-indigo-100 shadow-sm space-y-6">
+                <div>
+                    <h3 class="text-xl font-black text-indigo-950 font-heading">✏️ Gap-Filling Practice</h3>
+                    <p class="text-xs text-slate-500 font-bold mt-1">Complete each sentence using the first-letter clues provided. (15 items)</p>
+                </div>
+
+                <div class="space-y-4" id="gapfill-container">
+                    <!-- Dynamic rendering via JavaScript -->
+                </div>
+
+                <div class="flex justify-between items-center flex-wrap gap-2 pt-2 border-t border-indigo-100">
+                    <button onclick="checkGapFillAnswers()" class="px-8 py-3.5 bg-indigo-600 hover:bg-indigo-700 text-white font-black rounded-xl text-sm shadow-md transition cursor-pointer">Check Answers</button>
+                    <span id="gapfill-score" class="text-sm font-black text-indigo-900"></span>
+                </div>
+            </div>
+
+            <div id="gapfill-success-box" class="max-w-md mx-auto bg-emerald-50 border-4 border-emerald-300 p-6 rounded-3xl text-center space-y-4 hidden shadow-sm">
+                <span class="text-5xl block animate-bounce">🧩🏆✨</span>
+                <h4 class="text-2xl font-heading font-black text-emerald-900">Gap-Filling Completed!</h4>
+                <p class="text-sm text-slate-700 font-medium">Great job! You have mastered the contextual usage of the target vocabulary.</p>
+                <button onclick="unlockAndGoToAppDesc()" class="w-full py-3.5 bg-indigo-600 hover:bg-indigo-700 text-white font-black rounded-xl shadow-md transition cursor-pointer text-sm tracking-wide">Proceed to App Description ➔</button>
+            </div>
+        </section>
+
+        <!-- TAB 4: APP DESCRIPTION -->
+        <section id="tab-appdesc" class="tab-content hidden space-y-6">
+            <div class="bg-white p-6 rounded-3xl border border-indigo-100 shadow-sm space-y-6">
+                <div>
+                    <h3 class="text-xl font-black text-indigo-950 font-heading">📱 Mobile App Description Activity</h3>
+                    <p class="text-xs text-slate-600 font-bold mt-1 leading-relaxed">
+                        Write at least <b>3 sentences</b> describing each of the following 3 mobile applications. Try to incorporate as many target vocabulary items as possible!
+                    </p>
+                </div>
+
+                <!-- APP 1 -->
+                <div class="bg-indigo-50/40 p-5 rounded-2xl border border-indigo-100 space-y-3">
+                    <h4 class="text-base font-black text-indigo-900 flex items-center gap-2">📱 App 1: Health & Fitness Tracker (e.g., Apple Health, Strava)</h4>
+                    <p class="text-xs text-slate-500 italic">Target ideas: tracking daily activities, life extension, cutting-edge technology, not having a sole focus on calorie burning.</p>
+                    <textarea id="app-input-1" rows="3" placeholder="Write at least 3 sentences describing this app..." class="w-full p-3 bg-white border border-indigo-200 rounded-xl text-xs md:text-sm focus:border-indigo-400 outline-none transition font-medium"></textarea>
+                </div>
+
+                <!-- APP 2 -->
+                <div class="bg-indigo-50/40 p-5 rounded-2xl border border-indigo-100 space-y-3">
+                    <h4 class="text-base font-black text-indigo-900 flex items-center gap-2">🌐 App 2: Educational & Research Portal (e.g., Duolingo, Coursera, Wikipedia)</h4>
+                    <p class="text-xs text-slate-500 italic">Target ideas: accessing the website, staying glued to screens, knowing subjects inside and out, scientific breakthroughs.</p>
+                    <textarea id="app-input-2" rows="3" placeholder="Write at least 3 sentences describing this app..." class="w-full p-3 bg-white border border-indigo-200 rounded-xl text-xs md:text-sm focus:border-indigo-400 outline-none transition font-medium"></textarea>
+                </div>
+
+                <!-- APP 3 -->
+                <div class="bg-indigo-50/40 p-5 rounded-2xl border border-indigo-100 space-y-3">
+                    <h4 class="text-base font-black text-indigo-900 flex items-center gap-2">⚙️ App 3: Tech Support & System Utilities (e.g., Antivirus, System Cleaner)</h4>
+                    <p class="text-xs text-slate-500 italic">Target ideas: system acting up, high-precision scanning, robust security frameworks, light years ahead of competitors.</p>
+                    <textarea id="app-input-3" rows="3" placeholder="Write at least 3 sentences describing this app..." class="w-full p-3 bg-white border border-indigo-200 rounded-xl text-xs md:text-sm focus:border-indigo-400 outline-none transition font-medium"></textarea>
+                </div>
+
+                <div class="text-center pt-2">
+                    <button onclick="submitAppDescriptions()" class="px-8 py-3.5 bg-indigo-600 hover:bg-indigo-700 text-white font-black rounded-xl text-sm shadow-md transition cursor-pointer">Submit Descriptions & Reveal Suggested Answers</button>
+                </div>
+
+                <!-- MODEL SUGGESTED ANSWERS (HIDDEN INITIALLY) -->
+                <div id="model-app-box" class="hidden bg-emerald-50 border-2 border-emerald-300 p-5 rounded-2xl space-y-4">
+                    <h4 class="text-sm font-black text-emerald-950 flex items-center gap-2">
+                        <span>💡 Suggested Model Descriptions:</span>
+                    </h4>
+
+                    <div class="space-y-3 text-xs md:text-sm text-slate-700 leading-relaxed">
+                        <p><b>📱 App 1 (Health Tracker):</b> "Modern fitness applications rely on <b>cutting-edge technology</b> to monitor user metrics in real-time. Improving cardiovascular health shouldn't be the <b>sole</b> purpose of workout routines, as overall wellness promotes <b>life extension</b>. Users can track their progress using <b>high-precision</b> sensors built into wearable devices."</p>
+                        
+                        <p><b>🌐 App 2 (Educational Portal):</b> "Students can effortlessly <b>access the website</b> or mobile app to study various scientific disciplines. Once logged in, learners often <b>stay glued to</b> interactive modules to master complex topics. These platforms help users know academic subjects <b>inside and out</b> through <b>robust</b> learning tools."</p>
+
+                        <p><b>⚙️ App 3 (System Utilities):</b> "Whenever a mobile device begins to <b>act up</b> unexpectedly, utility apps offer instant diagnostic solutions. The latest security algorithms are <b>light years ahead</b> of older software in detecting potential malware. These utilities ensure that operating settings <b>are aligned with</b> optimal performance standards."</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="appdesc-success-box" class="max-w-md mx-auto bg-emerald-50 border-4 border-emerald-300 p-6 rounded-3xl text-center space-y-4 hidden shadow-sm">
+                <span class="text-5xl block animate-bounce">📝🌟🎉</span>
+                <h4 class="text-2xl font-heading font-black text-emerald-900">Descriptions Submitted!</h4>
+                <p class="text-sm text-slate-700 font-medium">Great work putting technical vocabulary into practical contextual writing!</p>
+                <button onclick="unlockAndGoToSummary()" class="w-full py-3.5 bg-indigo-600 hover:bg-indigo-700 text-white font-black rounded-xl shadow-md transition cursor-pointer text-sm tracking-wide">Go to Lesson Summary ➔</button>
+            </div>
+        </section>
+
+        <!-- TAB 5: COMPLETION / SUMMARY -->
+        <section id="tab-summary" class="tab-content hidden space-y-6">
+            <div class="max-w-2xl mx-auto bg-white border-4 border-indigo-200 p-8 rounded-3xl space-y-6 shadow-xl text-center">
+                <div class="space-y-2">
+                    <span class="text-6xl block animate-bounce">🎓🚀🎉</span>
+                    <h3 class="text-3xl font-heading font-black text-indigo-950">Congratulations!</h3>
+                    <p class="text-sm text-slate-600 font-bold">You have successfully completed <span class="text-indigo-600 font-black">IELTS 1A_S5_Lesson 5</span>.</p>
+                </div>
+
+                <div class="bg-indigo-50/60 p-5 rounded-2xl border border-indigo-200 space-y-3 text-left">
+                    <h4 class="text-base font-black text-indigo-900 border-b border-indigo-200 pb-2">💡 Key Takeaways for Science & Technology in IELTS:</h4>
+                    <ul class="space-y-2.5 text-xs md:text-sm text-slate-700 font-bold">
+                        <li class="flex items-start gap-2">
+                            <span class="text-indigo-600 font-black">1.</span> 
+                            <span><b>Scientific Discoveries & Research:</b> Discuss advancements using <i>breakthrough, compelling evidence, speculate, high-precision equipment</i>, and <i>falsify data</i>.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-indigo-600 font-black">2.</span> 
+                            <span><b>Technological Progress & Idioms:</b> Describe high-tech systems with <i>cutting-edge technology, light years ahead, know inside and out, act up</i>, and <i>stay glued to</i>.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-indigo-600 font-black">3.</span> 
+                            <span><b>History & Nature:</b> Explain ancient human history and natural disasters using <i>roam, ash, eruption, fling, spear</i>, and <i>fashion tools</i>.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="text-center pt-2">
+                    <button onclick="location.reload()" class="px-8 py-3.5 bg-indigo-600 hover:bg-indigo-700 text-white font-black rounded-xl shadow-md transition cursor-pointer text-sm">🔄 Restart Lesson</button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        // FULL VOCABULARY DATA (25 ITEMS)
+        const vocabularyData = [
+            { word: "Roam", ipa: "/rəʊm/", meaning: "To move or travel around without a clear plan", ex: "Millions of years ago, prehistoric giants used to roam the earth freely before their extinction." },
+            { word: "Sole", ipa: "/səʊl/", meaning: "Only; single", ex: "Financial success should not be the sole purpose of choosing a career path." },
+            { word: "Ash", ipa: "/æʃ/", meaning: "Grey powder left after something is burnt", ex: "The volcanic ash cloud forced several airlines to cancel their international flights." },
+            { word: "Eruption", ipa: "/ɪˈrʌp.ʃən/", meaning: "A sudden explosion or outburst", ex: "A major volcanic eruption can cause severe global climate disruptions." },
+            { word: "Fling", ipa: "/flɪŋ/", meaning: "To throw something with force", ex: "Powerful natural disasters can fling debris across vast distances." },
+            { word: "Speculate", ipa: "/ˈspek.jə.leɪt/", meaning: "To guess about the cause or outcome of something", ex: "Researchers continue to speculate on the main drivers of ancient human migration." },
+            { word: "Favourable", ipa: "/ˈfeɪ.vər.ə.bəl/", meaning: "Positive, helpful, or giving an advantage", ex: "Developing nations need favourable conditions to attract foreign investment." },
+            { word: "Protagonist", ipa: "/prəˈtæɡ.ən.ɪst/", meaning: "The main character in a story or movement", ex: "The central protagonist in the novel struggles to overcome social inequality." },
+            { word: "Plummet", ipa: "/ˈplʌm.ɪt/", meaning: "To fall rapidly and sharply", ex: "Property values are expected to plummet sharply during economic recessions." },
+            { word: "Robust", ipa: "/rəʊˈbʌst/", meaning: "Strong, healthy, or unlikely to fail", ex: "Governments must build a robust framework to protect public health." },
+            { word: "Spear", ipa: "/spɪər/", meaning: "A weapon with a pointed tip used for hunting", ex: "Early humans crafted flint spears to hunt large animals for survival." },
+            { word: "Fashion", ipa: "/ˈfæʃ.ən/", meaning: "To make or shape something with hands", ex: "Indigenous people learned to fashion tools out of natural stones and bones." },
+            { word: "High-precision", ipa: "/ˌhaɪ.prɪˈsɪʒ.ən/", meaning: "Extremely accurate and exact", ex: "Modern manufacturing relies heavily on high-precision equipment." },
+            { word: "Prominent", ipa: "/ˈprɒm.ɪ.nənt/", meaning: "Important, famous, or easily noticed", ex: "She is a prominent figure in the field of environmental conservation." },
+            { word: "Be aligned with", ipa: "/biː əˈlaɪnd wɪð/", meaning: "To agree with or support a policy or system", ex: "Corporate strategies must be closely aligned with global sustainability goals." },
+            { word: "Falsify", ipa: "/ˈfɔːl.sɪ.faɪ/", meaning: "To change information dishonestly", ex: "Unethical scientists who falsify experimental data face severe academic penalties." },
+            { word: "Compelling", ipa: "/kəmˈpel.ɪŋ/", meaning: "Very convincing or exciting", ex: "Scientists have gathered compelling evidence linking pollution to climate change." },
+            { word: "Breakthrough", ipa: "/ˈbreɪk.θruː/", meaning: "An important new discovery or progress", ex: "Gene-editing technology represents a major breakthrough in modern medicine." },
+            { word: "Life extension", ipa: "/laɪf ɪkˈsten.ʃən/", meaning: "Increasing the length of human life", ex: "Medical advancements have contributed significantly to human life extension." },
+            { word: "Cutting-edge technology", ipa: "/ˈkʌt.ɪŋ.edʒ tekˈnɒl.ə.dʒi/", meaning: "The most advanced stage of technology", ex: "Top universities invest heavily in cutting-edge technology for research laboratories." },
+            { word: "Know sth inside and out", ipa: "/nəʊ ... ɪnˈsaɪd ænd aʊt/", meaning: "To understand something completely", ex: "Experienced engineers know the complex system inside and out." },
+            { word: "Stay glued to sth", ipa: "/steɪ ɡluːd tuː/", meaning: "To give all your attention to a screen or object", ex: "Many children stay glued to electronic screens for hours every day." },
+            { word: "Access the website", ipa: "/ˈæk.ses ðə ˈweb.saɪt/", meaning: "To open or use an online site", ex: "Students can easily access the official website to download learning resources." },
+            { word: "Act up", ipa: "/ækt ʌp/", meaning: "To malfunction or cause trouble", ex: "Old machinery tends to act up constantly, reducing factory productivity." },
+            { word: "Light years ahead", ipa: "/laɪt jɪəz əˈhed/", meaning: "Much more advanced than others", ex: "In terms of artificial intelligence, tech giants are light years ahead of local competitors." }
+        ];
+
+        // GAP FILLING DATA (15 ITEMS WITH FIRST LETTER CLUES)
+        const gapFillData = [
+            { sentence: "1. Millions of years ago, prehistoric creatures used to r______ freely across ancient forests.", ans: "roam", word: "Roam" },
+            { sentence: "2. Profit should not be the s______ consideration when designing public policy.", ans: "sole", word: "Sole" },
+            { sentence: "3. A huge cloud of volcanic a______ spread across the atmosphere after the mountain blew up.", ans: "ash", word: "Ash" },
+            { sentence: "4. The sudden e______ of the volcano destroyed several neighboring villages.", ans: "eruption", word: "Eruption" },
+            { sentence: "5. Extreme winds during a typhoon can f______ light objects hundreds of meters away.", ans: "fling", word: "Fling" },
+            { sentence: "6. Geologists can only s______ about the exact causes of early continental drift.", ans: "speculate", word: "Speculate" },
+            { sentence: "7. The company expanded rapidly thanks to f______ market conditions and low tax rates.", ans: "favourable", word: "Favourable" },
+            { sentence: "8. Stock prices began to p______ steeply following the unexpected political crisis.", ans: "plummet", word: "Plummet" },
+            { sentence: "9. To prevent cyberattacks, the bank built a r______ firewall security system.", ans: "robust", word: "Robust" },
+            { sentence: "10. Early hunters crafted wooden s______ tipped with sharp stone points.", ans: "spears", word: "Spears" },
+            { sentence: "11. Modern automated assembly lines require high-p______ machinery to function accurately.", ans: "precision", word: "High-precision" },
+            { sentence: "12. It is completely unethical for researchers to f______ lab data to obtain grant funding.", ans: "falsify", word: "Falsify" },
+            { sentence: "13. Geneticists made a major scientific b______ in treating hereditary disorders.", ans: "breakthrough", word: "Breakthrough" },
+            { sentence: "14. Teenagers often s______ glued to their smartphones for hours late into the night.", ans: "stay", word: "Stay glued to sth" },
+            { sentence: "15. In terms of automated robotics, leading Japanese laboratories are l______ years ahead of others.", ans: "light", word: "Light years ahead" }
+        ];
+
+        // FLASHCARD STATE
+        let cardQueue = [];
+        let currentCard = null;
+        let isFlipped = false;
+        let totalCardsCount = vocabularyData.length;
+
+        // INITIALIZATION
+        window.onload = function() {
+            renderVocabTable();
+            initFlashcards();
+            renderGapFillItems();
+        };
+
+        // TAB SWITCHING
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('bg-white', 'text-indigo-700', 'shadow-sm');
+                btn.classList.add('text-slate-500');
+            });
+
+            document.getElementById(`tab-${tabId}`).classList.remove('hidden');
+            const activeBtn = document.getElementById(`btn-${tabId}`);
+            if(activeBtn) {
+                activeBtn.classList.add('bg-white', 'text-indigo-700', 'shadow-sm');
+                activeBtn.classList.remove('text-slate-500');
+            }
+        }
+
+        // RENDER VOCAB TABLE
+        function renderVocabTable() {
+            const tbody = document.getElementById('reference-table-body');
+            tbody.innerHTML = vocabularyData.map(item => `
+                <tr class="hover:bg-indigo-50/50 transition">
+                    <td class="p-3.5 font-black text-indigo-950">${item.word}</td>
+                    <td class="p-3.5 font-mono text-xs text-indigo-700">${item.ipa}</td>
+                    <td class="p-3.5 text-slate-700">${item.meaning}</td>
+                    <td class="p-3.5 italic text-slate-500">${item.ex}</td>
+                </tr>
+            `).join('');
+        }
+
+        // SPEECH SYNTHESIS
+        function speakText(text, event) {
+            if (event) event.stopPropagation();
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'en-US';
+                utterance.rate = 0.9;
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        // FLASHCARD LOGIC
+        function initFlashcards() {
+            cardQueue = [...vocabularyData];
+            shuffleArray(cardQueue);
+            updateProgressBar();
+            showNextCard();
+        }
+
+        function resetProgress() {
+            document.getElementById('flashcard-container').classList.remove('hidden');
+            document.getElementById('flashcard-success-box').classList.add('hidden');
+            initFlashcards();
+        }
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        function showNextCard() {
+            if (cardQueue.length === 0) {
+                document.getElementById('flashcard-container').classList.add('hidden');
+                document.getElementById('flashcard-success-box').classList.remove('hidden');
+                return;
+            }
+
+            currentCard = cardQueue[0];
+            isFlipped = false;
+            document.getElementById('flashcard-inner').classList.remove('card-flipped');
+
+            // Render Front
+            document.getElementById('f-prompt').innerText = currentCard.meaning;
+            
+            // Render Back
+            document.getElementById('b-answer').innerText = currentCard.word;
+            document.getElementById('b-ipa').innerText = currentCard.ipa;
+            document.getElementById('b-example').innerText = `"${currentCard.ex}"`;
+
+            document.getElementById('queue-text').innerText = `${cardQueue.length} card${cardQueue.length > 1 ? 's' : ''}`;
+            updateProgressBar();
+        }
+
+        function flipCard() {
+            isFlipped = !isFlipped;
+            const inner = document.getElementById('flashcard-inner');
+            if (isFlipped) {
+                inner.classList.add('card-flipped');
+            } else {
+                inner.classList.remove('card-flipped');
+            }
+        }
+
+        function handleAnkiAction(type) {
+            if (!currentCard) return;
+
+            if (type === 'again') {
+                const card = cardQueue.shift();
+                cardQueue.push(card);
+            } else {
+                cardQueue.shift();
+            }
+
+            showNextCard();
+        }
+
+        function updateProgressBar() {
+            const completed = totalCardsCount - cardQueue.length;
+            const pct = Math.round((completed / totalCardsCount) * 100);
+            document.getElementById('progress-bar').style.width = `${pct}%`;
+        }
+
+        function unlockAndGoToGapfill() {
+            const btn = document.getElementById('btn-gapfill');
+            btn.classList.remove('disabled-tab');
+            switchTab('gapfill');
+        }
+
+        // GAP FILLING LOGIC
+        function renderGapFillItems() {
+            const container = document.getElementById('gapfill-container');
+            container.innerHTML = gapFillData.map((item, index) => `
+                <div class="p-4 bg-indigo-50/40 rounded-2xl border border-indigo-100 flex flex-col md:flex-row md:items-center justify-between gap-3">
+                    <p class="text-xs md:text-sm font-bold text-slate-800 leading-relaxed flex-1">${item.sentence}</p>
+                    <div class="flex items-center space-x-2">
+                        <input type="text" id="gap-input-${index}" placeholder="Type word..." class="p-2 text-xs md:text-sm bg-white border border-indigo-200 rounded-xl outline-none focus:border-indigo-500 w-36 font-semibold">
+                        <span id="gap-status-${index}" class="text-xs font-black"></span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function checkGapFillAnswers() {
+            let correctCount = 0;
+            gapFillData.forEach((item, index) => {
+                const input = document.getElementById(`gap-input-${index}`);
+                const status = document.getElementById(`gap-status-${index}`);
+                const val = input.value.trim().toLowerCase();
+
+                if (val === item.ans.toLowerCase()) {
+                    correctCount++;
+                    input.classList.remove('border-rose-400', 'bg-rose-50');
+                    input.classList.add('border-emerald-400', 'bg-emerald-50');
+                    status.innerText = "✅";
+                } else {
+                    input.classList.remove('border-emerald-400', 'bg-emerald-50');
+                    input.classList.add('border-rose-400', 'bg-rose-50');
+                    status.innerText = "❌";
+                }
+            });
+
+            const scoreText = document.getElementById('gapfill-score');
+            scoreText.innerText = `Score: ${correctCount} / ${gapFillData.length}`;
+
+            if (correctCount === gapFillData.length) {
+                document.getElementById('gapfill-success-box').classList.remove('hidden');
+            }
+        }
+
+        function unlockAndGoToAppDesc() {
+            const btn = document.getElementById('btn-appdesc');
+            btn.classList.remove('disabled-tab');
+            switchTab('appdesc');
+        }
+
+        // APP DESCRIPTION LOGIC
+        function submitAppDescriptions() {
+            const input1 = document.getElementById('app-input-1').value.trim();
+            const input2 = document.getElementById('app-input-2').value.trim();
+            const input3 = document.getElementById('app-input-3').value.trim();
+
+            if (!input1 || !input2 || !input3) {
+                alert("Please write descriptions for all 3 apps before submitting!");
+                return;
+            }
+
+            document.getElementById('model-app-box').classList.remove('hidden');
+            document.getElementById('appdesc-success-box').classList.remove('hidden');
+        }
+
+        function unlockAndGoToSummary() {
+            const btn = document.getElementById('btn-summary');
+            btn.classList.remove('disabled-tab');
+            switchTab('summary');
+        }
+    </script>
+</body>
+</html>
