@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IELTS 2C_S5_Lesson 6</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<style>
+*, body, html, button, span, h1, h2, h3, p, div, input, select, textarea { font-family: 'Quicksand', sans-serif; font-weight: 600; }
+h1, h2, h3, .font-heading { font-family: 'Fredoka', sans-serif; }
+.perspective { perspective: 1000px; }
+.backface-hidden { backface-visibility: hidden; }
+.card-inner { transition: transform 0.5s; transform-style: preserve-3d; }
+.card-flipped { transform: rotateY(180deg); }
+.disabled-tab { opacity: 0.4; cursor: not-allowed !important; pointer-events: none; }
+
+.floating-bank { position: relative; width: 100%; height: 160px; background: #F0FDFA; border: 3px solid #99F6E4; border-radius: 20px; overflow: hidden; touch-action: none; }
+.word-tile-float { position: absolute; padding: 8px 16px; background: #ffffff; border: 2px solid #2DD4BF; border-radius: 14px; font-size: 0.9rem; font-weight: 700; color: #0F766E; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.06); user-select: none; touch-action: none; transition: border-color 0.2s, background-color 0.2s; }
+.word-tile-float.chosen { position: relative !important; left: auto !important; top: auto !important; border-color: #F59E0B; color: #92400E; background: #FEF3C7; animation: popIn 0.2s ease-out; }
+.word-tile-float.correct { border-color: #10b981 !important; background: #d1fae5 !important; color: #047857 !important; pointer-events: none; }
+.word-tile-float.wrong-shake { animation: shake 0.4s ease-in-out; border-color: #f43f5e !important; background: #ffe4e6 !important; }
+@keyframes popIn { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+@keyframes shake { 0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-5px)} 40%,80%{transform:translateX(5px)} }
+.gap-slot { display: inline-flex; min-width: 90px; padding: 4px 14px; border: 2px dashed #F59E0B; border-radius: 10px; background: #FFFBEB; font-weight: 700; color: #92400E; justify-content: center; align-items: center; }
+</style>
+</head>
+<body class="bg-[#F0FDFA] text-slate-700 min-h-screen flex flex-col selection:bg-teal-200 pb-12">
+
+<header class="bg-gradient-to-r from-[#CCFBF1] via-[#D1FAE5] to-[#FEF3C7] border-b-4 border-dashed border-teal-300 shadow-sm p-6 text-center rounded-b-3xl">
+<h1 class="text-3xl md:text-4xl font-black tracking-wide drop-shadow-sm text-teal-950">🔬 IELTS 2C_S5_Lesson 6 🎬</h1>
+</header>
+
+<div class="max-w-5xl w-full mx-auto px-4 mt-6">
+<div class="flex bg-teal-100/70 p-1.5 rounded-2xl border border-teal-200 shadow-inner overflow-x-auto">
+<button onclick="switchTab('reference')" id="btn-reference" class="tab-btn flex-1 py-3 px-2 text-xs md:text-sm font-black rounded-xl text-center bg-white text-teal-700 shadow-sm transition cursor-pointer whitespace-nowrap">📚 Vocab Bank</button>
+<button onclick="switchTab('flashcard')" id="btn-flashcard" class="tab-btn flex-1 py-3 px-2 text-xs md:text-sm font-black rounded-xl text-center text-slate-500 transition cursor-pointer whitespace-nowrap">🎴 Flashcards</button>
+<button onclick="switchTab('game')" id="btn-game" class="tab-btn disabled-tab flex-1 py-3 px-2 text-xs md:text-sm font-black rounded-xl text-center text-slate-500 transition whitespace-nowrap">🎈 Gap-Fill Game</button>
+<button onclick="switchTab('writing')" id="btn-writing" class="tab-btn disabled-tab flex-1 py-3 px-2 text-xs md:text-sm font-black rounded-xl text-center text-slate-500 transition whitespace-nowrap">✍️ Sentence Writing</button>
+<button onclick="switchTab('summary')" id="btn-summary" class="tab-btn disabled-tab flex-1 py-3 px-2 text-xs md:text-sm font-black rounded-xl text-center text-slate-500 transition whitespace-nowrap">🎉 Completion</button>
+</div>
+</div>
+
+<main class="flex-1 max-w-5xl w-full mx-auto px-4 py-6">
+
+<!-- TAB 1: VOCAB BANK -->
+<section id="tab-reference" class="tab-content block space-y-6">
+<div class="bg-white p-6 rounded-3xl border border-teal-100 shadow-sm space-y-4">
+<div class="flex justify-between items-center flex-wrap gap-2">
+<h2 class="text-2xl font-black text-teal-950 font-heading">📖 Vocabulary Table</h2>
+<span class="text-xs bg-teal-100 text-teal-800 px-3 py-1 rounded-full font-bold">32 Items</span>
+</div>
+<div class="overflow-x-auto rounded-2xl border border-teal-100 max-h-[500px]">
+<table class="w-full text-left border-collapse bg-white">
+<thead class="sticky top-0 bg-teal-50/90 border-b border-teal-200 text-teal-900 text-xs uppercase tracking-wider font-black z-10">
+<tr><th class="p-3.5">Vocabulary</th><th class="p-3.5">Pronunciation</th><th class="p-3.5">Meaning</th><th class="p-3.5">Example Sentence</th></tr>
+</thead>
+<tbody id="reference-table-body" class="divide-y divide-teal-50 text-xs md:text-sm"></tbody>
+</table>
+</div>
+<div class="text-center pt-2">
+<button onclick="switchTab('flashcard')" class="px-8 py-3.5 bg-teal-600 hover:bg-teal-700 text-white font-black rounded-xl text-sm shadow-sm transition cursor-pointer">Start Flashcards ➔</button>
+</div>
+</div>
+</section>
+
+<!-- TAB 2: FLASHCARDS -->
+<section id="tab-flashcard" class="tab-content hidden space-y-6">
+<div class="bg-white p-4 rounded-2xl border-2 border-dashed border-teal-300 shadow-sm flex justify-between items-center flex-wrap gap-2">
+<div class="text-sm font-black text-slate-600">Remaining Queue: <span id="queue-text" class="text-teal-600 font-extrabold">0 cards</span></div>
+<div class="w-full sm:w-1/3 bg-slate-100 h-4 rounded-full overflow-hidden p-0.5 border border-slate-200">
+<div id="progress-bar" class="bg-gradient-to-r from-teal-400 to-amber-400 h-full rounded-full transition-all duration-500" style="width: 0%"></div>
+</div>
+<button onclick="resetProgress()" class="text-xs text-teal-600 hover:underline font-black cursor-pointer">🔄 Reset Session</button>
+</div>
+
+<div id="flashcard-container" class="space-y-6">
+<div id="card-arena" class="perspective w-full max-w-md mx-auto h-[420px] cursor-pointer">
+<div id="flashcard-inner" onclick="flipCard()" class="card-inner w-full h-full relative border-4 border-teal-300 rounded-3xl shadow-md bg-white">
+<div class="backface-hidden absolute inset-0 p-6 flex flex-col justify-between items-center text-center bg-teal-50/40 rounded-[20px]">
+<span id="f-badge" class="text-xs font-black text-teal-700 uppercase tracking-widest bg-teal-100/80 px-4 py-1.5 rounded-full">Definition / Meaning</span>
+<div class="space-y-3 my-auto w-full"><h3 id="f-prompt" class="text-lg md:text-xl font-black text-teal-950 px-2 leading-snug"></h3></div>
+<p class="text-xs text-teal-600 font-black">👉 Tap card to reveal vocabulary 👈</p>
+</div>
+<div class="backface-hidden w-full h-full absolute inset-0 p-6 flex flex-col justify-between bg-slate-800 text-white rounded-[22px]" style="transform: rotateY(180deg);">
+<span id="b-badge" class="text-xs font-black text-teal-300 uppercase tracking-widest bg-slate-700/80 px-4 py-1.5 rounded-full w-max mx-auto">Target Vocabulary</span>
+<div class="my-auto space-y-3 text-center">
+<h2 id="b-answer" class="text-2xl md:text-3xl font-black text-amber-300"></h2>
+<div id="b-extra-content" class="space-y-2 border-t border-slate-700 pt-3">
+<div class="flex justify-center items-center space-x-2">
+<span id="b-ipa" class="text-teal-300 font-bold text-sm font-mono"></span>
+<button id="b-audio-btn" onclick="speakText(currentCard.word, event)" class="w-7 h-7 bg-teal-900 hover:bg-teal-800 text-teal-100 rounded-full transition flex items-center justify-center text-xs cursor-pointer shadow-sm">🔊</button>
+</div>
+<p id="b-example" class="text-slate-300 text-xs px-2 font-medium leading-relaxed"></p>
+</div>
+</div>
+<p class="text-xs text-center text-slate-400 font-bold">Rate your recall difficulty 👇</p>
+</div>
+</div>
+</div>
+
+<div class="w-full max-w-md mx-auto bg-white p-4 rounded-2xl border border-teal-100 shadow-sm grid grid-cols-4 gap-2">
+<button onclick="handleAnkiAction('again')" class="p-2 bg-rose-50 hover:bg-rose-100 border border-rose-200 rounded-xl text-center transition cursor-pointer"><span class="block text-xs font-black text-rose-600">Again</span><span class="text-[10px] text-rose-400 font-bold block mt-0.5">&lt; 1m</span></button>
+<button onclick="handleAnkiAction('hard')" class="p-2 bg-amber-50 hover:bg-amber-100 border border-amber-200 rounded-xl text-center transition cursor-pointer"><span class="block text-xs font-black text-amber-600">Hard</span><span class="text-[10px] text-amber-400 font-bold block mt-0.5">10m</span></button>
+<button onclick="handleAnkiAction('good')" class="p-2 bg-teal-50 hover:bg-teal-100 border border-teal-200 rounded-xl text-center transition cursor-pointer"><span class="block text-xs font-black text-teal-600">Good</span><span class="text-[10px] text-teal-500 font-bold block mt-0.5">1d</span></button>
+<button onclick="handleAnkiAction('easy')" class="p-2 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 rounded-xl text-center transition shadow-sm cursor-pointer"><span class="block text-xs font-black text-emerald-600">Easy</span><span class="text-[10px] text-emerald-500 font-bold block mt-0.5">4d</span></button>
+</div>
+</div>
+
+<div id="flashcard-success-box" class="max-w-md mx-auto bg-emerald-50 border-4 border-emerald-300 p-6 rounded-3xl text-center space-y-4 hidden shadow-sm">
+<span class="text-5xl block animate-bounce">🌟🔬🎉</span>
+<h4 class="text-2xl font-heading font-black text-emerald-900">Flashcards Mastered!</h4>
+<p class="text-sm text-slate-700 font-medium leading-relaxed">Awesome! You have reviewed all 32 vocabulary items.</p>
+<button onclick="unlockAndGoToGame()" class="w-full py-3.5 bg-teal-600 hover:bg-teal-700 text-white font-black rounded-xl shadow-md transition cursor-pointer text-sm tracking-wide">Start Gap-Fill Game ➔</button>
+</div>
+</section>
+
+<!-- TAB 3: GAP-FILL GAME (FLOATING WORDS) -->
+<section id="tab-game" class="tab-content hidden space-y-6">
+<div class="bg-white p-6 rounded-3xl border border-teal-100 shadow-sm space-y-6">
+<div class="flex justify-between items-center border-b border-teal-50 pb-3 flex-wrap gap-2">
+<div>
+<h3 class="text-xl font-heading font-black text-teal-950">🎈 Floating Gap-Fill</h3>
+<p class="text-xs text-slate-500 mt-0.5">Tap the correct floating word to fill the gap in each sentence.</p>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-xs font-black bg-teal-50 text-teal-800 px-3 py-1.5 rounded-full">Question <span id="gap-q-idx">1</span> of <span id="gap-q-total">20</span></span>
+<span class="text-xs font-black bg-amber-50 text-amber-800 px-3 py-1.5 rounded-full">Score: <span id="gap-score">0</span></span>
+</div>
+</div>
+
+<div class="space-y-6 max-w-3xl mx-auto">
+<p id="gap-sentence" class="text-sm md:text-base font-bold text-slate-800 leading-relaxed bg-teal-50/50 p-4 rounded-2xl border border-teal-100"></p>
+
+<div class="space-y-2">
+<span class="text-xs font-black text-teal-800 uppercase tracking-wider block">🎈 Floating Word Bank:</span>
+<div id="gap-word-bank" class="floating-bank"></div>
+</div>
+
+<div id="gap-feedback" class="hidden p-3.5 rounded-2xl text-center font-black text-xs md:text-sm"></div>
+
+<div class="flex justify-center items-center gap-3 pt-2">
+<button onclick="checkGapAnswer()" id="gap-check-btn" class="px-7 py-2.5 bg-teal-600 hover:bg-teal-700 text-white font-black rounded-xl text-xs shadow-sm transition cursor-pointer">✅ Check Answer</button>
+<button onclick="nextGapQuestion()" id="gap-next-btn" class="hidden px-7 py-2.5 bg-amber-500 hover:bg-amber-600 text-white font-black rounded-xl text-xs shadow-sm transition cursor-pointer">Next Question ➔</button>
+</div>
+</div>
+</div>
+
+<div id="gap-success-box" class="max-w-md mx-auto bg-emerald-50 border-4 border-emerald-300 p-6 rounded-3xl text-center space-y-4 hidden shadow-sm">
+<span class="text-5xl block animate-bounce">🎈🏆✨</span>
+<h4 class="text-2xl font-heading font-black text-emerald-900">Gap-Fill Completed!</h4>
+<p class="text-sm text-slate-700 font-medium">Great job! You have practised 20 target words in context. Score: <span id="gap-final-score"></span>/20</p>
+<button onclick="unlockAndGoToWriting()" class="w-full py-3.5 bg-teal-600 hover:bg-teal-700 text-white font-black rounded-xl shadow-md transition cursor-pointer text-sm tracking-wide">Start Sentence Writing ➔</button>
+</div>
+</section>
+
+<!-- TAB 4: SENTENCE WRITING -->
+<section id="tab-writing" class="tab-content hidden space-y-6">
+
+<div class="bg-white p-6 rounded-3xl border border-teal-100 shadow-sm space-y-5">
+<h3 class="text-xl font-black text-teal-950 font-heading">A. Vietnamese–English Translation</h3>
+<p class="text-xs text-slate-500 font-bold">Translate each sentence into English using the suggested word. Write your own answer first — the model answer will only appear once you have typed something.</p>
+<div id="translate-container" class="space-y-4"></div>
+</div>
+
+<div class="bg-white p-6 rounded-3xl border border-teal-100 shadow-sm space-y-5">
+<h3 class="text-xl font-black text-teal-950 font-heading">B. Sentence Ordering</h3>
+<p class="text-xs text-slate-500 font-bold">Rearrange the words below into a complete, correct sentence and type it out.</p>
+<div id="unscramble-container" class="space-y-4"></div>
+<div class="flex justify-between items-center flex-wrap gap-2 pt-2 border-t border-teal-100">
+<button onclick="checkUnscramble()" class="px-8 py-3.5 bg-teal-600 hover:bg-teal-700 text-white font-black rounded-xl text-sm shadow-md transition cursor-pointer">Check Answers</button>
+<span id="unscramble-score" class="text-sm font-black text-teal-900"></span>
+</div>
+</div>
+
+<div class="bg-white p-6 rounded-3xl border border-teal-100 shadow-sm space-y-5">
+<h3 class="text-xl font-black text-teal-950 font-heading">C. Short Paragraph Writing</h3>
+<p class="text-xs text-slate-600 font-bold leading-relaxed">Choose 1 topic: (1) describe an animated film you like, (2) describe your experience of online shopping or paying bills online, or (3) describe a branch of science you are interested in and its effect. Write 4 to 6 sentences, using at least 5 of the words below. The checklist will tick automatically as you use each word. There is no fixed answer for this task, but you can view a sample paragraph once you have finished writing.</p>
+<textarea id="free-writing" oninput="checkFreeWriting()" rows="6" placeholder="Write your paragraph here..." class="w-full p-3 bg-white border border-teal-200 rounded-xl text-sm focus:border-teal-400 outline-none transition font-medium"></textarea>
+<div id="free-checklist" class="flex flex-wrap gap-2"></div>
+<div class="flex items-center gap-2">
+<button onclick="toggleFreeModel()" class="text-xs text-teal-600 hover:underline font-black cursor-pointer">👁️ Show a sample paragraph</button>
+</div>
+<div id="free-model-box" class="hidden space-y-3 text-xs md:text-sm text-slate-700 font-medium bg-emerald-50 border border-emerald-200 p-4 rounded-2xl leading-relaxed"></div>
+<div class="text-center pt-2">
+<button onclick="unlockAndGoToSummary()" class="px-8 py-3.5 bg-teal-600 hover:bg-teal-700 text-white font-black rounded-xl text-sm shadow-md transition cursor-pointer">Finish &amp; Go to Summary ➔</button>
+</div>
+</div>
+</section>
+
+<!-- TAB 5: COMPLETION -->
+<section id="tab-summary" class="tab-content hidden space-y-6">
+<div class="max-w-2xl mx-auto bg-white border-4 border-teal-200 p-8 rounded-3xl space-y-6 shadow-xl text-center">
+<div class="space-y-2">
+<span class="text-6xl block animate-bounce">🎓🔬🎬</span>
+<h3 class="text-3xl font-heading font-black text-teal-950">Congratulations!</h3>
+<p class="text-sm text-slate-600 font-bold">You have completed <span class="text-teal-600 font-black">IELTS 2C_S5_Lesson 6</span>.</p>
+</div>
+<div class="bg-teal-50/60 p-5 rounded-2xl border border-teal-200 space-y-3 text-left">
+<h4 class="text-base font-black text-teal-900 border-b border-teal-200 pb-2">💡 Key Takeaways</h4>
+<ul class="space-y-2.5 text-xs md:text-sm text-slate-700 font-bold">
+<li class="flex items-start gap-2"><span class="text-teal-600 font-black">1.</span><span><b>Animation &amp; film:</b> graphics, simulation, vibrancy, blockbuster films, come out, advent, appeal, visually enchanting, pioneer, colour palette, a new breed of films.</span></li>
+<li class="flex items-start gap-2"><span class="text-teal-600 font-black">2.</span><span><b>Attitudes &amp; change:</b> reluctance describes hesitation before people accept something new, such as a new technology.</span></li>
+<li class="flex items-start gap-2"><span class="text-teal-600 font-black">3.</span><span><b>E-commerce &amp; banking:</b> e-commerce, conduct transactions, testify, utility bills, loan.</span></li>
+<li class="flex items-start gap-2"><span class="text-teal-600 font-black">4.</span><span><b>Science &amp; technology:</b> branch of science, conduct research, spark my interest, fascinating, cure, advancement, sustainable, transform, efficiency, tech-savvy, user-friendly, stay connected, climate change, toxic, side effect.</span></li>
+</ul>
+</div>
+<div class="text-center pt-2">
+<button onclick="location.reload()" class="px-8 py-3.5 bg-teal-600 hover:bg-teal-700 text-white font-black rounded-xl shadow-md transition cursor-pointer text-sm">🔄 Restart Lesson</button>
+</div>
+</div>
+</section>
+
+</main>
+
+<script>
+const vocabularyData = [
+{ word: "Graphics", ipa: "/ˈɡræf.ɪks/", meaning: "Images or visual designs, especially made by computer", ex: "The graphics in the new animated film look incredibly realistic." },
+{ word: "Simulation", ipa: "/ˌsɪm.jəˈleɪ.ʃən/", meaning: "A computer model that imitates a real process or situation", ex: "The studio used a physics simulation to make the water look natural." },
+{ word: "Vibrancy", ipa: "/ˈvaɪ.brən.si/", meaning: "Brightness and energy, especially in colour", ex: "Critics praised the vibrancy of the film's tropical setting." },
+{ word: "Blockbuster films", ipa: "/ˈblɒk.bʌs.tər fɪlmz/", meaning: "Films that are extremely successful and popular", ex: "Many blockbuster films today rely heavily on computer-generated animation." },
+{ word: "(A film) comes out", ipa: "/kʌmz aʊt/", meaning: "To be released and made available to the public", ex: "The long-awaited sequel finally comes out this December." },
+{ word: "Advent", ipa: "/ˈæd.vent/", meaning: "The arrival or beginning of something important", ex: "The advent of 3D animation completely changed the film industry." },
+{ word: "Appeal (n)", ipa: "/əˈpiːl/", meaning: "The quality of being attractive or interesting", ex: "The appeal of animated films lies in their imaginative, colourful worlds." },
+{ word: "Visually enchanting", ipa: "/ˈvɪʒ.u.ə.li ɪnˈtʃɑːn.tɪŋ/", meaning: "Extremely attractive and charming to look at", ex: "Reviewers described the animation as visually enchanting from start to finish." },
+{ word: "Pioneer", ipa: "/ˌpaɪ.əˈnɪər/", meaning: "A person who is among the first to develop something new", ex: "Walt Disney is often regarded as a pioneer of animated cinema." },
+{ word: "Colour palette", ipa: "/ˈkʌl.ər ˈpæl.ət/", meaning: "The range of colours used in a piece of art or design", ex: "The director chose a warm colour palette to create a cosy mood." },
+{ word: "A new breed (of films)", ipa: "/ə njuː briːd/", meaning: "A new type or category of something", ex: "Streaming platforms have produced a new breed of animated films aimed at adults." },
+{ word: "Reluctance", ipa: "/rɪˈlʌk.təns/", meaning: "Unwillingness to do something", ex: "Some older viewers showed reluctance to pay for streaming services at first." },
+{ word: "E-commerce", ipa: "/ˈiː ˌkɒm.ɜːs/", meaning: "Buying and selling goods or services over the internet", ex: "E-commerce has made shopping far more convenient than before." },
+{ word: "Conduct transactions", ipa: "/kənˈdʌkt trænˈzæk.ʃənz/", meaning: "To carry out payments or business deals", ex: "Customers can conduct transactions safely through the bank's mobile app." },
+{ word: "Testify", ipa: "/ˈtes.tɪ.faɪ/", meaning: "To give evidence or serve as clear proof of something", ex: "Rising sales figures testify to the growing popularity of online shopping." },
+{ word: "Utility bills", ipa: "/juːˈtɪl.ə.ti bɪlz/", meaning: "Bills for services such as electricity, water or gas", ex: "Many people now pay their utility bills through a banking app." },
+{ word: "Loan", ipa: "/ləʊn/", meaning: "A sum of money that is borrowed and usually repaid with interest", ex: "She took out a small loan to start her online business." },
+{ word: "Branch of science", ipa: "/brɑːntʃ əv ˈsaɪəns/", meaning: "A specific area of science, such as biology or physics", ex: "Chemistry is the branch of science I find most useful in daily life." },
+{ word: "Conduct research", ipa: "/kənˈdʌkt ˈriː.sɜːtʃ/", meaning: "To carry out a careful study to find facts", ex: "I conducted some research online to find out how vaccines work." },
+{ word: "Spark my interest", ipa: "/spɑːk maɪ ˈɪn.trəst/", meaning: "To make me start to feel interested in something", ex: "A documentary about space sparked my interest in physics." },
+{ word: "Fascinating", ipa: "/ˈfæs.ɪ.neɪ.tɪŋ/", meaning: "Extremely interesting", ex: "I find the human brain fascinating because we still know so little about it." },
+{ word: "Cure", ipa: "/kjʊər/", meaning: "To make an illness go away, or a treatment that does this", ex: "Scientists are still trying to find a cure for cancer." },
+{ word: "Advancement", ipa: "/ədˈvɑːns.mənt/", meaning: "Progress in knowledge or technology", ex: "Advancements in medicine have helped people live longer." },
+{ word: "Sustainable", ipa: "/səˈsteɪ.nə.bəl/", meaning: "Able to continue without harming the environment", ex: "Solar panels provide a sustainable source of energy." },
+{ word: "Transform", ipa: "/trænsˈfɔːm/", meaning: "To change something completely", ex: "Scientific discoveries have transformed the way we live." },
+{ word: "Efficiency", ipa: "/ɪˈfɪʃ.ən.si/", meaning: "Doing something well without wasting time or energy", ex: "Smart apps have improved efficiency at work and at school." },
+{ word: "Tech-savvy", ipa: "/ˈtek ˌsæv.i/", meaning: "Good at using modern technology", ex: "Teenagers are usually more tech-savvy than their grandparents." },
+{ word: "User-friendly", ipa: "/ˌjuː.zəˈfrend.li/", meaning: "Easy to use and understand", ex: "Older people often prefer user-friendly apps with big buttons." },
+{ word: "Stay connected", ipa: "/steɪ kəˈnek.tɪd/", meaning: "To keep in contact with other people", ex: "Messaging apps help families stay connected across countries." },
+{ word: "Climate change", ipa: "/ˈklaɪ.mət tʃeɪndʒ/", meaning: "A long-term change in the Earth's weather patterns", ex: "Burning fossil fuels is one of the main causes of climate change." },
+{ word: "Toxic", ipa: "/ˈtɒk.sɪk/", meaning: "Poisonous and harmful to living things", ex: "Toxic waste from factories can pollute rivers and kill fish." },
+{ word: "Side effect", ipa: "/ˈsaɪd ɪˌfekt/", meaning: "An unwanted result of a medicine or of progress", ex: "Plastic is cheap and useful, but it has serious side effects on the environment." }
+];
+
+let cardQueue = [], currentCard = null, isFlipped = false;
+const totalCardsCount = vocabularyData.length;
+
+window.onload = function () {
+  renderVocabTable();
+  initFlashcards();
+  renderTranslate();
+  renderUnscramble();
+  renderFreeChecklist();
+};
+
+function switchTab(tabId) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+  document.querySelectorAll('.tab-btn').forEach(btn => { btn.classList.remove('bg-white', 'text-teal-700', 'shadow-sm'); btn.classList.add('text-slate-500'); });
+  document.getElementById(`tab-${tabId}`).classList.remove('hidden');
+  const activeBtn = document.getElementById(`btn-${tabId}`);
+  if (activeBtn) { activeBtn.classList.add('bg-white', 'text-teal-700', 'shadow-sm'); activeBtn.classList.remove('text-slate-500'); }
+  if (tabId === 'game' && !gapInitialised) { initGapGame(); gapInitialised = true; }
+}
+
+function renderVocabTable() {
+  const tbody = document.getElementById('reference-table-body');
+  tbody.innerHTML = vocabularyData.map(item => `
+    <tr class="hover:bg-teal-50/50 transition">
+      <td class="p-3.5 font-black text-teal-950">${item.word}</td>
+      <td class="p-3.5 font-mono text-xs text-teal-700">${item.ipa}</td>
+      <td class="p-3.5 text-slate-700">${item.meaning}</td>
+      <td class="p-3.5 italic text-slate-500">${item.ex}</td>
+    </tr>`).join('');
+}
+
+function speakText(text, event) {
+  if (event) event.stopPropagation();
+  if ('speechSynthesis' in window) {
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = 'en-US'; u.rate = 0.9;
+    window.speechSynthesis.speak(u);
+  }
+}
+
+function initFlashcards() {
+  cardQueue = [...vocabularyData];
+  shuffleArray(cardQueue);
+  updateProgressBar();
+  showNextCard();
+}
+function resetProgress() {
+  document.getElementById('flashcard-container').classList.remove('hidden');
+  document.getElementById('flashcard-success-box').classList.add('hidden');
+  initFlashcards();
+}
+function shuffleArray(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } }
+function showNextCard() {
+  if (cardQueue.length === 0) {
+    document.getElementById('flashcard-container').classList.add('hidden');
+    document.getElementById('flashcard-success-box').classList.remove('hidden');
+    return;
+  }
+  currentCard = cardQueue[0]; isFlipped = false;
+  document.getElementById('flashcard-inner').classList.remove('card-flipped');
+  document.getElementById('f-prompt').innerText = currentCard.meaning;
+  document.getElementById('b-answer').innerText = currentCard.word;
+  document.getElementById('b-ipa').innerText = currentCard.ipa;
+  document.getElementById('b-example').innerText = `"${currentCard.ex}"`;
+  document.getElementById('queue-text').innerText = `${cardQueue.length} card${cardQueue.length > 1 ? 's' : ''}`;
+  updateProgressBar();
+}
+function flipCard() {
+  isFlipped = !isFlipped;
+  document.getElementById('flashcard-inner').classList.toggle('card-flipped', isFlipped);
+}
+function handleAnkiAction(type) {
+  if (!currentCard) return;
+  if (type === 'again') { const c = cardQueue.shift(); cardQueue.push(c); } else { cardQueue.shift(); }
+  showNextCard();
+}
+function updateProgressBar() {
+  const completed = totalCardsCount - cardQueue.length;
+  const pct = Math.round((completed / totalCardsCount) * 100);
+  document.getElementById('progress-bar').style.width = `${pct}%`;
+}
+function unlockAndGoToGame() {
+  document.getElementById('btn-game').classList.remove('disabled-tab');
+  switchTab('game');
+}
+
+// GAP-FILL GAME (FLOATING WORDS)
+const gapQuestions = [
+  { sentence: "Chemistry is a ___ that many students find useful in daily life.", ans: "branch of science", distractors: ["loan", "vibrancy", "utility bills"] },
+  { sentence: "Before publishing her paper, she had to ___ for several months.", ans: "conduct research", distractors: ["cure", "efficiency", "advent"] },
+  { sentence: "A single school trip to the planetarium was enough to ___ in astronomy.", ans: "spark my interest", distractors: ["reluctance", "colour palette", "appeal"] },
+  { sentence: "Many students find astronomy absolutely ___.", ans: "fascinating", distractors: ["toxic", "sustainable", "user-friendly"] },
+  { sentence: "Scientists are still searching for a ___ for this rare disease.", ans: "cure", distractors: ["pioneer", "graphics", "testify"] },
+  { sentence: "The invention of vaccines was a major ___ in medicine.", ans: "advancement", distractors: ["side effect", "colour palette", "reluctance"] },
+  { sentence: "Solar power is considered a ___ source of energy.", ans: "sustainable", distractors: ["toxic", "user-friendly", "tech-savvy"] },
+  { sentence: "Scientific discoveries have helped ___ the way people live and work.", ans: "transform", distractors: ["testify", "conduct research", "appeal"] },
+  { sentence: "Smart apps have greatly improved ___ at school and at work.", ans: "efficiency", distractors: ["vibrancy", "advent", "cure"] },
+  { sentence: "Teenagers are usually more ___ than their grandparents.", ans: "tech-savvy", distractors: ["fascinating", "sustainable", "toxic"] },
+  { sentence: "Older users often prefer apps that are simple and ___.", ans: "user-friendly", distractors: ["visually enchanting", "branch of science", "reluctance"] },
+  { sentence: "Video calls help families ___ even when they live far apart.", ans: "stay connected", distractors: ["conduct transactions", "spark my interest", "pioneer"] },
+  { sentence: "Burning fossil fuels is one of the main causes of ___.", ans: "climate change", distractors: ["e-commerce", "graphics", "appeal"] },
+  { sentence: "Factories sometimes release ___ waste that pollutes nearby rivers.", ans: "toxic", distractors: ["sustainable", "user-friendly", "fascinating"] },
+  { sentence: "Doctors warned that the new drug might cause a serious ___.", ans: "side effect", distractors: ["advancement", "cure", "loan"] },
+  { sentence: "The new animated film has stunning ___ that bring every scene to life.", ans: "graphics", distractors: ["efficiency", "climate change", "branch of science"] },
+  { sentence: "The ___ of animated films lies in their imaginative, colourful worlds.", ans: "appeal", distractors: ["toxic", "stay connected", "conduct research"] },
+  { sentence: "Walt Disney is often regarded as a ___ of animated cinema.", ans: "pioneer", distractors: ["cure", "efficiency", "side effect"] },
+  { sentence: "___ has made shopping far more convenient than ever before.", ans: "e-commerce", distractors: ["advancement", "fascinating", "tech-savvy"] },
+  { sentence: "Rising sales figures ___ to the growing popularity of online shopping.", ans: "testify", distractors: ["transform", "sustainable", "graphics"] }
+];
+let gapIdx = 0, gapScore = 0, gapTiles = [], gapChosenTile = null, gapAnimId = null, gapInitialised = false;
+
+function initGapGame() {
+  gapIdx = 0; gapScore = 0;
+  document.getElementById('gap-score').innerText = gapScore;
+  document.getElementById('gap-success-box').classList.add('hidden');
+  document.getElementById('gap-word-bank').closest('.bg-white').classList.remove('hidden');
+  loadGapQuestion();
+}
+function loadGapQuestion() {
+  if (gapIdx >= gapQuestions.length) {
+    if (gapAnimId) cancelAnimationFrame(gapAnimId);
+    document.getElementById('gap-final-score').innerText = gapScore;
+    document.getElementById('gap-success-box').classList.remove('hidden');
+    return;
+  }
+  const q = gapQuestions[gapIdx];
+  document.getElementById('gap-q-idx').innerText = gapIdx + 1;
+  document.getElementById('gap-q-total').innerText = gapQuestions.length;
+  document.getElementById('gap-sentence').innerHTML = q.sentence.replace('___', '<span id="gap-slot" class="gap-slot">_____</span>');
+  document.getElementById('gap-feedback').classList.add('hidden');
+  document.getElementById('gap-check-btn').classList.remove('hidden');
+  document.getElementById('gap-next-btn').classList.add('hidden');
+  setupFloatingGapBank(q);
+}
+function setupFloatingGapBank(q) {
+  const bank = document.getElementById('gap-word-bank');
+  bank.innerHTML = '';
+  if (gapAnimId) cancelAnimationFrame(gapAnimId);
+  gapTiles = []; gapChosenTile = null;
+
+  const options = [q.ans, ...q.distractors];
+  shuffleArray(options);
+
+  const bankWidth = bank.clientWidth || 600;
+  const bankHeight = bank.clientHeight || 160;
+
+  options.forEach(text => {
+    const tile = document.createElement('div');
+    tile.className = 'word-tile-float';
+    tile.innerText = text;
+    tile.dataset.text = text;
+    const startX = Math.random() * Math.max(20, bankWidth - 140);
+    const startY = Math.random() * Math.max(20, bankHeight - 40);
+    const vx = (Math.random() < 0.5 ? 1 : -1) * (0.6 + Math.random() * 0.8);
+    const vy = (Math.random() < 0.5 ? 1 : -1) * (0.6 + Math.random() * 0.8);
+    const tileObj = { element: tile, x: startX, y: startY, vx, vy, chosen: false };
+    tile.style.left = startX + 'px';
+    tile.style.top = startY + 'px';
+    tile.addEventListener('click', () => chooseGapTile(tileObj));
+    bank.appendChild(tile);
+    gapTiles.push(tileObj);
+  });
+  animateGapBank();
+}
+function animateGapBank() {
+  const bank = document.getElementById('gap-word-bank');
+  const bankWidth = bank.clientWidth, bankHeight = bank.clientHeight;
+  gapTiles.forEach(t => {
+    if (t.chosen) return;
+    t.x += t.vx; t.y += t.vy;
+    const w = t.element.offsetWidth || 100, h = t.element.offsetHeight || 35;
+    if (t.x <= 0 || t.x + w >= bankWidth) t.vx *= -1;
+    if (t.y <= 0 || t.y + h >= bankHeight) t.vy *= -1;
+    t.element.style.left = t.x + 'px';
+    t.element.style.top = t.y + 'px';
+  });
+  gapAnimId = requestAnimationFrame(animateGapBank);
+}
+function chooseGapTile(tileObj) {
+  if (tileObj.element.classList.contains('correct')) return;
+  if (gapChosenTile && gapChosenTile !== tileObj) {
+    gapChosenTile.chosen = false;
+    gapChosenTile.element.classList.remove('chosen');
+  }
+  if (gapChosenTile === tileObj) {
+    tileObj.chosen = false;
+    tileObj.element.classList.remove('chosen');
+    gapChosenTile = null;
+    document.getElementById('gap-slot').innerText = '_____';
+    return;
+  }
+  tileObj.chosen = true;
+  tileObj.element.classList.add('chosen');
+  gapChosenTile = tileObj;
+  document.getElementById('gap-slot').innerText = tileObj.element.dataset.text;
+}
+function checkGapAnswer() {
+  const feedback = document.getElementById('gap-feedback');
+  if (!gapChosenTile) { feedback.classList.remove('hidden'); feedback.className = "p-3.5 rounded-2xl text-center font-black text-xs md:text-sm bg-amber-100 text-amber-800"; feedback.innerText = "Please tap a floating word first."; return; }
+  const q = gapQuestions[gapIdx];
+  feedback.classList.remove('hidden');
+  if (gapChosenTile.element.dataset.text === q.ans) {
+    feedback.className = "p-3.5 rounded-2xl text-center font-black text-xs md:text-sm bg-emerald-100 text-emerald-900";
+    feedback.innerHTML = `🎉 Correct! <b>"${q.ans}"</b>`;
+    gapChosenTile.element.classList.add('correct');
+    gapScore++;
+    document.getElementById('gap-score').innerText = gapScore;
+    document.getElementById('gap-check-btn').classList.add('hidden');
+    document.getElementById('gap-next-btn').classList.remove('hidden');
+  } else {
+    feedback.className = "p-3.5 rounded-2xl text-center font-black text-xs md:text-sm bg-rose-100 text-rose-800";
+    feedback.innerHTML = "❌ Not quite. Tap another floating word and try again.";
+    gapChosenTile.element.classList.add('wrong-shake');
+    setTimeout(() => {
+      gapChosenTile.element.classList.remove('wrong-shake', 'chosen');
+      gapChosenTile.chosen = false;
+      gapChosenTile = null;
+      document.getElementById('gap-slot').innerText = '_____';
+    }, 500);
+  }
+}
+function nextGapQuestion() { gapIdx++; loadGapQuestion(); }
+function unlockAndGoToWriting() {
+  document.getElementById('btn-writing').classList.remove('disabled-tab');
+  switchTab('writing');
+}
+
+// A. TRANSLATION
+const translateData = [
+  { vn: "Bộ phim hoạt hình mới có phần đồ hoạ (graphics) tuyệt đẹp.", model: "The new animated film has beautiful graphics." },
+  { vn: "Sự xuất hiện (advent) của công nghệ 3D đã thay đổi ngành phim hoạt hình.", model: "The advent of 3D technology has changed the animation industry." },
+  { vn: "Nhiều người vẫn còn e ngại (reluctance) khi mua sắm trực tuyến lần đầu.", model: "Many people still feel some reluctance to shop online for the first time." },
+  { vn: "Bạn có thể thực hiện giao dịch (conduct transactions) một cách an toàn qua ứng dụng ngân hàng.", model: "You can conduct transactions safely through the banking app." },
+  { vn: "Cô ấy đã vay một khoản tiền (loan) để mở cửa hàng trực tuyến của mình.", model: "She took out a loan to open her own online shop." },
+  { vn: "Việc phát minh ra vắc-xin là một bước tiến (advancement) lớn của y học.", model: "The invention of vaccines was a major advancement in medicine." },
+  { vn: "Năng lượng mặt trời là một nguồn năng lượng bền vững (sustainable).", model: "Solar energy is a sustainable source of power." },
+  { vn: "Chất thải độc hại (toxic) từ nhà máy có thể gây ô nhiễm sông ngòi.", model: "Toxic waste from factories can pollute rivers." }
+];
+function renderTranslate() {
+  const c = document.getElementById('translate-container');
+  c.innerHTML = translateData.map((item, i) => `
+    <div class="p-4 bg-teal-50/40 rounded-2xl border border-teal-100 space-y-2">
+      <p class="text-xs md:text-sm font-bold text-slate-800">${i + 1}. ${item.vn}</p>
+      <textarea id="tr-input-${i}" oninput="onTranslateInput(${i})" rows="2" placeholder="Write your own translation here first..." class="w-full p-2 text-xs md:text-sm bg-white border border-teal-200 rounded-xl outline-none focus:border-teal-500 font-semibold"></textarea>
+      <div class="flex items-center gap-2">
+        <button id="tr-btn-${i}" onclick="toggleModel(${i})" disabled class="text-xs text-slate-400 font-black cursor-not-allowed">👁️ Write your answer first to unlock the model answer</button>
+      </div>
+      <p id="tr-model-${i}" class="hidden text-xs text-emerald-700 font-bold bg-emerald-50 p-2 rounded-lg">${item.model}</p>
+    </div>`).join('');
+}
+function onTranslateInput(i) {
+  const btn = document.getElementById(`tr-btn-${i}`);
+  const hasText = document.getElementById(`tr-input-${i}`).value.trim().length > 0;
+  btn.disabled = !hasText;
+  btn.className = hasText ? "text-xs text-teal-600 hover:underline font-black cursor-pointer" : "text-xs text-slate-400 font-black cursor-not-allowed";
+  btn.innerText = hasText ? "👁️ Show model answer" : "👁️ Write your answer first to unlock the model answer";
+}
+function toggleModel(i) {
+  if (document.getElementById(`tr-input-${i}`).value.trim().length === 0) return;
+  document.getElementById(`tr-model-${i}`).classList.toggle('hidden');
+}
+
+// B. UNSCRAMBLE
+const unscrambleData = [
+  { words: ["films", "blockbuster", "Many", "rely", "on", "computer", "animation"], ans: "many blockbuster films rely on computer animation" },
+  { words: ["pioneer", "Walt", "Disney", "is", "a", "of", "animated", "cinema"], ans: "walt disney is a pioneer of animated cinema" },
+  { words: ["testify", "sales", "Rising", "to", "the", "of", "online", "shopping", "popularity"], ans: "rising sales testify to the popularity of online shopping" },
+  { words: ["is", "Climate", "change", "a", "serious", "global", "problem"], ans: "climate change is a serious global problem" },
+  { words: ["Scientific", "advancements", "have", "transformed", "our", "daily", "lives"], ans: "scientific advancements have transformed our daily lives" }
+];
+function renderUnscramble() {
+  const c = document.getElementById('unscramble-container');
+  c.innerHTML = unscrambleData.map((item, i) => {
+    const shuffled = [...item.words]; shuffleArray(shuffled);
+    return `<div class="p-4 bg-teal-50/40 rounded-2xl border border-teal-100 space-y-2">
+      <p class="text-xs md:text-sm font-black text-teal-800">${i + 1}.</p>
+      <p class="text-xs md:text-sm text-slate-500 italic">${shuffled.join(' / ')}</p>
+      <input type="text" id="un-input-${i}" placeholder="Type the complete sentence..." class="w-full p-2 text-xs md:text-sm bg-white border border-teal-200 rounded-xl outline-none focus:border-teal-500 font-semibold">
+      <span id="un-status-${i}" class="text-xs font-black"></span>
+    </div>`;
+  }).join('');
+}
+function checkUnscramble() {
+  let correct = 0;
+  unscrambleData.forEach((item, i) => {
+    const val = document.getElementById(`un-input-${i}`).value.trim().toLowerCase().replace(/[.,!]/g, '');
+    const status = document.getElementById(`un-status-${i}`);
+    if (val === item.ans) { correct++; status.innerText = "✅ Correct!"; status.className = "text-xs font-black text-emerald-600"; }
+    else { status.innerText = `❌ Try again (model: "${item.ans}")`; status.className = "text-xs font-black text-rose-500"; }
+  });
+  document.getElementById('unscramble-score').innerText = `Score: ${correct} / ${unscrambleData.length}`;
+}
+
+// C. FREE WRITING CHECKLIST
+const checklistWords = ["graphics", "vibrancy", "blockbuster", "appeal", "pioneer", "colour palette", "breed", "e-commerce", "transactions", "testify", "utility bills", "loan", "branch of science", "research", "fascinating", "advancement", "sustainable", "climate change", "toxic", "tech-savvy"];
+function renderFreeChecklist() {
+  const c = document.getElementById('free-checklist');
+  c.innerHTML = checklistWords.map(w => `<span id="chk-${w.replace(/\s/g, '')}" class="text-xs font-bold px-3 py-1.5 rounded-full bg-slate-100 text-slate-500 border border-slate-200">${w}</span>`).join('');
+}
+function checkFreeWriting() {
+  const text = document.getElementById('free-writing').value.toLowerCase();
+  checklistWords.forEach(w => {
+    const el = document.getElementById(`chk-${w.replace(/\s/g, '')}`);
+    if (text.includes(w.toLowerCase())) { el.className = "text-xs font-bold px-3 py-1.5 rounded-full bg-emerald-100 text-emerald-700 border border-emerald-300"; }
+    else { el.className = "text-xs font-bold px-3 py-1.5 rounded-full bg-slate-100 text-slate-500 border border-slate-200"; }
+  });
+}
+const freeModelParagraphs = [
+  "My favourite animated film is Spirited Away. The graphics and colour palette are visually enchanting, and the film's vibrancy makes every scene memorable. Hayao Miyazaki is often seen as a pioneer of hand-drawn animation, and this appeal is why the film became a blockbuster.",
+  "Thanks to e-commerce, I can now conduct transactions from my phone in seconds. Last month, I even paid my utility bills through a banking app instead of queueing at the counter. At first, I felt some reluctance about typing in my card details, but the process turned out to be simple and secure.",
+  "The branch of science I find most fascinating is biology. A school project first sparked my interest, and I later conducted some research on how vaccines work. Advancements in this field have helped cure many diseases, which shows how science can transform society for the better."
+];
+function toggleFreeModel() {
+  const box = document.getElementById('free-model-box');
+  if (box.classList.contains('hidden')) {
+    box.innerHTML = freeModelParagraphs.map((p, i) => `<p><b>Sample ${i + 1}:</b> ${p}</p>`).join('');
+  }
+  box.classList.toggle('hidden');
+}
+function unlockAndGoToSummary() {
+  document.getElementById('btn-summary').classList.remove('disabled-tab');
+  switchTab('summary');
+}
+</script>
+</body>
+</html>
