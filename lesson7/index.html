@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IELTS 1A_S5_Lesson 7</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<style>
+*, body, html, button, span, h1, h2, h3, p, div, input, select, textarea { font-family: 'Quicksand', sans-serif; font-weight: 600; }
+h1, h2, h3, .font-heading { font-family: 'Fredoka', sans-serif; }
+.perspective { perspective: 1000px; }
+.backface-hidden { backface-visibility: hidden; }
+.card-inner { transition: transform 0.5s; transform-style: preserve-3d; }
+.card-flipped { transform: rotateY(180deg); }
+.disabled-tab { opacity: 0.4; cursor: not-allowed !important; pointer-events: none; }
+
+.floating-bank { position: relative; width: 100%; height: 160px; background: #F5F3FF; border: 3px solid #C4B5FD; border-radius: 20px; overflow: hidden; touch-action: none; }
+.word-tile-float { position: absolute; padding: 8px 16px; background: #ffffff; border: 2px solid #818CF8; border-radius: 14px; font-size: 0.9rem; font-weight: 700; color: #4338CA; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.06); user-select: none; touch-action: none; transition: border-color 0.2s, background-color 0.2s; }
+.word-tile-float.chosen { position: relative !important; left: auto !important; top: auto !important; border-color: #F59E0B; color: #92400E; background: #FEF3C7; animation: popIn 0.2s ease-out; }
+.word-tile-float.correct { border-color: #10b981 !important; background: #d1fae5 !important; color: #047857 !important; pointer-events: none; }
+.word-tile-float.wrong-shake { animation: shake 0.4s ease-in-out; border-color: #f43f5e !important; background: #ffe4e6 !important; }
+@keyframes popIn { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+@keyframes shake { 0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-5px)} 40%,80%{transform:translateX(5px)} }
+.gap-slot { display: inline-flex; min-width: 90px; padding: 4px 14px; border: 2px dashed #F59E0B; border-radius: 10px; background: #FFFBEB; font-weight: 700; color: #92400E; justify-content: center; align-items: center; }
+.match-card { transition: all 0.2s ease; cursor: pointer; }
+.match-card.selected { border-color: #6366f1; background-color: #e0e7ff; transform: scale(1.02); }
+.match-card.matched { border-color: #10b981; background-color: #d1fae5; opacity: 0.6; pointer-events: none; }
+.match-card.wrong { animation: shake 0.4s ease-in-out; border-color: #f43f5e; background-color: #ffe4e6; }
+</style>
+</head>
+<body class="bg-[#F5F3FF] text-slate-700 min-h-screen flex flex-col selection:bg-violet-200 pb-12">
+
+<header class="bg-gradient-to-r from-[#EDE9FE] via-[#E0E7FF] to-[#DBEAFE] border-b-4 border-dashed border-violet-300 shadow-sm p-6 text-center rounded-b-3xl">
+<h1 class="text-3xl md:text-4xl font-black tracking-wide drop-shadow-sm text-violet-950">📰 IELTS 1A_S5_Lesson 7 📖</h1>
+</header>
+
+<div class="max-w-5xl w-full mx-auto px-4 mt-6">
+<div class="flex bg-violet-100/70 p-1.5 rounded-2xl border border-violet-200 shadow-inner overflow-x-auto">
+<button onclick="switchTab('reference')" id="btn-reference" class="tab-btn flex-1 py-3 px-2 text-xs md:text-sm font-black rounded-xl text-center bg-white text-violet-700 shadow-sm transition cursor-pointer whitespace-nowrap">📚 Vocab Bank</button>
+<button onclick="switchTab('flashcard')" id="btn-flashcard" class="tab-btn flex-1 py-3 px-2 text-xs md:text-sm font-black rounded-xl text-center text-slate-500 transition cursor-pointer whitespace-nowrap">🎴 Flashcards</button>
+<button onclick="switchTab('game')" id="btn-game" class="tab-btn disabled-tab flex-1 py-3 px-2 text-xs md:text-sm font-black rounded-xl text-center text-slate-500 transition whitespace-nowrap">🔗 Matching Game</button>
+<button onclick="switchTab('writing')" id="btn-writing" class="tab-btn disabled-tab flex-1 py-3 px-2 text-xs md:text-sm font-black rounded-xl text-center text-slate-500 transition whitespace-nowrap">✍️ Sentence Writing</button>
+<button onclick="switchTab('summary')" id="btn-summary" class="tab-btn disabled-tab flex-1 py-3 px-2 text-xs md:text-sm font-black rounded-xl text-center text-slate-500 transition whitespace-nowrap">🎉 Completion</button>
+</div>
+</div>
+
+<main class="flex-1 max-w-5xl w-full mx-auto px-4 py-6">
+
+<!-- TAB 1: VOCAB BANK -->
+<section id="tab-reference" class="tab-content block space-y-6">
+<div class="bg-white p-6 rounded-3xl border border-violet-100 shadow-sm space-y-4">
+<div class="flex justify-between items-center flex-wrap gap-2">
+<h2 class="text-2xl font-black text-violet-950 font-heading">📖 Vocabulary Table</h2>
+<span class="text-xs bg-violet-100 text-violet-800 px-3 py-1 rounded-full font-bold">40 Items</span>
+</div>
+<p class="text-xs text-slate-500 font-bold">Group 1 (1–15): Media speaking vocabulary. Group 2 (16–40): Reading vocabulary.</p>
+<div class="overflow-x-auto rounded-2xl border border-violet-100 max-h-[500px]">
+<table class="w-full text-left border-collapse bg-white">
+<thead class="sticky top-0 bg-violet-50/90 border-b border-violet-200 text-violet-900 text-xs uppercase tracking-wider font-black z-10">
+<tr><th class="p-3.5">Vocabulary</th><th class="p-3.5">Pronunciation</th><th class="p-3.5">Meaning</th><th class="p-3.5">Example Sentence</th></tr>
+</thead>
+<tbody id="reference-table-body" class="divide-y divide-violet-50 text-xs md:text-sm"></tbody>
+</table>
+</div>
+<div class="text-center pt-2">
+<button onclick="switchTab('flashcard')" class="px-8 py-3.5 bg-violet-600 hover:bg-violet-700 text-white font-black rounded-xl text-sm shadow-sm transition cursor-pointer">Start Flashcards ➔</button>
+</div>
+</div>
+</section>
+
+<!-- TAB 2: FLASHCARDS -->
+<section id="tab-flashcard" class="tab-content hidden space-y-6">
+<div class="bg-white p-4 rounded-2xl border-2 border-dashed border-violet-300 shadow-sm flex justify-between items-center flex-wrap gap-2">
+<div class="text-sm font-black text-slate-600">Remaining Queue: <span id="queue-text" class="text-violet-600 font-extrabold">0 cards</span></div>
+<div class="w-full sm:w-1/3 bg-slate-100 h-4 rounded-full overflow-hidden p-0.5 border border-slate-200">
+<div id="progress-bar" class="bg-gradient-to-r from-violet-400 to-sky-400 h-full rounded-full transition-all duration-500" style="width: 0%"></div>
+</div>
+<button onclick="resetProgress()" class="text-xs text-violet-600 hover:underline font-black cursor-pointer">🔄 Reset Session</button>
+</div>
+
+<div id="flashcard-container" class="space-y-6">
+<div id="card-arena" class="perspective w-full max-w-md mx-auto h-[420px] cursor-pointer">
+<div id="flashcard-inner" onclick="flipCard()" class="card-inner w-full h-full relative border-4 border-violet-300 rounded-3xl shadow-md bg-white">
+<div class="backface-hidden absolute inset-0 p-6 flex flex-col justify-between items-center text-center bg-violet-50/40 rounded-[20px]">
+<span id="f-badge" class="text-xs font-black text-violet-700 uppercase tracking-widest bg-violet-100/80 px-4 py-1.5 rounded-full">Definition / Meaning</span>
+<div class="space-y-3 my-auto w-full"><h3 id="f-prompt" class="text-lg md:text-xl font-black text-violet-950 px-2 leading-snug"></h3></div>
+<p class="text-xs text-violet-600 font-black">👉 Tap card to reveal vocabulary 👈</p>
+</div>
+<div class="backface-hidden w-full h-full absolute inset-0 p-6 flex flex-col justify-between bg-slate-800 text-white rounded-[22px]" style="transform: rotateY(180deg);">
+<span id="b-badge" class="text-xs font-black text-violet-300 uppercase tracking-widest bg-slate-700/80 px-4 py-1.5 rounded-full w-max mx-auto">Target Vocabulary</span>
+<div class="my-auto space-y-3 text-center">
+<h2 id="b-answer" class="text-2xl md:text-3xl font-black text-amber-300"></h2>
+<div id="b-extra-content" class="space-y-2 border-t border-slate-700 pt-3">
+<div class="flex justify-center items-center space-x-2">
+<span id="b-ipa" class="text-violet-300 font-bold text-sm font-mono"></span>
+<button id="b-audio-btn" onclick="speakText(currentCard.word, event)" class="w-7 h-7 bg-violet-900 hover:bg-violet-800 text-violet-100 rounded-full transition flex items-center justify-center text-xs cursor-pointer shadow-sm">🔊</button>
+</div>
+<p id="b-example" class="text-slate-300 text-xs px-2 font-medium leading-relaxed"></p>
+</div>
+</div>
+<p class="text-xs text-center text-slate-400 font-bold">Rate your recall difficulty 👇</p>
+</div>
+</div>
+</div>
+
+<div class="w-full max-w-md mx-auto bg-white p-4 rounded-2xl border border-violet-100 shadow-sm grid grid-cols-4 gap-2">
+<button onclick="handleAnkiAction('again')" class="p-2 bg-rose-50 hover:bg-rose-100 border border-rose-200 rounded-xl text-center transition cursor-pointer"><span class="block text-xs font-black text-rose-600">Again</span><span class="text-[10px] text-rose-400 font-bold block mt-0.5">&lt; 1m</span></button>
+<button onclick="handleAnkiAction('hard')" class="p-2 bg-amber-50 hover:bg-amber-100 border border-amber-200 rounded-xl text-center transition cursor-pointer"><span class="block text-xs font-black text-amber-600">Hard</span><span class="text-[10px] text-amber-400 font-bold block mt-0.5">10m</span></button>
+<button onclick="handleAnkiAction('good')" class="p-2 bg-violet-50 hover:bg-violet-100 border border-violet-200 rounded-xl text-center transition cursor-pointer"><span class="block text-xs font-black text-violet-600">Good</span><span class="text-[10px] text-violet-500 font-bold block mt-0.5">1d</span></button>
+<button onclick="handleAnkiAction('easy')" class="p-2 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 rounded-xl text-center transition shadow-sm cursor-pointer"><span class="block text-xs font-black text-emerald-600">Easy</span><span class="text-[10px] text-emerald-500 font-bold block mt-0.5">4d</span></button>
+</div>
+</div>
+
+<div id="flashcard-success-box" class="max-w-md mx-auto bg-emerald-50 border-4 border-emerald-300 p-6 rounded-3xl text-center space-y-4 hidden shadow-sm">
+<span class="text-5xl block animate-bounce">🌟📖🎉</span>
+<h4 class="text-2xl font-heading font-black text-emerald-900">Flashcards Mastered!</h4>
+<p class="text-sm text-slate-700 font-medium leading-relaxed">Awesome! You have reviewed all 40 vocabulary items.</p>
+<button onclick="unlockAndGoToGame()" class="w-full py-3.5 bg-violet-600 hover:bg-violet-700 text-white font-black rounded-xl shadow-md transition cursor-pointer text-sm tracking-wide">Start Matching Game ➔</button>
+</div>
+</section>
+
+<!-- TAB 3: CATEGORY SORT CHALLENGE -->
+<section id="tab-game" class="tab-content hidden space-y-6">
+<div class="bg-white p-6 rounded-3xl border border-violet-100 shadow-sm space-y-6">
+<div class="flex justify-between items-center border-b border-violet-50 pb-3 flex-wrap gap-2">
+<div>
+<h3 class="text-xl font-heading font-black text-violet-950">🔗 Vocabulary Matching</h3>
+<p class="text-xs text-slate-500 mt-0.5">Tap a word on the left, then tap its Vietnamese meaning on the right. 3 rounds, about 10–14 items each.</p>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-xs font-black bg-violet-50 text-violet-800 px-3 py-1.5 rounded-full">Round <span id="match-round-idx">1</span> of 3</span>
+<span class="text-xs font-black bg-amber-50 text-amber-800 px-3 py-1.5 rounded-full">Matched: <span id="match-score">0</span> / <span id="match-round-total">0</span></span>
+</div>
+</div>
+
+<div class="grid grid-cols-2 gap-4">
+<div id="match-words" class="space-y-2"></div>
+<div id="match-meanings" class="space-y-2"></div>
+</div>
+
+<div class="text-center">
+<button id="match-next-btn" onclick="nextMatchRound()" class="hidden px-8 py-3 bg-amber-500 hover:bg-amber-600 text-white font-black rounded-xl text-sm shadow-sm transition cursor-pointer">Next Round ➔</button>
+</div>
+</div>
+
+<div id="match-success-box" class="max-w-md mx-auto bg-emerald-50 border-4 border-emerald-300 p-6 rounded-3xl text-center space-y-4 hidden shadow-sm">
+<span class="text-5xl block animate-bounce">🔗🏆✨</span>
+<h4 class="text-2xl font-heading font-black text-emerald-900">All 3 Rounds Completed!</h4>
+<p class="text-sm text-slate-700 font-medium">Great job! You have matched all 40 words with their meanings.</p>
+<button onclick="unlockAndGoToWriting()" class="w-full py-3.5 bg-violet-600 hover:bg-violet-700 text-white font-black rounded-xl shadow-md transition cursor-pointer text-sm tracking-wide">Start Speaking-Based Writing ➔</button>
+</div>
+</section>
+
+<!-- TAB 4: SPEAKING-BASED WRITING -->
+<section id="tab-writing" class="tab-content hidden space-y-6">
+
+<div class="bg-white p-6 rounded-3xl border border-violet-100 shadow-sm space-y-5">
+<h3 class="text-xl font-black text-violet-950 font-heading">A. Upgrade Your Answer</h3>
+<p class="text-xs text-slate-500 font-bold">Each sentence below is a simple, basic-level answer to a Part 1 question. Rewrite it using the target word so it sounds more natural. Write your own version first — the model only unlocks once you type something.</p>
+<div id="upgrade-container" class="space-y-4"></div>
+</div>
+
+<div class="bg-white p-6 rounded-3xl border border-violet-100 shadow-sm space-y-5">
+<h3 class="text-xl font-black text-violet-950 font-heading">B. Build Your Part 2 Answer</h3>
+<p class="text-xs text-slate-500 font-bold">These sentences come from the two Part 2 cue cards (celebrity on the news / a news story). Tap the correct chip to complete each sentence.</p>
+<div id="chip-container" class="space-y-5"></div>
+</div>
+
+<div class="bg-white p-6 rounded-3xl border border-violet-100 shadow-sm space-y-5">
+<h3 class="text-xl font-black text-violet-950 font-heading">C. Full Response</h3>
+<p class="text-xs text-slate-600 font-bold leading-relaxed">Choose ONE Part 2 cue card: (1) Describe a celebrity that you saw on a news programme, or (2) Describe a news story that you heard or read about. Write a full 4 to 6 sentence answer, using at least 5 of the words below. The checklist ticks automatically as you use each word. There is no fixed answer, but you can view a sample response once you have finished writing.</p>
+<textarea id="free-writing" oninput="checkFreeWriting()" rows="6" placeholder="Write your Part 2 answer here..." class="w-full p-3 bg-white border border-violet-200 rounded-xl text-sm focus:border-violet-400 outline-none transition font-medium"></textarea>
+<div id="free-checklist" class="flex flex-wrap gap-2"></div>
+<div class="flex items-center gap-2">
+<button onclick="toggleFreeModel()" class="text-xs text-violet-600 hover:underline font-black cursor-pointer">👁️ Show a sample response</button>
+</div>
+<div id="free-model-box" class="hidden space-y-3 text-xs md:text-sm text-slate-700 font-medium bg-emerald-50 border border-emerald-200 p-4 rounded-2xl leading-relaxed"></div>
+<div class="text-center pt-2">
+<button onclick="unlockAndGoToSummary()" class="px-8 py-3.5 bg-violet-600 hover:bg-violet-700 text-white font-black rounded-xl text-sm shadow-md transition cursor-pointer">Finish &amp; Go to Summary ➔</button>
+</div>
+</div>
+</section>
+
+<!-- TAB 5: COMPLETION -->
+<section id="tab-summary" class="tab-content hidden space-y-6">
+<div class="max-w-2xl mx-auto bg-white border-4 border-violet-200 p-8 rounded-3xl space-y-6 shadow-xl text-center">
+<div class="space-y-2">
+<span class="text-6xl block animate-bounce">🎓📰📖</span>
+<h3 class="text-3xl font-heading font-black text-violet-950">Congratulations!</h3>
+<p class="text-sm text-slate-600 font-bold">You have completed <span class="text-violet-600 font-black">IELTS 1A_S5_Lesson 7</span>.</p>
+</div>
+<div class="bg-violet-50/60 p-5 rounded-2xl border border-violet-200 space-y-3 text-left">
+<h4 class="text-base font-black text-violet-900 border-b border-violet-200 pb-2">💡 Key Takeaways</h4>
+<ul class="space-y-2.5 text-xs md:text-sm text-slate-700 font-bold">
+<li class="flex items-start gap-2"><span class="text-violet-600 font-black">1.</span><span><b>Media speaking vocabulary:</b> headline, breaking news, current affairs, subscribe to, go viral, catchy, broadcast, documentary, in the public eye, come under fire, hit the headlines, addictive, surf the web, state-of-the-art, on the wane.</span></li>
+<li class="flex items-start gap-2"><span class="text-violet-600 font-black">2.</span><span><b>Reading vocabulary — thinking &amp; reaction:</b> peer, ponder, sheepishly, frustration, in vain, tune out, uncanny, enamoured.</span></li>
+<li class="flex items-start gap-2"><span class="text-violet-600 font-black">3.</span><span><b>Reading vocabulary — quality &amp; value:</b> sophisticated, merely, mediocrity, notable, dismal, negligible, prohibitively expensive.</span></li>
+<li class="flex items-start gap-2"><span class="text-violet-600 font-black">4.</span><span><b>Reading vocabulary — change &amp; process:</b> fast-forwarding, supplement, invert, liberate, inject sth into sth, spearhead, from scratch, convergence, assemble, inhabit.</span></li>
+</ul>
+</div>
+<div class="text-center pt-2">
+<button onclick="location.reload()" class="px-8 py-3.5 bg-violet-600 hover:bg-violet-700 text-white font-black rounded-xl shadow-md transition cursor-pointer text-sm">🔄 Restart Lesson</button>
+</div>
+</div>
+</section>
+
+</main>
+
+<script>
+const vocabularyData = [
+{ word: "Headline", ipa: "/ˈhedlaɪn/", meaning: "The title of a newspaper story, printed in large letters", ex: "The headline caught my attention immediately." },
+{ word: "Breaking news", ipa: "/ˈbreɪkɪŋ njuːz/", meaning: "News that is being reported as it happens", ex: "We interrupted the programme for some breaking news." },
+{ word: "Current affairs", ipa: "/ˈkʌrənt əˈfeəz/", meaning: "Political and social events that are happening now", ex: "She reads a lot about current affairs online." },
+{ word: "Subscribe to", ipa: "/səbˈskraɪb tə/", meaning: "To pay regularly to receive a publication or service", ex: "I subscribe to an online news magazine every month." },
+{ word: "Go viral", ipa: "/ɡəʊ ˈvaɪərəl/", meaning: "To spread very quickly to a lot of people online", ex: "The commercial went viral within a single day." },
+{ word: "Catchy", ipa: "/ˈkætʃi/", meaning: "Easy to remember, especially about a tune or slogan", ex: "The jingle in that advert is really catchy." },
+{ word: "Broadcast", ipa: "/ˈbrɔːdkɑːst/", meaning: "To send out a programme on TV or radio", ex: "The football match will be broadcast live tonight." },
+{ word: "Documentary", ipa: "/ˌdɒkjuˈmentri/", meaning: "A factual film or programme about a real subject", ex: "I recently watched a documentary about ocean pollution." },
+{ word: "In the public eye", ipa: "/ɪn ðə ˈpʌblɪk aɪ/", meaning: "Being famous and often seen or talked about by the public", ex: "Being in the public eye all the time isn't easy." },
+{ word: "Come under fire", ipa: "/kʌm ˈʌndə ˈfaɪə/", meaning: "To be strongly criticised", ex: "The singer came under fire after her controversial interview." },
+{ word: "Hit the headlines", ipa: "/hɪt ðə ˈhedlaɪnz/", meaning: "To become a major, widely reported story", ex: "The actor's divorce hit the headlines within hours." },
+{ word: "Addictive", ipa: "/əˈdɪktɪv/", meaning: "Causing a strong need to keep doing something", ex: "Some TV series are so addictive that I binge-watch them." },
+{ word: "Surf the web", ipa: "/sɜːf ðə web/", meaning: "To look at different websites with no particular goal", ex: "I often surf the web for news before bed." },
+{ word: "State-of-the-art", ipa: "/steɪt əv ði ɑːt/", meaning: "Using the very latest technology", ex: "The advert claims the phone has a state-of-the-art camera." },
+{ word: "On the wane", ipa: "/ɒn ðə weɪn/", meaning: "Becoming less popular, common or important", ex: "The popularity of printed newspapers is clearly on the wane." },
+{ word: "Peer (v)", ipa: "/pɪər/", meaning: "To look very carefully or with difficulty at something", ex: "She peered through the foggy window to see who was outside." },
+{ word: "Ponder", ipa: "/ˈpɒndər/", meaning: "To think about something carefully for a long time", ex: "He paused to ponder the question before answering." },
+{ word: "Sheepishly", ipa: "/ˈʃiːpɪʃli/", meaning: "In a way that shows embarrassment, especially after a mistake", ex: "She smiled sheepishly after forgetting his name." },
+{ word: "Sophisticated", ipa: "/səˈfɪstɪkeɪtɪd/", meaning: "Having a lot of knowledge, or highly developed and complex", ex: "The new app has a surprisingly sophisticated recommendation system." },
+{ word: "Fast-forwarding", ipa: "/fɑːst ˈfɔːwədɪŋ/", meaning: "Moving quickly through a recording to a later point", ex: "I kept fast-forwarding through the boring parts of the show." },
+{ word: "Merely", ipa: "/ˈmɪəli/", meaning: "Only, simply, nothing more than", ex: "It is merely a suggestion, not an order." },
+{ word: "Supplement (v)", ipa: "/ˈsʌplɪment/", meaning: "To add something in order to improve or complete it", ex: "He supplements his income by tutoring at weekends." },
+{ word: "Invert", ipa: "/ɪnˈvɜːt/", meaning: "To turn something upside down or reverse its order", ex: "The design inverts the usual colour scheme, using white text on black." },
+{ word: "Frustration", ipa: "/frʌˈstreɪʃn/", meaning: "The feeling of being upset because you cannot achieve something", ex: "His frustration grew as the website kept crashing." },
+{ word: "Tune out", ipa: "/tjuːn aʊt/", meaning: "To stop paying attention to something", ex: "Some viewers simply tune out when the adverts start." },
+{ word: "In vain", ipa: "/ɪn veɪn/", meaning: "Without success", ex: "They tried in vain to fix the broken server before the deadline." },
+{ word: "Prohibitively expensive", ipa: "/prəˈhɪbɪtɪvli ɪkˈspensɪv/", meaning: "So expensive that it is impossible for most people to afford", ex: "The new device was prohibitively expensive for most students." },
+{ word: "Mediocrity", ipa: "/ˌmiːdiˈɒkrəti/", meaning: "The quality of being only average, not very good", ex: "Critics accused the show of sinking into mediocrity after its third season." },
+{ word: "Notable", ipa: "/ˈnəʊtəbl/", meaning: "Deserving attention; important or interesting", ex: "There were several notable improvements in the latest update." },
+{ word: "Uncanny", ipa: "/ʌnˈkæni/", meaning: "Strange in a way that is difficult to explain", ex: "He has an uncanny ability to predict what will go viral." },
+{ word: "Inhabit", ipa: "/ɪnˈhæbɪt/", meaning: "To live in a place", ex: "Millions of users now inhabit this online community." },
+{ word: "Enamoured", ipa: "/ɪˈnæməd/", meaning: "Very much in love with, or very fond of something", ex: "Many teenagers are enamoured with short-video apps." },
+{ word: "Dismal", ipa: "/ˈdɪzməl/", meaning: "Very bad, causing feelings of unhappiness", ex: "The film received dismal reviews from critics." },
+{ word: "Liberate", ipa: "/ˈlɪbəreɪt/", meaning: "To free someone or something from a restriction", ex: "Streaming has liberated viewers from fixed TV schedules." },
+{ word: "Inject sth into sth", ipa: "/ɪnˈdʒekt/", meaning: "To add a new quality or feature to something", ex: "The host tried to inject some humour into the dull interview." },
+{ word: "Spearhead", ipa: "/ˈspɪəhed/", meaning: "To lead an attack, campaign or activity", ex: "She spearheaded the company's move into online news." },
+{ word: "From scratch", ipa: "/frəm skrætʃ/", meaning: "From the very beginning, without using anything made before", ex: "They decided to build the news app from scratch." },
+{ word: "Negligible", ipa: "/ˈneglɪdʒəbl/", meaning: "So small or unimportant that it is not worth considering", ex: "The effect of the change on sales was negligible." },
+{ word: "Convergence", ipa: "/kənˈvɜːdʒəns/", meaning: "The process of different things coming together", ex: "The convergence of TV and the internet changed how we watch the news." },
+{ word: "Assemble", ipa: "/əˈsembl/", meaning: "To gather together, or to put parts together", ex: "Reporters quickly assembled outside the courthouse." }
+];
+
+let cardQueue = [], currentCard = null, isFlipped = false;
+const totalCardsCount = vocabularyData.length;
+
+window.onload = function () {
+  renderVocabTable();
+  initFlashcards();
+  renderUpgrade();
+  renderChipFill();
+  renderFreeChecklist();
+};
+
+function switchTab(tabId) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+  document.querySelectorAll('.tab-btn').forEach(btn => { btn.classList.remove('bg-white', 'text-violet-700', 'shadow-sm'); btn.classList.add('text-slate-500'); });
+  document.getElementById(`tab-${tabId}`).classList.remove('hidden');
+  const activeBtn = document.getElementById(`btn-${tabId}`);
+  if (activeBtn) { activeBtn.classList.add('bg-white', 'text-violet-700', 'shadow-sm'); activeBtn.classList.remove('text-slate-500'); }
+  if (tabId === 'game' && !sortInitialised) { initSortGame(); sortInitialised = true; }
+}
+
+function renderVocabTable() {
+  const tbody = document.getElementById('reference-table-body');
+  tbody.innerHTML = vocabularyData.map(item => `
+    <tr class="hover:bg-violet-50/50 transition">
+      <td class="p-3.5 font-black text-violet-950">${item.word}</td>
+      <td class="p-3.5 font-mono text-xs text-violet-700">${item.ipa}</td>
+      <td class="p-3.5 text-slate-700">${item.meaning}</td>
+      <td class="p-3.5 italic text-slate-500">${item.ex}</td>
+    </tr>`).join('');
+}
+
+function speakText(text, event) {
+  if (event) event.stopPropagation();
+  if ('speechSynthesis' in window) {
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = 'en-US'; u.rate = 0.9;
+    window.speechSynthesis.speak(u);
+  }
+}
+
+function initFlashcards() {
+  cardQueue = [...vocabularyData];
+  shuffleArray(cardQueue);
+  updateProgressBar();
+  showNextCard();
+}
+function resetProgress() {
+  document.getElementById('flashcard-container').classList.remove('hidden');
+  document.getElementById('flashcard-success-box').classList.add('hidden');
+  initFlashcards();
+}
+function shuffleArray(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } }
+function showNextCard() {
+  if (cardQueue.length === 0) {
+    document.getElementById('flashcard-container').classList.add('hidden');
+    document.getElementById('flashcard-success-box').classList.remove('hidden');
+    return;
+  }
+  currentCard = cardQueue[0]; isFlipped = false;
+  document.getElementById('flashcard-inner').classList.remove('card-flipped');
+  document.getElementById('f-prompt').innerText = currentCard.meaning;
+  document.getElementById('b-answer').innerText = currentCard.word;
+  document.getElementById('b-ipa').innerText = currentCard.ipa;
+  document.getElementById('b-example').innerText = `"${currentCard.ex}"`;
+  document.getElementById('queue-text').innerText = `${cardQueue.length} card${cardQueue.length > 1 ? 's' : ''}`;
+  updateProgressBar();
+}
+function flipCard() {
+  isFlipped = !isFlipped;
+  document.getElementById('flashcard-inner').classList.toggle('card-flipped', isFlipped);
+}
+function handleAnkiAction(type) {
+  if (!currentCard) return;
+  if (type === 'again') { const c = cardQueue.shift(); cardQueue.push(c); } else { cardQueue.shift(); }
+  showNextCard();
+}
+function updateProgressBar() {
+  const completed = totalCardsCount - cardQueue.length;
+  const pct = Math.round((completed / totalCardsCount) * 100);
+  document.getElementById('progress-bar').style.width = `${pct}%`;
+}
+function unlockAndGoToGame() {
+  document.getElementById('btn-game').classList.remove('disabled-tab');
+  switchTab('game');
+}
+
+// VOCABULARY MATCHING (3 ROUNDS)
+const vnMeaning = {
+  "Headline": "tiêu đề (báo)", "Breaking news": "tin nóng, tin khẩn", "Current affairs": "thời sự",
+  "Subscribe to": "đăng ký nhận (bản tin/dịch vụ)", "Go viral": "lan truyền nhanh trên mạng", "Catchy": "dễ nhớ, bắt tai",
+  "Broadcast": "phát sóng", "Documentary": "phim tài liệu", "In the public eye": "được công chúng chú ý",
+  "Come under fire": "bị chỉ trích", "Hit the headlines": "trở thành tin nổi bật", "Addictive": "gây nghiện",
+  "Surf the web": "lướt web", "State-of-the-art": "hiện đại, tân tiến nhất", "On the wane": "đang suy giảm, thoái trào",
+  "Peer (v)": "nhìn chăm chú, cố nhìn", "Ponder": "suy ngẫm", "Sheepishly": "ngượng ngùng",
+  "Sophisticated": "tinh vi, phức tạp", "Fast-forwarding": "tua nhanh", "Merely": "chỉ là, đơn thuần là",
+  "Supplement (v)": "bổ sung thêm", "Invert": "đảo ngược", "Frustration": "sự thất vọng, bực bội",
+  "Tune out": "lơ đi, không để ý", "In vain": "vô ích, không thành công", "Prohibitively expensive": "đắt đến mức không thể mua nổi",
+  "Mediocrity": "sự tầm thường", "Notable": "đáng chú ý", "Uncanny": "kỳ lạ, khó giải thích",
+  "Inhabit": "sinh sống, cư ngụ", "Enamoured": "say mê, yêu thích", "Dismal": "tệ hại, ảm đạm",
+  "Liberate": "giải phóng", "Inject sth into sth": "đưa/thêm (yếu tố) vào", "Spearhead": "dẫn đầu, tiên phong",
+  "From scratch": "từ con số không, từ đầu", "Negligible": "không đáng kể", "Convergence": "sự hội tụ, hợp nhất",
+  "Assemble": "tập hợp, lắp ráp"
+};
+const matchRounds = [vocabularyData.slice(0, 14), vocabularyData.slice(14, 27), vocabularyData.slice(27, 40)];
+let matchRoundIdx = 0, matchSelectedEl = null, matchCount = 0, sortInitialised = false;
+
+function initSortGame() { matchRoundIdx = 0; loadMatchRound(); }
+function loadMatchRound() {
+  document.getElementById('match-success-box').classList.add('hidden');
+  document.getElementById('match-next-btn').classList.add('hidden');
+  matchCount = 0; matchSelectedEl = null;
+  const round = matchRounds[matchRoundIdx];
+  document.getElementById('match-round-idx').innerText = matchRoundIdx + 1;
+  document.getElementById('match-score').innerText = 0;
+  document.getElementById('match-round-total').innerText = round.length;
+
+  const words = round.map((v, i) => ({ id: i, text: v.word }));
+  const meanings = round.map((v, i) => ({ id: i, text: vnMeaning[v.word] || v.meaning }));
+  shuffleArray(words); shuffleArray(meanings);
+  const wc = document.getElementById('match-words'), mc = document.getElementById('match-meanings');
+  wc.innerHTML = words.map(w => `<div class="match-card p-3 bg-white border-2 border-violet-200 rounded-xl text-xs md:text-sm font-black text-violet-950" data-id="${w.id}" data-side="word" onclick="matchSelect(this)">${w.text}</div>`).join('');
+  mc.innerHTML = meanings.map(m => `<div class="match-card p-3 bg-white border-2 border-violet-200 rounded-xl text-xs md:text-sm text-slate-700" data-id="${m.id}" data-side="meaning" onclick="matchSelect(this)">${m.text}</div>`).join('');
+}
+function matchSelect(el) {
+  if (el.classList.contains('matched')) return;
+  const side = el.dataset.side;
+  if (side === 'word') {
+    if (matchSelectedEl) matchSelectedEl.classList.remove('selected');
+    matchSelectedEl = el;
+    el.classList.add('selected');
+    return;
+  }
+  if (!matchSelectedEl) return;
+  const round = matchRounds[matchRoundIdx];
+  if (matchSelectedEl.dataset.id === el.dataset.id) {
+    matchSelectedEl.classList.remove('selected'); matchSelectedEl.classList.add('matched');
+    el.classList.add('matched');
+    matchCount++;
+    document.getElementById('match-score').innerText = matchCount;
+    matchSelectedEl = null;
+    if (matchCount === round.length) {
+      if (matchRoundIdx === matchRounds.length - 1) {
+        document.getElementById('match-success-box').classList.remove('hidden');
+      } else {
+        document.getElementById('match-next-btn').classList.remove('hidden');
+      }
+    }
+  } else {
+    matchSelectedEl.classList.add('wrong'); el.classList.add('wrong');
+    setTimeout(() => { matchSelectedEl.classList.remove('wrong', 'selected'); el.classList.remove('wrong'); matchSelectedEl = null; }, 500);
+  }
+}
+function nextMatchRound() { matchRoundIdx++; loadMatchRound(); }
+function unlockAndGoToWriting() {
+  document.getElementById('btn-writing').classList.remove('disabled-tab');
+  switchTab('writing');
+}
+
+// A. UPGRADE YOUR ANSWER
+const upgradeData = [
+  { plain: "I read the news on my phone instead of buying a newspaper.", word: "on the wane", model: "I read the news on my phone instead of buying a newspaper, since printed newspapers are clearly on the wane." },
+  { plain: "I don't like watching adverts because they are boring.", word: "tune out", model: "I tend to tune out whenever an advert comes on, because most of them are boring and repetitive." },
+  { plain: "My favourite show is really interesting and I watch it a lot.", word: "addictive", model: "My favourite show is so addictive that I end up watching several episodes in one sitting." },
+  { plain: "That singer became very famous after a scandal.", word: "hit the headlines", model: "That singer's scandal hit the headlines almost immediately." },
+  { plain: "I thought about the story for a long time afterwards.", word: "ponder", model: "I found myself pondering the story for a long time afterwards." },
+  { plain: "The new phone is too expensive for most students to buy.", word: "prohibitively expensive", model: "The new phone is prohibitively expensive for most students." }
+];
+function renderUpgrade() {
+  const c = document.getElementById('upgrade-container');
+  c.innerHTML = upgradeData.map((item, i) => `
+    <div class="p-4 bg-violet-50/40 rounded-2xl border border-violet-100 space-y-2">
+      <p class="text-xs md:text-sm font-bold text-slate-800">${i + 1}. Plain: "${item.plain}"</p>
+      <p class="text-[11px] text-violet-700 font-black">Use: ${item.word}</p>
+      <textarea id="up-input-${i}" oninput="onUpgradeInput(${i})" rows="2" placeholder="Write your upgraded sentence here first..." class="w-full p-2 text-xs md:text-sm bg-white border border-violet-200 rounded-xl outline-none focus:border-violet-500 font-semibold"></textarea>
+      <button id="up-btn-${i}" onclick="toggleUpgradeModel(${i})" disabled class="text-xs text-slate-400 font-black cursor-not-allowed">👁️ Write your answer first to unlock the model answer</button>
+      <p id="up-model-${i}" class="hidden text-xs text-emerald-700 font-bold bg-emerald-50 p-2 rounded-lg">${item.model}</p>
+    </div>`).join('');
+}
+function onUpgradeInput(i) {
+  const btn = document.getElementById(`up-btn-${i}`);
+  const hasText = document.getElementById(`up-input-${i}`).value.trim().length > 0;
+  btn.disabled = !hasText;
+  btn.className = hasText ? "text-xs text-violet-600 hover:underline font-black cursor-pointer" : "text-xs text-slate-400 font-black cursor-not-allowed";
+  btn.innerText = hasText ? "👁️ Show model answer" : "👁️ Write your answer first to unlock the model answer";
+}
+function toggleUpgradeModel(i) {
+  if (document.getElementById(`up-input-${i}`).value.trim().length === 0) return;
+  document.getElementById(`up-model-${i}`).classList.toggle('hidden');
+}
+
+// B. BUILD YOUR PART 2 ANSWER (CHIP-FILL)
+const chipData = [
+  { group: "Group A — Celebrity on the news", frame: "The celebrity I have in mind ___ a scandal a few months ago.", chips: ["came under fire for", "surfed the web for", "assembled"], ans: "came under fire for" },
+  { group: "Group A — Celebrity on the news", frame: "The story about him/her ___ within just a few hours.", chips: ["hit the headlines", "were on the wane", "tuned out"], ans: "hit the headlines" },
+  { group: "Group A — Celebrity on the news", frame: "Being constantly ___ isn't always easy for celebrities.", chips: ["in the public eye", "from scratch", "negligible"], ans: "in the public eye" },
+  { group: "Group B — A news story", frame: "The video of the elderly woman's kindness ___ within a single day.", chips: ["went viral", "were assembled", "were inverted"], ans: "went viral" },
+  { group: "Group B — A news story", frame: "Her generosity and selflessness were truly ___.", chips: ["notable", "dismal", "negligible"], ans: "notable" },
+  { group: "Group B — A news story", frame: "The story ___ me from my cynical view of the world.", chips: ["liberated", "inverted", "supplemented"], ans: "liberated" }
+];
+function renderChipFill() {
+  const c = document.getElementById('chip-container');
+  let lastGroup = "";
+  c.innerHTML = chipData.map((item, i) => {
+    const groupHeader = item.group !== lastGroup ? `<p class="text-xs font-black text-violet-700 uppercase tracking-wide mt-2">${item.group}</p>` : "";
+    lastGroup = item.group;
+    const chips = [...item.chips]; shuffleArray(chips);
+    return groupHeader + `
+    <div class="p-4 bg-violet-50/40 rounded-2xl border border-violet-100 space-y-2">
+      <p id="chip-sentence-${i}" class="text-xs md:text-sm font-bold text-slate-800">${item.frame.replace('___', '<span id="chip-slot-' + i + '" class="gap-slot">_____</span>')}</p>
+      <div class="flex flex-wrap gap-2">
+        ${chips.map(ch => `<button class="chip-option px-3 py-1.5 rounded-full border-2 border-violet-200 bg-white text-xs font-bold text-violet-800 cursor-pointer" data-q="${i}" data-text="${ch}" onclick="chooseChip(${i}, this)">${ch}</button>`).join('')}
+      </div>
+      <span id="chip-feedback-${i}" class="text-xs font-black"></span>
+    </div>`;
+  }).join('');
+}
+function chooseChip(i, btn) {
+  const item = chipData[i];
+  const text = btn.dataset.text;
+  const feedback = document.getElementById(`chip-feedback-${i}`);
+  if (text === item.ans) {
+    document.getElementById(`chip-slot-${i}`).innerText = text;
+    feedback.innerText = "✅ Correct!";
+    feedback.className = "text-xs font-black text-emerald-600";
+    document.querySelectorAll(`.chip-option[data-q="${i}"]`).forEach(b => b.disabled = true);
+    btn.className = "chip-option px-3 py-1.5 rounded-full border-2 border-emerald-400 bg-emerald-50 text-xs font-bold text-emerald-700 cursor-not-allowed";
+  } else {
+    feedback.innerText = "❌ Not quite, try another chip.";
+    feedback.className = "text-xs font-black text-rose-500";
+    btn.classList.add('wrong-shake');
+    setTimeout(() => btn.classList.remove('wrong-shake'), 400);
+  }
+}
+
+// C. FULL RESPONSE CHECKLIST
+const checklistWords = ["came under fire", "hit the headlines", "go viral", "in the public eye", "sophisticated", "notable", "liberate", "ponder", "frustration", "enamoured", "dismal", "mediocrity", "from scratch", "tune out", "addictive", "subscribe to", "current affairs", "broadcast"];
+function renderFreeChecklist() {
+  const c = document.getElementById('free-checklist');
+  c.innerHTML = checklistWords.map(w => `<span id="chk-${w.replace(/\s/g, '')}" class="text-xs font-bold px-3 py-1.5 rounded-full bg-slate-100 text-slate-500 border border-slate-200">${w}</span>`).join('');
+}
+function checkFreeWriting() {
+  const text = document.getElementById('free-writing').value.toLowerCase();
+  checklistWords.forEach(w => {
+    const el = document.getElementById(`chk-${w.replace(/\s/g, '')}`);
+    if (text.includes(w.toLowerCase())) { el.className = "text-xs font-bold px-3 py-1.5 rounded-full bg-emerald-100 text-emerald-700 border border-emerald-300"; }
+    else { el.className = "text-xs font-bold px-3 py-1.5 rounded-full bg-slate-100 text-slate-500 border border-slate-200"; }
+  });
+}
+const freeModelParagraphs = [
+  "The celebrity I have in mind is a well-known singer who came under fire a few months ago after a controversial interview. The story hit the headlines almost immediately, and clips of the interview went viral within hours. I remember feeling genuinely surprised, because he had always seemed so sophisticated and humble in public. It made me realise how exhausting it must be to live constantly in the public eye.",
+  "A story I heard about recently was about an elderly woman who had secretly saved over $100,000 to give to charity. At first, people assumed she was living in poverty, but it later became clear that her generosity was truly notable. The story genuinely liberated me from a rather cynical view of the world, and it encouraged me to think more carefully about my own small acts of kindness."
+];
+function toggleFreeModel() {
+  const box = document.getElementById('free-model-box');
+  if (box.classList.contains('hidden')) {
+    box.innerHTML = freeModelParagraphs.map((p, i) => `<p><b>Sample ${i + 1} (${i === 0 ? 'Celebrity' : 'News story'}):</b> ${p}</p>`).join('');
+  }
+  box.classList.toggle('hidden');
+}
+function unlockAndGoToSummary() {
+  document.getElementById('btn-summary').classList.remove('disabled-tab');
+  switchTab('summary');
+}
+</script>
+</body>
+</html>
