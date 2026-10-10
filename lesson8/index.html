@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IELTS 1A_S5_Lesson 8</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.2.2"></script>
+<style>
+*, body, html, button, span, h1, h2, h3, p, div, input, select, textarea { font-family: 'Quicksand', sans-serif; font-weight: 600; }
+h1, h2, h3, .font-heading { font-family: 'Fredoka', sans-serif; }
+.perspective { perspective: 1000px; }
+.backface-hidden { backface-visibility: hidden; }
+.card-inner { transition: transform 0.5s; transform-style: preserve-3d; }
+.card-flipped { transform: rotateY(180deg); }
+.disabled-tab { opacity: 0.4; cursor: not-allowed !important; pointer-events: none; }
+@keyframes shake { 0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-5px)} 40%,80%{transform:translateX(5px)} }
+.shake { animation: shake 0.4s ease-in-out; }
+.audio-btn { display:inline-flex; align-items:center; justify-content:center; width:24px; height:24px; border-radius:999px; background:#D1FAE5; color:#065F46; font-size:11px; cursor:pointer; border:1px solid #A7F3D0; flex-shrink:0; }
+.audio-btn:hover { background:#A7F3D0; }
+.tok { display:inline-block; padding:3px 7px; margin:2px 1px; border-radius:8px; border:2px solid transparent; background:transparent; font-size:1rem; font-weight:700; color:#064E3B; cursor:pointer; }
+.tok:hover { background:#ECFDF5; border-color:#A7F3D0; }
+.tok.err { background:#FEF3C7; border-color:#F59E0B; color:#92400E; }
+.tok.fixed { background:#D1FAE5; border-color:#10B981; color:#065F46; }
+.tok.nope { background:#FFE4E6; border-color:#F43F5E; }
+.opt { width:100%; text-align:left; padding:11px 14px; border-radius:14px; border:2px solid #A7F3D0; background:#fff; font-size:0.9rem; font-weight:700; color:#064E3B; cursor:pointer; }
+.opt:hover { background:#F0FDF4; }
+.opt.right { border-color:#10B981; background:#D1FAE5; color:#065F46; }
+.opt.bad { border-color:#F43F5E; background:#FFE4E6; color:#9F1239; }
+.spot { cursor:pointer; }
+.spot circle { fill:#fff; stroke:#047857; stroke-width:2.5; transition:all .2s; }
+.spot:hover circle { fill:#D1FAE5; }
+.spot text { font-size:15px; font-weight:800; fill:#064E3B; pointer-events:none; }
+.spot.right circle { fill:#10B981; stroke:#065F46; }
+.spot.right text { fill:#fff; }
+.spot.bad circle { fill:#FDA4AF; stroke:#BE123C; }
+select.gap { border:2px solid #6EE7B7; border-radius:10px; padding:2px 6px; background:#fff; color:#064E3B; font-weight:700; font-size:0.9rem; max-width:210px; }
+select.gap.ok { border-color:#10B981; background:#D1FAE5; }
+select.gap.no { border-color:#F43F5E; background:#FFE4E6; }
+</style>
+</head>
+<body class="bg-[#ECFDF5] text-slate-700 min-h-screen flex flex-col selection:bg-emerald-200 pb-12">
+
+<header class="bg-gradient-to-r from-[#D1FAE5] via-[#ECFCCB] to-[#FEF9C3] border-b-4 border-dashed border-emerald-300 shadow-sm p-6 text-center rounded-b-3xl">
+<h1 class="text-3xl md:text-4xl font-black tracking-wide drop-shadow-sm text-emerald-950">📰 IELTS 1A_S5_Lesson 8 🦅</h1>
+</header>
+
+<div class="max-w-5xl w-full mx-auto px-4 mt-6">
+<div class="flex bg-emerald-100/70 p-1.5 rounded-2xl border border-emerald-200 shadow-inner overflow-x-auto">
+<button onclick="switchTab('reference')" id="btn-reference" class="tab-btn flex-1 py-3 px-2 text-xs md:text-sm font-black rounded-xl text-center bg-white text-emerald-700 shadow-sm transition cursor-pointer whitespace-nowrap">📚 Vocab Bank</button>
+<button onclick="switchTab('flashcard')" id="btn-flashcard" class="tab-btn flex-1 py-3 px-2 text-xs md:text-sm font-black rounded-xl text-center text-slate-500 transition cursor-pointer whitespace-nowrap">🎴 Flashcards</button>
+<button onclick="switchTab('detective')" id="btn-detective" class="tab-btn disabled-tab flex-1 py-3 px-2 text-xs md:text-sm font-black rounded-xl text-center text-slate-500 transition whitespace-nowrap">🕵️ Error Detective</button>
+<button onclick="switchTab('reserve')" id="btn-reserve" class="tab-btn disabled-tab flex-1 py-3 px-2 text-xs md:text-sm font-black rounded-xl text-center text-slate-500 transition whitespace-nowrap">🗺️ Nature Reserve</button>
+<button onclick="switchTab('writing')" id="btn-writing" class="tab-btn disabled-tab flex-1 py-3 px-2 text-xs md:text-sm font-black rounded-xl text-center text-slate-500 transition whitespace-nowrap">🎤 Interview Script</button>
+<button onclick="switchTab('summary')" id="btn-summary" class="tab-btn disabled-tab flex-1 py-3 px-2 text-xs md:text-sm font-black rounded-xl text-center text-slate-500 transition whitespace-nowrap">🎉 Completion</button>
+</div>
+</div>
+
+<main class="flex-1 max-w-5xl w-full mx-auto px-4 py-6">
+
+<!-- TAB 1: VOCAB BANK -->
+<section id="tab-reference" class="tab-content block space-y-6">
+<div class="bg-white p-6 rounded-3xl border border-emerald-100 shadow-sm space-y-4">
+<div class="flex justify-between items-center flex-wrap gap-2">
+<h2 class="text-2xl font-black text-emerald-950 font-heading">📖 Vocabulary Table</h2>
+<span class="text-xs bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full font-bold">34 Items</span>
+</div>
+<div class="overflow-x-auto rounded-2xl border border-emerald-100 max-h-[560px]">
+<table class="w-full text-left border-collapse bg-white">
+<thead class="sticky top-0 bg-emerald-50/95 border-b border-emerald-200 text-emerald-900 text-xs uppercase tracking-wider font-black z-10">
+<tr><th class="p-3.5">Vocabulary</th><th class="p-3.5">Pronunciation</th><th class="p-3.5">Meaning</th><th class="p-3.5">Tiếng Việt</th><th class="p-3.5">Example Sentence</th></tr>
+</thead>
+<tbody id="reference-table-body" class="divide-y divide-emerald-50 text-xs md:text-sm"></tbody>
+</table>
+</div>
+<div class="text-center pt-2">
+<button onclick="switchTab('flashcard')" class="px-8 py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white font-black rounded-xl text-sm shadow-sm transition cursor-pointer">Start Flashcards ➔</button>
+</div>
+</div>
+</section>
+
+<!-- TAB 2: FLASHCARDS -->
+<section id="tab-flashcard" class="tab-content hidden space-y-6">
+<div class="bg-white p-4 rounded-2xl border-2 border-dashed border-emerald-300 shadow-sm flex justify-between items-center flex-wrap gap-2">
+<div class="text-sm font-black text-slate-600">Remaining Queue: <span id="queue-text" class="text-emerald-600 font-extrabold">0 cards</span></div>
+<div class="w-full sm:w-1/3 bg-slate-100 h-4 rounded-full overflow-hidden p-0.5 border border-slate-200">
+<div id="progress-bar" class="bg-gradient-to-r from-emerald-400 to-amber-400 h-full rounded-full transition-all duration-500" style="width: 0%"></div>
+</div>
+<button onclick="resetProgress()" class="text-xs text-emerald-600 hover:underline font-black cursor-pointer">🔄 Reset Session</button>
+</div>
+
+<div id="flashcard-container" class="space-y-6">
+<div id="card-arena" class="perspective w-full max-w-md mx-auto h-[420px] cursor-pointer">
+<div id="flashcard-inner" onclick="flipCard()" class="card-inner w-full h-full relative border-4 border-emerald-300 rounded-3xl shadow-md bg-white">
+<div class="backface-hidden absolute inset-0 p-6 flex flex-col justify-between items-center text-center bg-emerald-50/50 rounded-[20px]">
+<span class="text-xs font-black text-emerald-700 uppercase tracking-widest bg-emerald-100/80 px-4 py-1.5 rounded-full">Meaning</span>
+<div class="space-y-3 my-auto w-full">
+<h3 id="f-prompt" class="text-lg md:text-xl font-black text-emerald-950 px-2 leading-snug"></h3>
+<p id="f-vn" class="text-sm text-slate-500 font-medium px-3"></p>
+</div>
+<p class="text-xs text-emerald-600 font-black">👉 Tap card to reveal vocabulary 👈</p>
+</div>
+<div class="backface-hidden w-full h-full absolute inset-0 p-6 flex flex-col justify-between bg-slate-800 text-white rounded-[22px]" style="transform: rotateY(180deg);">
+<span class="text-xs font-black text-emerald-300 uppercase tracking-widest bg-slate-700/80 px-4 py-1.5 rounded-full w-max mx-auto">Target Vocabulary</span>
+<div class="my-auto space-y-3 text-center">
+<h2 id="b-answer" class="text-2xl md:text-3xl font-black text-amber-300"></h2>
+<div class="space-y-2 border-t border-slate-700 pt-3">
+<div class="flex justify-center items-center space-x-2">
+<span id="b-ipa" class="text-emerald-300 font-bold text-sm font-mono"></span>
+<button onclick="speakIdx(currentCardIdx, event)" class="w-7 h-7 bg-emerald-900 hover:bg-emerald-800 text-emerald-100 rounded-full transition flex items-center justify-center text-xs cursor-pointer shadow-sm">🔊</button>
+</div>
+<p id="b-example" class="text-slate-300 text-xs px-2 font-medium leading-relaxed"></p>
+</div>
+</div>
+<p class="text-xs text-center text-slate-400 font-bold">Rate your recall difficulty 👇</p>
+</div>
+</div>
+</div>
+
+<div class="w-full max-w-md mx-auto bg-white p-4 rounded-2xl border border-emerald-100 shadow-sm grid grid-cols-4 gap-2">
+<button onclick="handleAnkiAction('again')" class="p-2 bg-rose-50 hover:bg-rose-100 border border-rose-200 rounded-xl text-center transition cursor-pointer"><span class="block text-xs font-black text-rose-600">Again</span><span class="text-[10px] text-rose-400 font-bold block mt-0.5">&lt; 1m</span></button>
+<button onclick="handleAnkiAction('hard')" class="p-2 bg-amber-50 hover:bg-amber-100 border border-amber-200 rounded-xl text-center transition cursor-pointer"><span class="block text-xs font-black text-amber-600">Hard</span><span class="text-[10px] text-amber-400 font-bold block mt-0.5">10m</span></button>
+<button onclick="handleAnkiAction('good')" class="p-2 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 rounded-xl text-center transition cursor-pointer"><span class="block text-xs font-black text-emerald-600">Good</span><span class="text-[10px] text-emerald-500 font-bold block mt-0.5">1d</span></button>
+<button onclick="handleAnkiAction('easy')" class="p-2 bg-sky-50 hover:bg-sky-100 border border-sky-200 rounded-xl text-center transition shadow-sm cursor-pointer"><span class="block text-xs font-black text-sky-600">Easy</span><span class="text-[10px] text-sky-500 font-bold block mt-0.5">4d</span></button>
+</div>
+</div>
+
+<div id="flashcard-success-box" class="max-w-md mx-auto bg-emerald-50 border-4 border-emerald-300 p-6 rounded-3xl text-center space-y-4 hidden shadow-sm">
+<span class="text-5xl block animate-bounce">🌟📰🎉</span>
+<h4 class="text-2xl font-heading font-black text-emerald-900">Flashcards Mastered!</h4>
+<p class="text-sm text-slate-700 font-medium leading-relaxed">Awesome! You have reviewed all 34 vocabulary items.</p>
+<button onclick="unlockAndGo('detective')" class="w-full py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white font-black rounded-xl shadow-md transition cursor-pointer text-sm tracking-wide">Start Error Detective ➔</button>
+</div>
+</section>
+
+<!-- TAB 3: ERROR DETECTIVE -->
+<section id="tab-detective" class="tab-content hidden space-y-6">
+<div class="bg-white p-6 rounded-3xl border border-emerald-100 shadow-sm space-y-5">
+<div class="flex justify-between items-center border-b border-emerald-50 pb-3 flex-wrap gap-2">
+<div>
+<h3 class="text-xl font-heading font-black text-emerald-950">🕵️ Error Detective</h3>
+<p class="text-xs text-slate-500 mt-0.5">Each sentence has one wrong word. Step 1, tap the wrong word. Step 2, choose the correct replacement.</p>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-xs font-black bg-emerald-50 text-emerald-800 px-3 py-1.5 rounded-full">Case <span id="ed-idx">1</span> of <span id="ed-total">17</span></span>
+<span class="text-xs font-black bg-amber-50 text-amber-800 px-3 py-1.5 rounded-full">Solved first try: <span id="ed-score">0</span></span>
+</div>
+</div>
+<div class="max-w-2xl mx-auto space-y-4">
+<div class="w-full bg-slate-100 h-3 rounded-full overflow-hidden"><div id="ed-bar" class="bg-gradient-to-r from-emerald-400 to-amber-400 h-full rounded-full transition-all" style="width:0%"></div></div>
+<p id="ed-step" class="text-xs font-black text-emerald-700 uppercase tracking-wide"></p>
+<div id="ed-sentence" class="text-base leading-loose bg-emerald-50/60 border border-emerald-100 rounded-2xl p-4"></div>
+<div id="ed-options" class="space-y-2"></div>
+<p id="ed-feedback" class="text-sm font-black min-h-[24px] text-center"></p>
+<div class="text-center"><button id="ed-next" onclick="nextCase()" class="hidden px-8 py-2.5 bg-amber-500 hover:bg-amber-600 text-white font-black rounded-xl text-xs shadow-sm transition cursor-pointer">Next case ➔</button></div>
+</div>
+</div>
+<div id="ed-success-box" class="max-w-md mx-auto bg-emerald-50 border-4 border-emerald-300 p-6 rounded-3xl text-center space-y-4 hidden shadow-sm">
+<span class="text-5xl block animate-bounce">🕵️🏆✨</span>
+<h4 class="text-2xl font-heading font-black text-emerald-900">All Cases Solved!</h4>
+<p class="text-sm text-slate-700 font-medium">First-try score: <span id="ed-final"></span> / 17</p>
+<button onclick="unlockAndGo('reserve')" class="w-full py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white font-black rounded-xl shadow-md transition cursor-pointer text-sm tracking-wide">Go to the Nature Reserve ➔</button>
+</div>
+</section>
+
+<!-- TAB 4: NATURE RESERVE -->
+<section id="tab-reserve" class="tab-content hidden space-y-6">
+<div class="bg-white p-6 rounded-3xl border border-emerald-100 shadow-sm space-y-4">
+<div class="flex justify-between items-center flex-wrap gap-2">
+<div>
+<h3 class="text-xl font-heading font-black text-emerald-950">🗺️ Part A. Follow the ranger</h3>
+<p class="text-xs text-slate-500 mt-0.5">Read each instruction and tap the correct letter on the map. North is at the top.</p>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-xs font-black bg-emerald-50 text-emerald-800 px-3 py-1.5 rounded-full">Question <span id="map-idx">1</span> of 6</span>
+<span class="text-xs font-black bg-amber-50 text-amber-800 px-3 py-1.5 rounded-full">First try: <span id="map-score">0</span></span>
+</div>
+</div>
+<div class="grid md:grid-cols-5 gap-4 items-start">
+<div class="md:col-span-3 rounded-2xl border border-emerald-100 overflow-hidden bg-[#F7FEE7]">
+<svg viewBox="0 0 620 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Map of the nature reserve">
+<rect x="0" y="0" width="620" height="400" fill="#F7FEE7"/>
+<path d="M0 0 H620 V50 Q560 20 500 45 T380 40 T260 35 T140 45 T0 38 Z" fill="#CBD5E1"/>
+<text x="300" y="22" text-anchor="middle" font-size="13" font-weight="700" fill="#475569">Hills</text>
+<ellipse cx="470" cy="95" rx="62" ry="34" fill="#FEF08A"/>
+<text x="470" y="99" text-anchor="middle" font-size="12" font-weight="700" fill="#854D0E">Meadow</text>
+<rect x="38" y="115" width="97" height="175" rx="34" fill="#86EFAC"/>
+<text x="86" y="207" text-anchor="middle" font-size="12" font-weight="700" fill="#14532D">Woodland</text>
+<circle cx="522" cy="205" r="28" fill="#86EFAC"/>
+<text x="522" y="209" text-anchor="middle" font-size="11" font-weight="700" fill="#14532D">Trees</text>
+<ellipse cx="300" cy="200" rx="108" ry="60" fill="#7DD3FC"/>
+<text x="300" y="204" text-anchor="middle" font-size="13" font-weight="700" fill="#075985">Lake</text>
+<ellipse cx="300" cy="200" rx="150" ry="95" fill="none" stroke="#A16207" stroke-width="3" stroke-dasharray="7 6"/>
+<line x1="300" y1="295" x2="300" y2="328" stroke="#A16207" stroke-width="3" stroke-dasharray="7 6"/>
+<rect x="258" y="328" width="84" height="30" rx="8" fill="#FDE68A" stroke="#B45309" stroke-width="2"/>
+<text x="300" y="347" text-anchor="middle" font-size="12" font-weight="700" fill="#78350F">Visitor centre</text>
+<g id="spots"></g>
+</svg>
+</div>
+<div class="md:col-span-2 space-y-3">
+<p id="map-q" class="text-sm font-bold text-slate-800 leading-relaxed bg-emerald-50/60 border border-emerald-100 rounded-2xl p-4"></p>
+<p id="map-feedback" class="text-sm font-black min-h-[48px]"></p>
+<button id="map-next" onclick="nextMapQ()" class="hidden px-6 py-2.5 bg-amber-500 hover:bg-amber-600 text-white font-black rounded-xl text-xs cursor-pointer">Next ➔</button>
+</div>
+</div>
+<p id="map-done" class="hidden text-center text-sm font-black text-emerald-700">✅ Part A finished. Now complete Part B.</p>
+</div>
+
+<div class="bg-white p-6 rounded-3xl border border-emerald-100 shadow-sm space-y-4">
+<div>
+<h3 class="text-xl font-heading font-black text-emerald-950">🎧 Part B. The ranger's welcome talk</h3>
+<p class="text-xs text-slate-500 mt-0.5">Choose the best word or phrase for each gap.</p>
+</div>
+<div id="cloze-text" class="text-sm md:text-base leading-[2.4] bg-emerald-50/60 border border-emerald-100 rounded-2xl p-4 font-bold text-slate-800"></div>
+<div class="flex items-center gap-3 flex-wrap">
+<button onclick="checkCloze()" class="px-6 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-black rounded-xl text-xs shadow-sm transition cursor-pointer">✅ Check</button>
+<button onclick="showClozeKey()" class="px-6 py-2.5 bg-emerald-100 hover:bg-emerald-200 text-emerald-800 font-black rounded-xl text-xs transition cursor-pointer">Show answers</button>
+<span id="cloze-score" class="text-sm font-black text-emerald-800"></span>
+</div>
+<div class="text-center pt-2">
+<button id="reserve-continue" onclick="unlockAndGo('writing')" disabled class="px-8 py-3.5 bg-slate-300 text-slate-500 font-black rounded-xl text-sm cursor-not-allowed">Finish Part A and check Part B to continue</button>
+</div>
+</div>
+</section>
+
+<!-- TAB 5: INTERVIEW SCRIPT -->
+<section id="tab-writing" class="tab-content hidden space-y-6">
+<div class="bg-white p-6 rounded-3xl border border-emerald-100 shadow-sm space-y-3">
+<h3 class="text-xl font-black text-emerald-950 font-heading">🎤 Celebrity Interview Script</h3>
+<p class="text-xs text-slate-600 font-bold leading-relaxed">You are a famous person. A reporter asks you 4 questions. Write your answers in 2 to 3 connected sentences each. Try to use the chips. They turn green when you use them. When all 4 answers are written, you can view suggested answers.</p>
+</div>
+<div id="writing-container" class="space-y-4"></div>
+<div class="bg-white p-6 rounded-3xl border border-emerald-100 shadow-sm space-y-4">
+<button id="writing-model-btn" onclick="toggleWritingModel()" disabled class="text-xs text-slate-400 font-black cursor-not-allowed">👁️ Write all 4 answers first to unlock suggested answers</button>
+<div id="writing-model-box" class="hidden space-y-4 text-xs md:text-sm text-slate-700 font-medium bg-emerald-50 border border-emerald-200 p-4 rounded-2xl leading-relaxed"></div>
+<div class="text-center pt-2">
+<button onclick="unlockAndGo('summary')" class="px-8 py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white font-black rounded-xl text-sm shadow-md transition cursor-pointer">Finish &amp; Go to Summary ➔</button>
+</div>
+</div>
+</section>
+
+<!-- TAB 6: COMPLETION -->
+<section id="tab-summary" class="tab-content hidden space-y-6">
+<div class="max-w-2xl mx-auto bg-white border-4 border-emerald-200 p-8 rounded-3xl space-y-6 shadow-xl text-center">
+<div class="space-y-2">
+<span class="text-6xl block animate-bounce">🎓📰🦅</span>
+<h3 class="text-3xl font-heading font-black text-emerald-950">Congratulations!</h3>
+<p class="text-sm text-slate-600 font-bold">You have completed <span class="text-emerald-600 font-black">IELTS 1A_S5_Lesson 8</span>.</p>
+</div>
+<div class="bg-emerald-50/60 p-5 rounded-2xl border border-emerald-200 space-y-3 text-left">
+<h4 class="text-base font-black text-emerald-900 border-b border-emerald-200 pb-2">💡 Key Takeaways</h4>
+<ul class="space-y-2.5 text-xs md:text-sm text-slate-700 font-bold">
+<li class="flex items-start gap-2"><span class="text-emerald-600 font-black">1.</span><span><b>News and media (Part 3):</b> undergo, accessible, occur, instantly, reach, impact (on), role model, imitate, pick up (habits), downside.</span></li>
+<li class="flex items-start gap-2"><span class="text-emerald-600 font-black">2.</span><span><b>Fame and money:</b> endorse, profitable, privacy, be stalked by paparazzi, maintain VIP status, receive special treatment, lend your name to a product.</span></li>
+<li class="flex items-start gap-2"><span class="text-emerald-600 font-black">3.</span><span><b>Places and directions (Listening):</b> nature reserve, patch of woodland, edge (of woodland), non-wooded areas, skyline, anti-clockwise.</span></li>
+<li class="flex items-start gap-2"><span class="text-emerald-600 font-black">4.</span><span><b>Wildlife watching (Listening):</b> binoculars, optical quality, fieldcraft, camouflage, glide, swoop up and down, shot, submarine, tempt, put sth down to, take your breath away.</span></li>
+</ul>
+</div>
+<div class="text-center pt-2">
+<button onclick="location.reload()" class="px-8 py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white font-black rounded-xl shadow-md transition cursor-pointer text-sm">🔄 Restart Lesson</button>
+</div>
+</div>
+</section>
+
+</main>
+
+<script>
+const vocabularyData = [
+{ w: "undergo", ipa: "/ˌʌndəˈɡəʊ/", en: "to experience a change or something difficult", vn: "trải qua", ex: "The news industry has undergone huge changes in the last ten years." },
+{ w: "accessible", ipa: "/əkˈsesəbl/", en: "easy to reach, get or use", vn: "dễ tiếp cận", ex: "Most news is now accessible online at any time." },
+{ w: "occur", ipa: "/əˈkɜː/", en: "to happen (more formal than happen)", vn: "xảy ra", ex: "In the past, people heard about events hours after they occurred." },
+{ w: "instantly", ipa: "/ˈɪnstəntli/", en: "immediately, with no delay", vn: "ngay lập tức", ex: "News spreads instantly through social media." },
+{ w: "impact (on)", say: "impact", ipa: "/ˈɪmpækt/", en: "to have a strong effect on someone or something", vn: "tác động đến", ex: "Social media stars can negatively impact teenagers." },
+{ w: "role model", ipa: "/ˈrəʊl ˌmɒdl/", en: "a person others want to copy because they admire them", vn: "hình mẫu", ex: "A good athlete can be a positive role model for young people." },
+{ w: "imitate", ipa: "/ˈɪmɪteɪt/", en: "to copy the way someone behaves, speaks or looks", vn: "bắt chước", ex: "Many teenagers imitate the fashion of their favourite singers." },
+{ w: "pick up (habits)", say: "pick up habits", ipa: "/pɪk ʌp/", en: "to learn or start doing something without trying hard", vn: "học lỏm, nhiễm (thói quen)", ex: "Children pick up habits from the people they admire." },
+{ w: "endorse", ipa: "/ɪnˈdɔːs/", en: "to publicly support a product, usually for money", vn: "quảng cáo, bảo chứng", ex: "Famous footballers earn a lot by endorsing sports brands." },
+{ w: "profitable", ipa: "/ˈprɒfɪtəbl/", en: "making a lot of money", vn: "sinh lợi", ex: "Becoming a successful influencer can be highly profitable." },
+{ w: "privacy", ipa: "/ˈprɪvəsi/", en: "the right to keep your personal life secret", vn: "quyền riêng tư", ex: "Celebrities often lose their privacy because of paparazzi." },
+{ w: "downside", ipa: "/ˈdaʊnsaɪd/", en: "a disadvantage or negative point", vn: "mặt trái, nhược điểm", ex: "The biggest downside of fame is constant public attention." },
+{ w: "reach (sb)", say: "reach", ipa: "/riːtʃ/", en: "to contact someone, especially by phone", vn: "liên lạc với ai", ex: "Calling is the quickest way to reach people." },
+{ w: "be stalked by paparazzi", ipa: "/biː stɔːkt baɪ ˌpɑːpəˈrɑːtsi/", en: "to be followed all the time by press photographers", vn: "bị săn ảnh rình rập", ex: "Many stars are stalked by paparazzi when they leave their homes." },
+{ w: "maintain VIP status", ipa: "/meɪnˈteɪn ˌviː aɪ ˈpiː ˈsteɪtəs/", en: "to keep a special, important position", vn: "duy trì vị thế VIP", ex: "She works hard to maintain VIP status in the music industry." },
+{ w: "receive special treatment", ipa: "/rɪˈsiːv ˈspeʃl ˈtriːtmənt/", en: "to be treated better than ordinary people", vn: "được đối xử đặc biệt", ex: "Celebrities often receive special treatment at airports and restaurants." },
+{ w: "lend your name to a product", ipa: "/lend jɔː neɪm tuː ə ˈprɒdʌkt/", en: "to let your name be used to promote something", vn: "cho mượn tên tuổi để quảng bá sản phẩm", ex: "Some actors lend their names to products they have never used." },
+{ w: "shot (n, photo)", say: "shot", ipa: "/ʃɒt/", en: "a photograph, or a picture taken by a camera", vn: "bức ảnh, cảnh chụp", ex: "I took some great shots of the lake at sunrise." },
+{ w: "non-wooded areas", ipa: "/nɒn ˈwʊdɪd ˈeəriəz/", en: "open places without many trees", vn: "khu vực ít cây, thoáng đãng", ex: "Many birds prefer non-wooded areas where they can see far." },
+{ w: "edge (of woodland)", say: "edge of woodland", ipa: "/edʒ/", en: "the outer part where the trees end", vn: "rìa (rừng)", ex: "We waited at the edge of the woodland for the deer to appear." },
+{ w: "patch of woodland", ipa: "/pætʃ əv ˈwʊdlənd/", en: "a small area of trees", vn: "một mảng rừng nhỏ", ex: "There is a small patch of woodland behind the visitor centre." },
+{ w: "tempt (v)", say: "tempt", ipa: "/tempt/", en: "to make someone want to do something", vn: "cám dỗ, lôi cuốn", ex: "The warm weather tempted us to walk a little further." },
+{ w: "put sth down to", say: "put something down to", ipa: "/pʊt ˈsʌmθɪŋ daʊn tuː/", en: "to think that something is caused by something", vn: "cho là do, quy cho", ex: "He put his success down to years of patient practice." },
+{ w: "take your breath away", ipa: "/teɪk jɔː breθ əˈweɪ/", en: "to be so beautiful or surprising that you cannot speak", vn: "đẹp đến nghẹt thở", ex: "The view from the hill took my breath away." },
+{ w: "submarine", ipa: "/ˌsʌbməˈriːn/", en: "a ship that can travel under water", vn: "tàu ngầm", ex: "The museum has a real submarine that you can walk through." },
+{ w: "binoculars", ipa: "/bɪˈnɒkjələz/", en: "two small telescopes for looking at distant things", vn: "ống nhòm", ex: "Bring binoculars if you want to watch the birds." },
+{ w: "nature reserve", ipa: "/ˈneɪtʃə rɪˈzɜːv/", en: "an area protected for wild animals and plants", vn: "khu bảo tồn thiên nhiên", ex: "The nature reserve is home to several rare birds." },
+{ w: "optical quality (of binoculars)", say: "optical quality", ipa: "/ˈɒptɪkl ˈkwɒləti/", en: "how clear and sharp the lenses are", vn: "chất lượng quang học", ex: "Cheap binoculars often have poor optical quality." },
+{ w: "fieldcraft", ipa: "/ˈfiːldkrɑːft/", en: "skills for watching wildlife outdoors without being noticed", vn: "kỹ năng quan sát thực địa", ex: "Good fieldcraft means moving slowly and staying quiet." },
+{ w: "camouflage", ipa: "/ˈkæməflɑːʒ/", en: "colours or clothes that help you hide in nature", vn: "ngụy trang", ex: "The birdwatchers wore camouflage so the birds would not see them." },
+{ w: "skyline", ipa: "/ˈskaɪlaɪn/", en: "the shape of hills or buildings against the sky", vn: "đường chân trời, đường viền trên nền trời", ex: "A large bird appeared against the skyline." },
+{ w: "glide", ipa: "/ɡlaɪd/", en: "to move smoothly and easily without much effort", vn: "lướt đi", ex: "Eagles glide on warm air for hours." },
+{ w: "swoop up and down", ipa: "/swuːp ʌp ənd daʊn/", en: "to move quickly and smoothly in a curved path", vn: "bay lượn lên xuống", ex: "Swallows swoop up and down over the water." },
+{ w: "anti-clockwise", ipa: "/ˌænti ˈklɒkwaɪz/", en: "in the opposite direction to the hands of a clock", vn: "ngược chiều kim đồng hồ", ex: "Walk anti-clockwise around the lake to reach the hide." }
+];
+
+let cardQueue = [], currentCard = null, currentCardIdx = 0, isFlipped = false;
+const totalCardsCount = vocabularyData.length;
+
+function shuffleArray(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+
+window.onload = function () {
+  renderVocabTable();
+  initFlashcards();
+  renderWriting();
+  initDetective();
+  initMap();
+  renderCloze();
+};
+
+function switchTab(tabId) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+  document.querySelectorAll('.tab-btn').forEach(btn => { btn.classList.remove('bg-white', 'text-emerald-700', 'shadow-sm'); btn.classList.add('text-slate-500'); });
+  document.getElementById(`tab-${tabId}`).classList.remove('hidden');
+  const activeBtn = document.getElementById(`btn-${tabId}`);
+  if (activeBtn) { activeBtn.classList.add('bg-white', 'text-emerald-700', 'shadow-sm'); activeBtn.classList.remove('text-slate-500'); }
+}
+function unlockAndGo(tab) {
+  document.getElementById(`btn-${tab}`).classList.remove('disabled-tab');
+  switchTab(tab);
+}
+
+/* AUDIO */
+function speakText(text) {
+  if ('speechSynthesis' in window) {
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = 'en-GB'; u.rate = 0.9;
+    window.speechSynthesis.speak(u);
+  }
+}
+function speakIdx(i, event) {
+  if (event) event.stopPropagation();
+  const item = vocabularyData[i];
+  speakText(item.say || item.w.replace(/\(.*?\)/g, '').trim());
+}
+
+/* VOCAB BANK */
+function renderVocabTable() {
+  document.getElementById('reference-table-body').innerHTML = vocabularyData.map((item, i) => `
+    <tr class="hover:bg-emerald-50/50 transition">
+      <td class="p-3.5 font-black text-emerald-950"><span class="inline-flex items-center gap-2"><button class="audio-btn" onclick="speakIdx(${i})">🔊</button>${item.w}</span></td>
+      <td class="p-3.5 font-mono text-xs text-emerald-700">${item.ipa}</td>
+      <td class="p-3.5 text-slate-700">${item.en}</td>
+      <td class="p-3.5 text-slate-700">${item.vn}</td>
+      <td class="p-3.5 italic text-slate-500">${item.ex}</td>
+    </tr>`).join('');
+}
+
+/* FLASHCARDS */
+function initFlashcards() {
+  cardQueue = vocabularyData.map((v, i) => i);
+  shuffleArray(cardQueue);
+  updateProgressBar();
+  showNextCard();
+}
+function resetProgress() {
+  document.getElementById('flashcard-container').classList.remove('hidden');
+  document.getElementById('flashcard-success-box').classList.add('hidden');
+  initFlashcards();
+}
+function showNextCard() {
+  if (cardQueue.length === 0) {
+    document.getElementById('flashcard-container').classList.add('hidden');
+    document.getElementById('flashcard-success-box').classList.remove('hidden');
+    return;
+  }
+  currentCardIdx = cardQueue[0];
+  currentCard = vocabularyData[currentCardIdx];
+  isFlipped = false;
+  document.getElementById('flashcard-inner').classList.remove('card-flipped');
+  document.getElementById('f-prompt').innerText = currentCard.en;
+  document.getElementById('f-vn').innerText = currentCard.vn;
+  document.getElementById('b-answer').innerText = currentCard.w;
+  document.getElementById('b-ipa').innerText = currentCard.ipa;
+  document.getElementById('b-example').innerText = `"${currentCard.ex}"`;
+  document.getElementById('queue-text').innerText = `${cardQueue.length} card${cardQueue.length > 1 ? 's' : ''}`;
+  updateProgressBar();
+}
+function flipCard() {
+  isFlipped = !isFlipped;
+  document.getElementById('flashcard-inner').classList.toggle('card-flipped', isFlipped);
+}
+function handleAnkiAction(type) {
+  if (!currentCard) return;
+  if (type === 'again') { const c = cardQueue.shift(); cardQueue.push(c); } else { cardQueue.shift(); }
+  showNextCard();
+}
+function updateProgressBar() {
+  const completed = totalCardsCount - cardQueue.length;
+  document.getElementById('progress-bar').style.width = `${Math.round((completed / totalCardsCount) * 100)}%`;
+}
+
+/* ERROR DETECTIVE */
+const edData = [
+  { s: "The news industry has [[received]] huge changes in the last ten years.", opts: ["undergone", "occurred", "imitated"], ans: "undergone", target: "undergo" },
+  { s: "These days almost all news is [[hidden]] online at any time of day.", opts: ["accessible", "profitable", "private"], ans: "accessible", target: "accessible" },
+  { s: "In the past, people sometimes learned about an event hours after it [[followed]].", opts: ["occurred", "reached", "endorsed"], ans: "occurred", target: "occur" },
+  { s: "News spreads [[slowly]] through social media, so everyone hears about it within seconds.", opts: ["instantly", "rarely", "privately"], ans: "instantly", target: "instantly" },
+  { s: "Social media stars can negatively [[imitate]] teenagers.", opts: ["impact", "endorse", "profit"], ans: "impact", target: "impact (on)" },
+  { s: "A kind teacher can be a positive [[downside]] for young students.", opts: ["role model", "privacy", "impact"], ans: "role model", target: "role model" },
+  { s: "Many teenagers [[reach]] the fashion of their favourite singers.", opts: ["imitate", "undergo", "occur"], ans: "imitate", target: "imitate" },
+  { s: "Children [[send]] bad habits from the people around them.", opts: ["pick up", "occur", "reach"], ans: "pick up", target: "pick up (habits)" },
+  { s: "Famous footballers earn a lot by [[imitating]] sports brands.", opts: ["endorsing", "reaching", "undergoing"], ans: "endorsing", target: "endorse" },
+  { s: "Becoming a successful influencer can be highly [[private]].", opts: ["profitable", "accessible", "instant"], ans: "profitable", target: "profitable" },
+  { s: "Celebrities often lose their [[income]] because of paparazzi.", opts: ["privacy", "role model", "downside"], ans: "privacy", target: "privacy" },
+  { s: "The biggest [[advantage]] of fame is the loss of privacy.", opts: ["downside", "role model", "instantly"], ans: "downside", target: "downside" },
+  { s: "Calling is the quickest way to [[forget]] people.", opts: ["reach", "imitate", "endorse"], ans: "reach", target: "reach (sb)" },
+  { s: "Many stars are [[invited]] by paparazzi even when they go to the supermarket.", opts: ["stalked", "endorsed", "reached"], ans: "stalked", target: "be stalked by paparazzi" },
+  { s: "She works hard to [[lose]] VIP status in the music industry.", opts: ["maintain", "receive", "lend"], ans: "maintain", target: "maintain VIP status" },
+  { s: "Celebrities often [[avoid]] special treatment at airports and restaurants.", opts: ["receive", "lend", "maintain"], ans: "receive", target: "receive special treatment" },
+  { s: "Some actors [[borrow]] their names to products they have never used.", opts: ["lend", "send", "reach"], ans: "lend", target: "lend your name to a product" }
+];
+let edIdx = 0, edScore = 0, edStage = 1, edFirst = true, edOpts = [];
+
+function initDetective() {
+  edIdx = 0; edScore = 0;
+  document.getElementById('ed-total').innerText = edData.length;
+  document.getElementById('ed-success-box').classList.add('hidden');
+  loadCase();
+}
+function loadCase() {
+  if (edIdx >= edData.length) {
+    document.getElementById('ed-final').innerText = edScore;
+    document.getElementById('ed-success-box').classList.remove('hidden');
+    document.getElementById('ed-step').innerText = '';
+    document.getElementById('ed-sentence').innerHTML = '';
+    document.getElementById('ed-options').innerHTML = '';
+    document.getElementById('ed-next').classList.add('hidden');
+    return;
+  }
+  edStage = 1; edFirst = true;
+  document.getElementById('ed-idx').innerText = edIdx + 1;
+  document.getElementById('ed-score').innerText = edScore;
+  document.getElementById('ed-bar').style.width = `${Math.round((edIdx / edData.length) * 100)}%`;
+  document.getElementById('ed-step').innerText = 'Step 1. Tap the word that is used incorrectly.';
+  document.getElementById('ed-options').innerHTML = '';
+  document.getElementById('ed-feedback').innerHTML = '';
+  document.getElementById('ed-next').classList.add('hidden');
+  const tokens = edData[edIdx].s.split(' ');
+  document.getElementById('ed-sentence').innerHTML = tokens.map((t, i) => `<button class="tok" id="tok-${i}" onclick="clickTok(${i})">${t.replace('[[', '').replace(']]', '')}</button>`).join(' ');
+}
+function clickTok(i) {
+  if (edStage !== 1) return;
+  const tokens = edData[edIdx].s.split(' ');
+  const el = document.getElementById(`tok-${i}`);
+  if (tokens[i].includes('[[')) {
+    edStage = 2;
+    el.classList.add('err');
+    document.getElementById('ed-step').innerText = 'Step 2. Choose the correct word or phrase to replace it.';
+    document.getElementById('ed-feedback').innerHTML = '<span class="text-amber-700">🔍 You found the error!</span>';
+    edOpts = shuffleArray([...edData[edIdx].opts]);
+    document.getElementById('ed-options').innerHTML = edOpts.map((o, k) => `<button class="opt" id="eo-${k}" onclick="pickReplace(${k}, ${i})">${o}</button>`).join('');
+  } else {
+    edFirst = false;
+    el.classList.add('nope', 'shake');
+    document.getElementById('ed-feedback').innerHTML = '<span class="text-rose-600">❌ That word is fine. Look again.</span>';
+    setTimeout(() => el.classList.remove('nope', 'shake'), 500);
+  }
+}
+function pickReplace(k, tokIdx) {
+  const d = edData[edIdx];
+  const btn = document.getElementById(`eo-${k}`);
+  if (edOpts[k] === d.ans) {
+    btn.classList.add('right');
+    document.querySelectorAll('#ed-options .opt').forEach(b => b.disabled = true);
+    const tokEl = document.getElementById(`tok-${tokIdx}`);
+    tokEl.classList.remove('err');
+    tokEl.classList.add('fixed');
+    const tokens = d.s.split(' ');
+    const punct = tokens[tokIdx].replace(/^.*\]\]/, '');
+    tokEl.innerText = d.ans + punct;
+    if (edFirst) { edScore++; document.getElementById('ed-score').innerText = edScore; }
+    document.getElementById('ed-feedback').innerHTML = `<span class="text-emerald-700">✅ Correct! Target vocabulary: <b>${d.target}</b></span>`;
+    document.getElementById('ed-step').innerText = 'Case solved.';
+    document.getElementById('ed-next').innerText = edIdx === edData.length - 1 ? 'See result ➔' : 'Next case ➔';
+    document.getElementById('ed-next').classList.remove('hidden');
+  } else {
+    edFirst = false;
+    btn.classList.add('bad', 'shake');
+    document.getElementById('ed-feedback').innerHTML = '<span class="text-rose-600">❌ Not that one. Try another.</span>';
+    setTimeout(() => btn.classList.remove('shake'), 500);
+  }
+}
+function nextCase() { edIdx++; loadCase(); }
+
+/* NATURE RESERVE: MAP */
+const spotsData = { A: [406, 267], B: [450, 200], C: [406, 133], D: [300, 105], E: [194, 133], F: [150, 200], G: [194, 267] };
+const mapQs = [
+  { q: "Start at the visitor centre and walk anti-clockwise around the lake. Which viewpoint do you reach first?", ans: "A", why: "Anti-clockwise from the south means you go east first, so A comes first." },
+  { q: "The ranger says, \"For the best shot of birds over the water, stand at the edge of the woodland on the west side of the lake.\" Which viewpoint is it?", ans: "F", why: "F is where the path meets the edge of the woodland on the west side." },
+  { q: "A small patch of woodland lies just outside the path on the east side. Which viewpoint is next to it?", ans: "B", why: "B is on the east side, next to the small patch of trees." },
+  { q: "To photograph the hills against the skyline, go to the viewpoint directly north of the lake. Which one is it?", ans: "D", why: "D is on the north side, facing the hills along the skyline." },
+  { q: "Ground birds like non-wooded areas. Which viewpoint is closest to the open meadow in the north-east?", ans: "C", why: "C is the nearest viewpoint to the meadow." },
+  { q: "Walk anti-clockwise from the visitor centre. The bird hide is the fifth viewpoint on the route. Which letter is it?", ans: "E", why: "Anti-clockwise order is A, B, C, D, E, so the fifth viewpoint is E." }
+];
+let mapIdx = 0, mapScore = 0, mapFirst = true, mapLocked = false, mapFinished = false, clozeChecked = false;
+
+function initMap() {
+  document.getElementById('spots').innerHTML = Object.keys(spotsData).map(k => `<g class="spot" id="spot-${k}" onclick="clickSpot('${k}')"><circle cx="${spotsData[k][0]}" cy="${spotsData[k][1]}" r="14"/><text x="${spotsData[k][0]}" y="${spotsData[k][1] + 5}" text-anchor="middle">${k}</text></g>`).join('');
+  loadMapQ();
+}
+function loadMapQ() {
+  mapFirst = true; mapLocked = false;
+  document.getElementById('map-idx').innerText = mapIdx + 1;
+  document.getElementById('map-score').innerText = mapScore;
+  document.getElementById('map-q').innerText = mapQs[mapIdx].q;
+  document.getElementById('map-feedback').innerHTML = '';
+  document.getElementById('map-next').classList.add('hidden');
+  Object.keys(spotsData).forEach(k => document.getElementById(`spot-${k}`).setAttribute('class', 'spot'));
+}
+function clickSpot(k) {
+  if (mapLocked || mapFinished) return;
+  const q = mapQs[mapIdx];
+  const el = document.getElementById(`spot-${k}`);
+  if (k === q.ans) {
+    mapLocked = true;
+    el.setAttribute('class', 'spot right');
+    if (mapFirst) { mapScore++; document.getElementById('map-score').innerText = mapScore; }
+    document.getElementById('map-feedback').innerHTML = `<span class="text-emerald-700">✅ Correct! ${q.why}</span>`;
+    const btn = document.getElementById('map-next');
+    btn.innerText = mapIdx === mapQs.length - 1 ? 'Finish Part A ➔' : 'Next ➔';
+    btn.classList.remove('hidden');
+  } else {
+    mapFirst = false;
+    el.setAttribute('class', 'spot bad');
+    document.getElementById('map-feedback').innerHTML = '<span class="text-rose-600">❌ Not that one. Check the direction and try again.</span>';
+    setTimeout(() => { if (!mapLocked) el.setAttribute('class', 'spot'); }, 600);
+  }
+}
+function nextMapQ() {
+  if (mapIdx === mapQs.length - 1) {
+    mapFinished = true;
+    document.getElementById('map-next').classList.add('hidden');
+    document.getElementById('map-done').classList.remove('hidden');
+    document.getElementById('map-q').innerText = `Part A score (first try): ${mapScore} / ${mapQs.length}`;
+    document.getElementById('map-feedback').innerHTML = '';
+    updateContinue();
+    return;
+  }
+  mapIdx++;
+  loadMapQ();
+}
+
+/* NATURE RESERVE: CLOZE */
+const clozeParts = [
+  "Welcome to our ", 1, "! Please bring ", 2, " because many of the birds stay far from the paths. Choose a pair with good ", 3, ", because cheap lenses make everything look blurry. Good ", 4, " is important too, so move slowly and speak quietly. Wear dark clothes or ", 5, " so the birds do not notice you. In the morning, eagles ", 6, " over the valley without moving their wings much, and swallows ", 7, " above the water to catch insects. Some visitors tell us that the view from the hill ", 8, ". Last week, one visitor got an amazing ", 9, " of a kingfisher. The sunny weather may ", 10, " you to stay all day, so remember to drink water. The fall in bird numbers this year is ", 11, " the cold winter. Finally, a small tour boat shaped like a ", 12, " takes visitors across the lake."
+];
+const clozeAns = [
+  { ans: "nature reserve", opts: ["nature reserve", "skyline", "submarine", "fieldcraft"] },
+  { ans: "binoculars", opts: ["binoculars", "submarine", "skyline", "glide"] },
+  { ans: "optical quality", opts: ["optical quality", "camouflage", "skyline", "shot"] },
+  { ans: "fieldcraft", opts: ["fieldcraft", "skyline", "submarine", "shot"] },
+  { ans: "camouflage", opts: ["camouflage", "shot", "glide", "submarine"] },
+  { ans: "glide", opts: ["glide", "tempt", "shot", "skyline"] },
+  { ans: "swoop up and down", opts: ["swoop up and down", "tempt", "take your breath away", "camouflage"] },
+  { ans: "takes their breath away", opts: ["takes their breath away", "swoops up and down", "tempts them", "glides"] },
+  { ans: "shot", opts: ["shot", "skyline", "submarine", "binoculars"] },
+  { ans: "tempt", opts: ["tempt", "glide", "camouflage", "binoculars"] },
+  { ans: "put down to", opts: ["put down to", "tempted by", "glided over", "swooped up and down"] },
+  { ans: "submarine", opts: ["submarine", "skyline", "binoculars", "shot"] }
+];
+function renderCloze() {
+  document.getElementById('cloze-text').innerHTML = clozeParts.map(p => {
+    if (typeof p === 'string') return p;
+    const g = clozeAns[p - 1];
+    const opts = shuffleArray([...g.opts]);
+    return `<select class="gap" id="cz-${p}" aria-label="gap ${p}"><option value="">(${p}) choose</option>${opts.map(o => `<option value="${o}">${o}</option>`).join('')}</select>`;
+  }).join('');
+}
+function checkCloze() {
+  let ok = 0;
+  clozeAns.forEach((g, i) => {
+    const el = document.getElementById(`cz-${i + 1}`);
+    const good = el.value === g.ans;
+    el.className = 'gap ' + (el.value === '' ? '' : (good ? 'ok' : 'no'));
+    if (good) ok++;
+  });
+  document.getElementById('cloze-score').innerText = `Score: ${ok} / ${clozeAns.length}`;
+  clozeChecked = true;
+  updateContinue();
+}
+function showClozeKey() {
+  clozeAns.forEach((g, i) => {
+    const el = document.getElementById(`cz-${i + 1}`);
+    el.value = g.ans;
+    el.className = 'gap ok';
+  });
+  document.getElementById('cloze-score').innerText = `Score: ${clozeAns.length} / ${clozeAns.length} (answers shown)`;
+  clozeChecked = true;
+  updateContinue();
+}
+function updateContinue() {
+  const btn = document.getElementById('reserve-continue');
+  if (mapFinished && clozeChecked) {
+    btn.disabled = false;
+    btn.className = 'px-8 py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white font-black rounded-xl text-sm shadow-md transition cursor-pointer';
+    btn.innerText = 'Start Interview Script ➔';
+  }
+}
+
+/* WRITING: INTERVIEW SCRIPT */
+const writingTasks = [
+  { q: "Reporter: What is the best thing about being famous?", chips: [
+    { label: "receive special treatment", re: /special treatment/i }, { label: "lend your name to a product", re: /lend (my|your|his|her|their) name/i },
+    { label: "profitable", re: /profitable/i }, { label: "maintain VIP status", re: /vip status/i }, { label: "endorse", re: /endors/i }, { label: "role model", re: /role model/i } ] },
+  { q: "Reporter: And what is the hardest part of your life in the public eye?", chips: [
+    { label: "be stalked by paparazzi", re: /stalk/i }, { label: "privacy", re: /privacy/i }, { label: "downside", re: /downside/i },
+    { label: "come under fire", re: /under fire/i }, { label: "in the public eye", re: /public eye/i } ] },
+  { q: "Reporter: Do you think you have an impact on your young fans?", chips: [
+    { label: "role model", re: /role model/i }, { label: "impact", re: /impact/i }, { label: "imitate", re: /imitat/i },
+    { label: "pick up (habits)", re: /pick(s|ed|ing)? up/i }, { label: "go viral", re: /viral/i } ] },
+  { q: "Reporter: How has the way people follow celebrity news changed?", chips: [
+    { label: "undergo", re: /undergo|undergone|underwent/i }, { label: "accessible", re: /accessible/i }, { label: "instantly", re: /instantly/i },
+    { label: "occur", re: /occur/i }, { label: "reach", re: /reach/i } ] }
+];
+function renderWriting() {
+  document.getElementById('writing-container').innerHTML = writingTasks.map((t, i) => `
+    <div class="bg-white p-5 rounded-2xl border border-emerald-100 shadow-sm space-y-3">
+      <h4 class="text-sm font-black text-emerald-900">🎙️ ${t.q}</h4>
+      <div class="flex flex-wrap gap-2">${t.chips.map((c, k) => `<span id="wchip-${i}-${k}" class="text-xs font-bold px-3 py-1.5 rounded-full bg-slate-100 text-slate-500 border border-slate-200">${c.label}</span>`).join('')}</div>
+      <textarea id="w-input-${i}" oninput="onWritingInput(${i})" rows="3" placeholder="You: write 2 to 3 sentences here..." class="w-full p-3 bg-emerald-50/40 border border-emerald-200 rounded-xl text-sm outline-none focus:border-emerald-400 font-medium"></textarea>
+    </div>`).join('');
+}
+function allWritten() { return writingTasks.every((t, n) => document.getElementById(`w-input-${n}`).value.trim().length >= 40); }
+function onWritingInput(i) {
+  const text = document.getElementById(`w-input-${i}`).value;
+  writingTasks[i].chips.forEach((c, k) => {
+    document.getElementById(`wchip-${i}-${k}`).className = c.re.test(text)
+      ? "text-xs font-bold px-3 py-1.5 rounded-full bg-emerald-100 text-emerald-700 border border-emerald-300"
+      : "text-xs font-bold px-3 py-1.5 rounded-full bg-slate-100 text-slate-500 border border-slate-200";
+  });
+  const btn = document.getElementById('writing-model-btn');
+  const ok = allWritten();
+  btn.disabled = !ok;
+  btn.className = ok ? "text-xs text-emerald-600 hover:underline font-black cursor-pointer" : "text-xs text-slate-400 font-black cursor-not-allowed";
+  btn.innerText = ok ? "👁️ Show suggested answers" : "👁️ Write all 4 answers first to unlock suggested answers";
+}
+const writingModels = [
+  "Honestly, the best thing is that I receive special treatment almost everywhere I go. Brands also ask me to lend my name to their products, which is highly profitable. However, I know I have to work hard to maintain my VIP status.",
+  "The biggest downside is the loss of privacy. I am often stalked by paparazzi, even when I am just buying groceries, and one small mistake can make me come under fire online.",
+  "I think I do. Many teenagers imitate my style and pick up habits from me, so I try to be a positive role model. A single post can go viral in seconds, which is a big responsibility.",
+  "The news has undergone a huge change. Everything is accessible online, so a story that occurs in the morning can reach millions of people instantly. In contrast, people used to wait for the evening news."
+];
+function toggleWritingModel() {
+  if (!allWritten()) return;
+  const box = document.getElementById('writing-model-box');
+  if (box.classList.contains('hidden')) {
+    box.innerHTML = writingModels.map((p, i) => `<p><b>${writingTasks[i].q}</b><br>${p}</p>`).join('');
+  }
+  box.classList.toggle('hidden');
+}
+</script>
+</body>
+</html>
