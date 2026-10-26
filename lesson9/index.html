@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IELTS 1A_S5_Lesson 9</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.2.2"></script>
+<style>
+*, body, html, button, span, h1, h2, h3, p, div, input, select, textarea { font-family: 'Quicksand', sans-serif; font-weight: 600; }
+h1, h2, h3, .font-heading { font-family: 'Fredoka', sans-serif; }
+.perspective { perspective: 1000px; }
+.backface-hidden { backface-visibility: hidden; }
+.card-inner { transition: transform 0.5s; transform-style: preserve-3d; }
+.card-flipped { transform: rotateY(180deg); }
+.disabled-tab { opacity: 0.4; cursor: not-allowed !important; pointer-events: none; }
+@keyframes shake { 0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-5px)} 40%,80%{transform:translateX(5px)} }
+.shake { animation: shake 0.4s ease-in-out; }
+.audio-btn { display:inline-flex; align-items:center; justify-content:center; width:24px; height:24px; border-radius:999px; background:#FEF3C7; color:#92400E; font-size:11px; cursor:pointer; border:1px solid #FDE68A; flex-shrink:0; }
+.audio-btn:hover { background:#FDE68A; }
+.opt { width:100%; text-align:left; padding:11px 14px; border-radius:14px; border:2px solid #FDE68A; background:#fff; font-size:0.9rem; font-weight:700; color:#78350F; cursor:pointer; }
+.opt:hover { background:#FFFBEB; }
+.opt.right { border-color:#10B981; background:#D1FAE5; color:#065F46; }
+.opt.bad { border-color:#F43F5E; background:#FFE4E6; color:#9F1239; }
+.cw-grid { display:grid; gap:2px; width:max-content; }
+.cw-cell { position:relative; width:30px; height:30px; }
+.cw-in { width:100%; height:100%; text-align:center; font-weight:800; text-transform:uppercase; border:2px solid #FCD34D; border-radius:6px; background:#fff; color:#78350F; font-size:0.95rem; padding:0; }
+.cw-in.cur { background:#FEF3C7; }
+.cw-in.ok { background:#D1FAE5; border-color:#10B981; }
+.cw-in.no { background:#FFE4E6; border-color:#F43F5E; }
+.cw-num { position:absolute; top:1px; left:3px; font-size:9px; color:#92400E; pointer-events:none; z-index:2; }
+.gap-in { border:0; border-bottom:2px solid #F59E0B; background:transparent; width:150px; text-align:center; font-weight:700; color:#78350F; }
+.gap-in.ok { border-bottom-color:#10B981; background:#D1FAE5; }
+.gap-in.no { border-bottom-color:#F43F5E; background:#FFE4E6; }
+.gap-fill { display:inline-block; min-width:90px; padding:0 10px; border-bottom:3px dashed #F59E0B; color:#92400E; font-weight:800; text-align:center; }
+.chip { display:inline-block; font-size:0.78rem; font-weight:700; padding:4px 11px; border-radius:999px; background:#F1F5F9; color:#64748B; border:1px solid #E2E8F0; margin:2px; }
+.chip.on { background:#D1FAE5; color:#047857; border-color:#6EE7B7; }
+</style>
+</head>
+<body class="bg-[#FFFBEB] text-slate-700 min-h-screen flex flex-col selection:bg-amber-200 pb-12">
+
+<header class="bg-gradient-to-r from-[#FEF3C7] via-[#FFF7D6] to-[#FFEDD5] border-b-4 border-dashed border-amber-300 shadow-sm p-6 text-center rounded-b-3xl">
+<h1 class="text-3xl md:text-4xl font-black tracking-wide drop-shadow-sm text-amber-950">🐝 IELTS 1A_S5_Lesson 9</h1>
+</header>
+
+<div class="max-w-5xl w-full mx-auto px-4 mt-6">
+<div class="flex bg-amber-100/70 p-1.5 rounded-2xl border border-amber-200 shadow-inner overflow-x-auto">
+<button onclick="switchTab('reference')" id="btn-reference" class="tab-btn flex-1 py-3 px-2 text-xs md:text-sm font-black rounded-xl text-center bg-white text-amber-700 shadow-sm transition cursor-pointer whitespace-nowrap">📚 Vocab Bank</button>
+<button onclick="switchTab('flashcard')" id="btn-flashcard" class="tab-btn flex-1 py-3 px-2 text-xs md:text-sm font-black rounded-xl text-center text-slate-500 transition cursor-pointer whitespace-nowrap">🎴 Flashcards</button>
+<button onclick="switchTab('game')" id="btn-game" class="tab-btn disabled-tab flex-1 py-3 px-2 text-xs md:text-sm font-black rounded-xl text-center text-slate-500 transition whitespace-nowrap">🧩 Word Games</button>
+<button onclick="switchTab('writing')" id="btn-writing" class="tab-btn disabled-tab flex-1 py-3 px-2 text-xs md:text-sm font-black rounded-xl text-center text-slate-500 transition whitespace-nowrap">✍️ IELTS Writing</button>
+<button onclick="switchTab('summary')" id="btn-summary" class="tab-btn disabled-tab flex-1 py-3 px-2 text-xs md:text-sm font-black rounded-xl text-center text-slate-500 transition whitespace-nowrap">🎉 Completion</button>
+</div>
+</div>
+
+<main class="flex-1 max-w-5xl w-full mx-auto px-4 py-6">
+
+<!-- TAB 1: VOCAB BANK -->
+<section id="tab-reference" class="tab-content block space-y-6">
+<div class="bg-white p-6 rounded-3xl border border-amber-100 shadow-sm space-y-4">
+<div class="flex justify-between items-center flex-wrap gap-2">
+<h2 class="text-2xl font-black text-amber-950 font-heading">📖 Vocabulary Table</h2>
+<span class="text-xs bg-amber-100 text-amber-800 px-3 py-1 rounded-full font-bold">34 Items</span>
+</div>
+<div class="overflow-x-auto rounded-2xl border border-amber-100 max-h-[560px]">
+<table class="w-full text-left border-collapse bg-white">
+<thead class="sticky top-0 bg-amber-50/95 border-b border-amber-200 text-amber-900 text-xs uppercase tracking-wider font-black z-10">
+<tr><th class="p-3.5">Vocabulary</th><th class="p-3.5">Pronunciation</th><th class="p-3.5">Meaning</th><th class="p-3.5">Tiếng Việt</th><th class="p-3.5">Example Sentence</th></tr>
+</thead>
+<tbody id="reference-table-body" class="divide-y divide-amber-50 text-xs md:text-sm"></tbody>
+</table>
+</div>
+<div class="text-center pt-2">
+<button onclick="switchTab('flashcard')" class="px-8 py-3.5 bg-amber-500 hover:bg-amber-600 text-white font-black rounded-xl text-sm shadow-sm transition cursor-pointer">Start Flashcards ➔</button>
+</div>
+</div>
+</section>
+
+<!-- TAB 2: FLASHCARDS -->
+<section id="tab-flashcard" class="tab-content hidden space-y-6">
+<div class="bg-white p-4 rounded-2xl border-2 border-dashed border-amber-300 shadow-sm flex justify-between items-center flex-wrap gap-2">
+<div class="text-sm font-black text-slate-600">Remaining Queue: <span id="queue-text" class="text-amber-600 font-extrabold">0 cards</span></div>
+<div class="w-full sm:w-1/3 bg-slate-100 h-4 rounded-full overflow-hidden p-0.5 border border-slate-200">
+<div id="progress-bar" class="bg-gradient-to-r from-amber-400 to-orange-400 h-full rounded-full transition-all duration-500" style="width: 0%"></div>
+</div>
+<button onclick="resetProgress()" class="text-xs text-amber-600 hover:underline font-black cursor-pointer">🔄 Reset Session</button>
+</div>
+
+<div id="flashcard-container" class="space-y-6">
+<div id="card-arena" class="perspective w-full max-w-md mx-auto h-[420px] cursor-pointer">
+<div id="flashcard-inner" onclick="flipCard()" class="card-inner w-full h-full relative border-4 border-amber-300 rounded-3xl shadow-md bg-white">
+<div class="backface-hidden absolute inset-0 p-6 flex flex-col justify-between items-center text-center bg-amber-50/50 rounded-[20px]">
+<span class="text-xs font-black text-amber-700 uppercase tracking-widest bg-amber-100/80 px-4 py-1.5 rounded-full">Meaning</span>
+<div class="space-y-3 my-auto w-full">
+<h3 id="f-prompt" class="text-lg md:text-xl font-black text-amber-950 px-2 leading-snug"></h3>
+<p id="f-vn" class="text-sm text-slate-500 font-medium px-3"></p>
+</div>
+<p class="text-xs text-amber-600 font-black">👉 Tap card to reveal vocabulary 👈</p>
+</div>
+<div class="backface-hidden w-full h-full absolute inset-0 p-6 flex flex-col justify-between bg-slate-800 text-white rounded-[22px]" style="transform: rotateY(180deg);">
+<span class="text-xs font-black text-amber-300 uppercase tracking-widest bg-slate-700/80 px-4 py-1.5 rounded-full w-max mx-auto">Target Vocabulary</span>
+<div class="my-auto space-y-3 text-center">
+<h2 id="b-answer" class="text-2xl md:text-3xl font-black text-amber-300"></h2>
+<div class="space-y-2 border-t border-slate-700 pt-3">
+<div class="flex justify-center items-center space-x-2">
+<span id="b-ipa" class="text-amber-200 font-bold text-sm font-mono"></span>
+<button onclick="speakIdx(currentCardIdx, event)" class="w-7 h-7 bg-amber-900 hover:bg-amber-800 text-amber-100 rounded-full transition flex items-center justify-center text-xs cursor-pointer shadow-sm">🔊</button>
+</div>
+<p id="b-example" class="text-slate-300 text-xs px-2 font-medium leading-relaxed"></p>
+</div>
+</div>
+<p class="text-xs text-center text-slate-400 font-bold">Rate your recall difficulty 👇</p>
+</div>
+</div>
+</div>
+
+<div class="w-full max-w-md mx-auto bg-white p-4 rounded-2xl border border-amber-100 shadow-sm grid grid-cols-4 gap-2">
+<button onclick="handleAnkiAction('again')" class="p-2 bg-rose-50 hover:bg-rose-100 border border-rose-200 rounded-xl text-center transition cursor-pointer"><span class="block text-xs font-black text-rose-600">Again</span><span class="text-[10px] text-rose-400 font-bold block mt-0.5">&lt; 1m</span></button>
+<button onclick="handleAnkiAction('hard')" class="p-2 bg-amber-50 hover:bg-amber-100 border border-amber-200 rounded-xl text-center transition cursor-pointer"><span class="block text-xs font-black text-amber-600">Hard</span><span class="text-[10px] text-amber-400 font-bold block mt-0.5">10m</span></button>
+<button onclick="handleAnkiAction('good')" class="p-2 bg-orange-50 hover:bg-orange-100 border border-orange-200 rounded-xl text-center transition cursor-pointer"><span class="block text-xs font-black text-orange-600">Good</span><span class="text-[10px] text-orange-500 font-bold block mt-0.5">1d</span></button>
+<button onclick="handleAnkiAction('easy')" class="p-2 bg-lime-50 hover:bg-lime-100 border border-lime-200 rounded-xl text-center transition shadow-sm cursor-pointer"><span class="block text-xs font-black text-lime-700">Easy</span><span class="text-[10px] text-lime-600 font-bold block mt-0.5">4d</span></button>
+</div>
+</div>
+
+<div id="flashcard-success-box" class="max-w-md mx-auto bg-emerald-50 border-4 border-emerald-300 p-6 rounded-3xl text-center space-y-4 hidden shadow-sm">
+<span class="text-5xl block animate-bounce">🌟🐝🎉</span>
+<h4 class="text-2xl font-heading font-black text-emerald-900">Flashcards Mastered!</h4>
+<p class="text-sm text-slate-700 font-medium leading-relaxed">Awesome! You have reviewed all 34 vocabulary items.</p>
+<button onclick="unlockAndGo('game')" class="w-full py-3.5 bg-amber-500 hover:bg-amber-600 text-white font-black rounded-xl shadow-md transition cursor-pointer text-sm tracking-wide">Start Word Games ➔</button>
+</div>
+</section>
+
+<!-- TAB 3: WORD GAMES -->
+<section id="tab-game" class="tab-content hidden space-y-6">
+<div class="bg-white p-6 rounded-3xl border border-amber-100 shadow-sm space-y-5">
+<div class="flex justify-between items-center border-b border-amber-50 pb-3 flex-wrap gap-2">
+<div>
+<h3 class="text-xl font-heading font-black text-amber-950">🧩 Word Games</h3>
+<p class="text-xs text-slate-500 mt-0.5">3 rounds, 3 different games. Finish a round to unlock the next one.</p>
+</div>
+<div id="round-pills" class="flex items-center gap-2 flex-wrap"></div>
+</div>
+<div id="round-area"></div>
+<div class="text-center">
+<button id="round-next-btn" onclick="nextRound()" class="hidden px-8 py-3 bg-orange-500 hover:bg-orange-600 text-white font-black rounded-xl text-sm shadow-sm transition cursor-pointer">Next Round ➔</button>
+</div>
+</div>
+<div id="games-success-box" class="max-w-md mx-auto bg-emerald-50 border-4 border-emerald-300 p-6 rounded-3xl text-center space-y-4 hidden shadow-sm">
+<span class="text-5xl block animate-bounce">🧩🏆✨</span>
+<h4 class="text-2xl font-heading font-black text-emerald-900">All 3 Rounds Completed!</h4>
+<p id="games-summary" class="text-sm text-slate-700 font-medium leading-relaxed"></p>
+<button onclick="unlockAndGo('writing')" class="w-full py-3.5 bg-amber-500 hover:bg-amber-600 text-white font-black rounded-xl shadow-md transition cursor-pointer text-sm tracking-wide">Start IELTS Writing ➔</button>
+</div>
+</section>
+
+<!-- TAB 4: IELTS WRITING -->
+<section id="tab-writing" class="tab-content hidden space-y-6">
+<div class="bg-white p-6 rounded-3xl border border-amber-100 shadow-sm space-y-2">
+<h3 class="text-xl font-black text-amber-950 font-heading">IELTS Writing: from controlled to free</h3>
+<p class="text-xs text-slate-600 font-bold leading-relaxed">Five steps. Steps 1 and 2 are controlled. Step 3 is semi-controlled. Steps 4 and 5 are guided and free. Keep your sentences short and clear, use a variety of structures, and avoid copying the question.</p>
+</div>
+
+<!-- STEP 1 -->
+<div class="bg-white p-6 rounded-3xl border border-amber-100 shadow-sm space-y-4">
+<h4 class="text-base font-black text-amber-900">Step 1. Complete the sentences (controlled)</h4>
+<p class="text-xs text-slate-500 font-bold">Type the missing word or phrase. You may need to change the form.</p>
+<div id="s1-bank" class="flex flex-wrap gap-2"></div>
+<div id="s1-list" class="space-y-3 text-sm font-bold text-slate-800"></div>
+<div class="flex items-center gap-3 flex-wrap">
+<button onclick="checkSet('s1')" class="px-5 py-2 bg-amber-500 hover:bg-amber-600 text-white font-black rounded-xl text-xs cursor-pointer">✅ Check</button>
+<button onclick="showKey('s1')" class="px-5 py-2 bg-amber-100 hover:bg-amber-200 text-amber-800 font-black rounded-xl text-xs cursor-pointer">Show answers</button>
+<span id="s1-score" class="text-sm font-black text-amber-800"></span>
+</div>
+</div>
+
+<!-- STEP 2 -->
+<div class="bg-white p-6 rounded-3xl border border-amber-100 shadow-sm space-y-4">
+<h4 class="text-base font-black text-amber-900">Step 2. Rewrite the sentence (controlled)</h4>
+<p class="text-xs text-slate-500 font-bold">Rewrite each sentence with the target phrase. Keep the same meaning. Write your own version first. The model answer unlocks after you type.</p>
+<div id="s2-list" class="space-y-4"></div>
+</div>
+
+<!-- STEP 3 -->
+<div class="bg-white p-6 rounded-3xl border border-amber-100 shadow-sm space-y-4">
+<h4 class="text-base font-black text-amber-900">Step 3. Complete the paragraph (semi-controlled)</h4>
+<p class="text-xs text-slate-500 font-bold">This is a body paragraph for the question "Why are bee populations falling?" Type one word or phrase in each gap.</p>
+<div id="s3-bank" class="flex flex-wrap gap-2"></div>
+<div id="s3-text" class="text-sm md:text-base leading-[2.4] bg-amber-50/60 border border-amber-100 rounded-2xl p-4 font-bold text-slate-800"></div>
+<div class="flex items-center gap-3 flex-wrap">
+<button onclick="checkSet('s3')" class="px-5 py-2 bg-amber-500 hover:bg-amber-600 text-white font-black rounded-xl text-xs cursor-pointer">✅ Check</button>
+<button onclick="showKey('s3')" class="px-5 py-2 bg-amber-100 hover:bg-amber-200 text-amber-800 font-black rounded-xl text-xs cursor-pointer">Show answers</button>
+<span id="s3-score" class="text-sm font-black text-amber-800"></span>
+</div>
+</div>
+
+<!-- STEP 4 -->
+<div class="bg-white p-6 rounded-3xl border border-amber-100 shadow-sm space-y-4">
+<h4 class="text-base font-black text-amber-900">Step 4. Write one body paragraph (guided)</h4>
+<div class="bg-amber-50/70 border border-amber-100 rounded-2xl p-4 text-sm font-bold text-slate-800">Some people think that pesticides are the main cause of the decline in bee populations. To what extent do you agree?</div>
+<div class="overflow-x-auto rounded-2xl border border-amber-100">
+<table class="w-full text-left text-xs md:text-sm bg-white">
+<tr class="bg-amber-50 text-amber-900"><th class="p-3">Part</th><th class="p-3">Your job</th><th class="p-3">Sentence starters</th></tr>
+<tr class="border-t border-amber-50"><td class="p-3 font-black">Point</td><td class="p-3">State your opinion clearly.</td><td class="p-3">I agree to a large extent that... / It is widely believed that...</td></tr>
+<tr class="border-t border-amber-50"><td class="p-3 font-black">Explain</td><td class="p-3">Give a reason.</td><td class="p-3">Bees are often... / Even a small amount can...</td></tr>
+<tr class="border-t border-amber-50"><td class="p-3 font-black">Example</td><td class="p-3">Add a result or an example.</td><td class="p-3">In some regions,... / Over time,...</td></tr>
+<tr class="border-t border-amber-50"><td class="p-3 font-black">Link</td><td class="p-3">Finish with a result or a solution.</td><td class="p-3">Therefore,... / Banning... would help...</td></tr>
+</table></div>
+<div id="s4-chips"></div>
+<textarea id="s4-input" oninput="onS4()" rows="6" placeholder="Write 5 to 6 short sentences here..." class="w-full p-3 bg-amber-50/40 border border-amber-200 rounded-xl text-sm outline-none focus:border-amber-400 font-medium"></textarea>
+<p id="s4-count" class="text-xs font-black text-slate-500">0 words (minimum 60)</p>
+<button id="s4-btn" onclick="toggleModel('s4')" disabled class="text-xs text-slate-400 font-black cursor-not-allowed">👁️ Write at least 60 words to unlock the model paragraph</button>
+<div id="s4-model" class="hidden text-xs md:text-sm text-slate-700 font-medium bg-emerald-50 border border-emerald-200 p-4 rounded-2xl leading-relaxed"></div>
+</div>
+
+<!-- STEP 5 -->
+<div class="bg-white p-6 rounded-3xl border border-amber-100 shadow-sm space-y-4">
+<h4 class="text-base font-black text-amber-900">Step 5. Write a full Task 2 response (free)</h4>
+<div class="bg-amber-50/70 border border-amber-100 rounded-2xl p-4 text-sm font-bold text-slate-800">Many wild insects and animals are disappearing from the countryside. What are the causes of this problem, and what can be done to reduce it?</div>
+<p class="text-xs text-slate-500 font-bold leading-relaxed">Plan. Introduction (2 sentences), body 1 (causes), body 2 (solutions), conclusion (1 to 2 sentences). Aim for 150 words or more and try to use at least 6 different target items. Use short sentences and a variety of structures.</p>
+<textarea id="s5-input" oninput="onS5()" rows="12" placeholder="Write your essay here..." class="w-full p-3 bg-amber-50/40 border border-amber-200 rounded-xl text-sm outline-none focus:border-amber-400 font-medium"></textarea>
+<div class="flex flex-wrap gap-4 text-xs font-black">
+<span id="s5-count" class="text-slate-500">0 words (minimum 150)</span>
+<span id="s5-vocab" class="text-slate-500">Target items used: 0 (minimum 6)</span>
+</div>
+<div id="s5-chips" class="flex flex-wrap"></div>
+<button id="s5-btn" onclick="toggleModel('s5')" disabled class="text-xs text-slate-400 font-black cursor-not-allowed">👁️ Reach 150 words and 6 target items to unlock the model essay</button>
+<div id="s5-model" class="hidden text-xs md:text-sm text-slate-700 font-medium bg-emerald-50 border border-emerald-200 p-4 rounded-2xl leading-relaxed space-y-3"></div>
+</div>
+
+<div class="text-center pt-2">
+<button onclick="unlockAndGo('summary')" class="px-8 py-3.5 bg-amber-500 hover:bg-amber-600 text-white font-black rounded-xl text-sm shadow-md transition cursor-pointer">Finish &amp; Go to Summary ➔</button>
+</div>
+</section>
+
+<!-- TAB 5: COMPLETION -->
+<section id="tab-summary" class="tab-content hidden space-y-6">
+<div class="max-w-2xl mx-auto bg-white border-4 border-amber-200 p-8 rounded-3xl space-y-6 shadow-xl text-center">
+<div class="space-y-2">
+<span class="text-6xl block animate-bounce">🎓🐝🌼</span>
+<h3 class="text-3xl font-heading font-black text-amber-950">Congratulations!</h3>
+<p class="text-sm text-slate-600 font-bold">You have completed <span class="text-amber-600 font-black">IELTS 1A_S5_Lesson 9</span>.</p>
+</div>
+<div class="bg-amber-50/60 p-5 rounded-2xl border border-amber-200 space-y-3 text-left">
+<h4 class="text-base font-black text-amber-900 border-b border-amber-200 pb-2">💡 Key Takeaways</h4>
+<ul class="space-y-2.5 text-xs md:text-sm text-slate-700 font-bold">
+<li class="flex items-start gap-2"><span class="text-amber-600 font-black">1.</span><span><b>Nature and pollination:</b> reproduce, pollen, pollinate, forage, nimble hands, blasts of sound, a flock of birds, majestic, terrestrial, mobility.</span></li>
+<li class="flex items-start gap-2"><span class="text-amber-600 font-black">2.</span><span><b>Threats and causes:</b> culprit, menace, stressor, slather, wear down (the immunity), finish sth off, interfere with, ravage, contagious, be subjected to.</span></li>
+<li class="flex items-start gap-2"><span class="text-amber-600 font-black">3.</span><span><b>Solutions and ecosystems:</b> bolster populations of, mitigate, thrive, redundancy, surrogate, keystone, radical changes, improvise, respite, in the vicinity of.</span></li>
+<li class="flex items-start gap-2"><span class="text-amber-600 font-black">4.</span><span><b>Other useful words:</b> up to the job, minute (adj), detach, submissive.</span></li>
+</ul>
+</div>
+<div class="text-center pt-2">
+<button onclick="location.reload()" class="px-8 py-3.5 bg-amber-500 hover:bg-amber-600 text-white font-black rounded-xl shadow-md transition cursor-pointer text-sm">🔄 Restart Lesson</button>
+</div>
+</div>
+</section>
+
+</main>
+
+<script>
+const vocabularyData = [
+{ w: "reproduce", ipa: "/ˌriːprəˈdjuːs/", en: "to produce young animals or plants", vn: "sinh sản", ex: "Bees reproduce by laying eggs inside the hive." },
+{ w: "pollen", ipa: "/ˈpɒlən/", en: "the fine powder in flowers that is used to make seeds", vn: "phấn hoa", ex: "Bees carry pollen from one flower to another." },
+{ w: "pollinate", ipa: "/ˈpɒlɪneɪt/", en: "to carry pollen to a flower so that it can make seeds", vn: "thụ phấn", ex: "Many fruit trees cannot grow without insects to pollinate them." },
+{ w: "blasts of sound", ipa: "/blɑːsts əv saʊnd/", en: "sudden, loud bursts of noise", vn: "những đợt âm thanh lớn đột ngột", ex: "Some farmers use blasts of sound to scare birds away from crops." },
+{ w: "up to the job", ipa: "/ʌp tə ðə dʒɒb/", en: "good enough or able to do a task", vn: "đủ khả năng làm việc đó", ex: "Robots may not be up to the job of replacing real bees." },
+{ w: "nimble hands", ipa: "/ˈnɪmbl hændz/", en: "quick and skilful hands", vn: "đôi tay khéo léo, nhanh nhẹn", ex: "In some regions, workers with nimble hands pollinate flowers one by one." },
+{ w: "forage", ipa: "/ˈfɒrɪdʒ/", en: "(animals) to search for food", vn: "đi tìm kiếm thức ăn", ex: "Bees forage for nectar within a few kilometres of their hive." },
+{ w: "culprit", ipa: "/ˈkʌlprɪt/", en: "the person or thing responsible for a problem", vn: "thủ phạm, nguyên nhân chính", ex: "Scientists believe pesticides are the main culprit behind falling bee numbers." },
+{ w: "menace", ipa: "/ˈmenəs/", en: "a dangerous person or thing; a threat", vn: "mối đe dọa", ex: "The varroa mite is a serious menace to bee colonies." },
+{ w: "slather", ipa: "/ˈslæðə/", en: "to spread something thickly over a surface", vn: "phết, bôi dày", ex: "The seeds are slathered with chemicals to protect them from pests." },
+{ w: "stressor", ipa: "/ˈstresə/", en: "something that puts pressure on a body or a system", vn: "tác nhân gây căng thẳng, áp lực", ex: "Pesticides, disease and a lack of food are stressors for bees." },
+{ w: "wear down (the immunity)", say: "wear down the immunity", ipa: "/weə daʊn/", en: "to weaken something slowly over time", vn: "làm suy yếu dần (hệ miễn dịch)", ex: "Constant stress can wear down the immunity of a colony." },
+{ w: "finish sth off (kill)", say: "finish something off", ipa: "/ˈfɪnɪʃ ɒf/", en: "to kill or destroy something that is already weak", vn: "kết liễu, tiêu diệt hẳn", ex: "A cold winter can finish off a weakened colony." },
+{ w: "interfere with", ipa: "/ˌɪntəˈfɪə wɪð/", en: "to affect something so that it cannot work properly", vn: "can thiệp, cản trở", ex: "Some chemicals interfere with the way bees find their way home." },
+{ w: "in the vicinity of", ipa: "/ɪn ðə vɪˈsɪnəti əv/", en: "near a place", vn: "ở gần, lân cận", ex: "Bees nesting in the vicinity of farms are exposed to pesticides." },
+{ w: "bolster populations of (useful insects)", say: "bolster populations of useful insects", ipa: "/ˈbəʊlstə ˌpɒpjuˈleɪʃnz əv/", en: "to strengthen or increase the numbers of", vn: "tăng cường số lượng (côn trùng có ích)", ex: "Planting wildflowers can bolster populations of useful insects." },
+{ w: "redundancy", ipa: "/rɪˈdʌndənsi/", en: "extra capacity so that a system still works if one part fails", vn: "tính dự phòng (cũng có nghĩa: sự mất việc)", ex: "Ecosystems with many species have more redundancy, so they cope better with loss." },
+{ w: "surrogate", ipa: "/ˈsʌrəɡət/", en: "a substitute that takes the place of something else", vn: "vật hoặc người thay thế", ex: "Some farmers use machines as a surrogate for wild pollinators." },
+{ w: "thrive", ipa: "/θraɪv/", en: "to grow and develop successfully", vn: "phát triển mạnh, thịnh vượng", ex: "Wild bees thrive in areas with plenty of flowers." },
+{ w: "minute (adj)", say: "my-nyoot", ipa: "/maɪˈnjuːt/", en: "extremely small", vn: "cực nhỏ, vi tế", ex: "A minute amount of poison can harm a bee." },
+{ w: "ravage", ipa: "/ˈrævɪdʒ/", en: "to damage something very badly", vn: "tàn phá", ex: "Disease has ravaged bee populations across Europe." },
+{ w: "terrestrial", ipa: "/təˈrestriəl/", en: "living or growing on land", vn: "thuộc về đất liền, trên cạn", ex: "Bees are important for many terrestrial ecosystems." },
+{ w: "majestic", ipa: "/məˈdʒestɪk/", en: "impressive and beautiful, often because of size", vn: "hùng vĩ, uy nghi", ex: "The majestic eagle is a top predator." },
+{ w: "keystone", ipa: "/ˈkiːstəʊn/", en: "extremely important because a whole system depends on it", vn: "then chốt (loài chủ chốt)", ex: "Bees are a keystone species because many plants depend on them." },
+{ w: "mobility", ipa: "/məʊˈbɪləti/", en: "the ability to move easily", vn: "khả năng di chuyển", ex: "Flying gives bees great mobility across the landscape." },
+{ w: "radical changes", ipa: "/ˈrædɪkl ˈtʃeɪndʒɪz/", en: "big, extreme changes", vn: "những thay đổi triệt để", ex: "Radical changes in farming are needed to protect pollinators." },
+{ w: "improvise", ipa: "/ˈɪmprəvaɪz/", en: "to create or do something without preparing it", vn: "ứng biến", ex: "When wild bees disappear, farmers improvise by pollinating by hand." },
+{ w: "detach", ipa: "/dɪˈtætʃ/", en: "to separate something from something else", vn: "tháo rời, tách ra", ex: "A bee's stinger can detach from its body." },
+{ w: "a flock of birds", ipa: "/ə flɒk əv bɜːdz/", en: "a group of birds", vn: "một đàn chim", ex: "A flock of birds flew over the fields." },
+{ w: "contagious", ipa: "/kənˈteɪdʒəs/", en: "(a disease) able to spread from one animal or person to another", vn: "dễ lây", ex: "The disease is highly contagious and spreads quickly between hives." },
+{ w: "be subjected to", ipa: "/biː səbˈdʒektɪd tə/", en: "to be forced to experience something unpleasant", vn: "phải chịu (điều không mong muốn)", ex: "Bees are often subjected to chemicals in the fields." },
+{ w: "mitigate", ipa: "/ˈmɪtɪɡeɪt/", en: "to make something less harmful or serious", vn: "giảm nhẹ, giảm thiểu", ex: "Planting hedges can mitigate the effects of habitat loss." },
+{ w: "submissive", ipa: "/səbˈmɪsɪv/", en: "willing to obey others without arguing", vn: "phục tùng, dễ bảo", ex: "Submissive animals avoid fighting with stronger ones." },
+{ w: "respite", ipa: "/ˈrespɪt/", en: "a short rest from something difficult", vn: "sự nghỉ ngơi, thời gian tạm lắng", ex: "Winter gives bees a respite from the heavy work of foraging." }
+];
+
+let cardQueue = [], currentCard = null, currentCardIdx = 0, isFlipped = false;
+const totalCardsCount = vocabularyData.length;
+function shuffleArray(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+
+window.onload = function () {
+  renderVocabTable();
+  initFlashcards();
+  initWriting();
+};
+
+let gamesStarted = false;
+function switchTab(tabId) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+  document.querySelectorAll('.tab-btn').forEach(btn => { btn.classList.remove('bg-white', 'text-amber-700', 'shadow-sm'); btn.classList.add('text-slate-500'); });
+  document.getElementById(`tab-${tabId}`).classList.remove('hidden');
+  const activeBtn = document.getElementById(`btn-${tabId}`);
+  if (activeBtn) { activeBtn.classList.add('bg-white', 'text-amber-700', 'shadow-sm'); activeBtn.classList.remove('text-slate-500'); }
+  if (tabId === 'game' && !gamesStarted) { gamesStarted = true; gameRound = 1; renderRound(); }
+}
+function unlockAndGo(tab) {
+  document.getElementById(`btn-${tab}`).classList.remove('disabled-tab');
+  switchTab(tab);
+}
+
+/* AUDIO */
+function speakText(text) {
+  if ('speechSynthesis' in window) {
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = 'en-GB'; u.rate = 0.9;
+    window.speechSynthesis.speak(u);
+  }
+}
+function speakIdx(i, event) {
+  if (event) event.stopPropagation();
+  const item = vocabularyData[i];
+  speakText(item.say || item.w.replace(/\(.*?\)/g, '').trim());
+}
+
+/* VOCAB BANK */
+function renderVocabTable() {
+  document.getElementById('reference-table-body').innerHTML = vocabularyData.map((item, i) => `
+    <tr class="hover:bg-amber-50/50 transition">
+      <td class="p-3.5 font-black text-amber-950"><span class="inline-flex items-center gap-2"><button class="audio-btn" onclick="speakIdx(${i})">🔊</button>${item.w}</span></td>
+      <td class="p-3.5 font-mono text-xs text-amber-700">${item.ipa}</td>
+      <td class="p-3.5 text-slate-700">${item.en}</td>
+      <td class="p-3.5 text-slate-700">${item.vn}</td>
+      <td class="p-3.5 italic text-slate-500">${item.ex}</td>
+    </tr>`).join('');
+}
+
+/* FLASHCARDS */
+function initFlashcards() {
+  cardQueue = vocabularyData.map((v, i) => i);
+  shuffleArray(cardQueue);
+  updateProgressBar();
+  showNextCard();
+}
+function resetProgress() {
+  document.getElementById('flashcard-container').classList.remove('hidden');
+  document.getElementById('flashcard-success-box').classList.add('hidden');
+  initFlashcards();
+}
+function showNextCard() {
+  if (cardQueue.length === 0) {
+    document.getElementById('flashcard-container').classList.add('hidden');
+    document.getElementById('flashcard-success-box').classList.remove('hidden');
+    return;
+  }
+  currentCardIdx = cardQueue[0];
+  currentCard = vocabularyData[currentCardIdx];
+  isFlipped = false;
+  document.getElementById('flashcard-inner').classList.remove('card-flipped');
+  document.getElementById('f-prompt').innerText = currentCard.en;
+  document.getElementById('f-vn').innerText = currentCard.vn;
+  document.getElementById('b-answer').innerText = currentCard.w;
+  document.getElementById('b-ipa').innerText = currentCard.ipa;
+  document.getElementById('b-example').innerText = `"${currentCard.ex}"`;
+  document.getElementById('queue-text').innerText = `${cardQueue.length} card${cardQueue.length > 1 ? 's' : ''}`;
+  updateProgressBar();
+}
+function flipCard() {
+  isFlipped = !isFlipped;
+  document.getElementById('flashcard-inner').classList.toggle('card-flipped', isFlipped);
+}
+function handleAnkiAction(type) {
+  if (!currentCard) return;
+  if (type === 'again') { const c = cardQueue.shift(); cardQueue.push(c); } else { cardQueue.shift(); }
+  showNextCard();
+}
+function updateProgressBar() {
+  const completed = totalCardsCount - cardQueue.length;
+  document.getElementById('progress-bar').style.width = `${Math.round((completed / totalCardsCount) * 100)}%`;
+}
+
+/* WORD GAMES */
+let gameRound = 1, r1Score = 0, r2Score = 0, r3Score = 0;
+function renderPills() {
+  const names = ['1 Crossword', '2 Paraphrase Pick', '3 Word Forms'];
+  document.getElementById('round-pills').innerHTML = names.map((n, i) => {
+    const active = (i + 1) === gameRound, done = (i + 1) < gameRound;
+    const cls = active ? 'bg-amber-500 text-white' : (done ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-100 text-slate-500');
+    return `<span class="text-xs font-black px-3 py-1.5 rounded-full ${cls}">${done ? '✓ ' : ''}${n}</span>`;
+  }).join('');
+}
+function renderRound() {
+  renderPills();
+  document.getElementById('round-next-btn').classList.add('hidden');
+  if (gameRound === 1) initCrossword(); else if (gameRound === 2) initParaphrase(); else initForms();
+}
+function finishRound(msg) {
+  document.getElementById('round-area').innerHTML = `<div class="max-w-md mx-auto text-center space-y-2 py-6"><span class="text-4xl block">🎯</span><p class="text-base font-black text-amber-950">${msg}</p></div>`;
+  const btn = document.getElementById('round-next-btn');
+  btn.innerText = gameRound === 3 ? 'Finish Games ➔' : 'Next Round ➔';
+  btn.classList.remove('hidden');
+}
+function nextRound() {
+  if (gameRound === 3) {
+    document.getElementById('round-next-btn').classList.add('hidden');
+    document.getElementById('games-summary').innerText = `Crossword: ${r1Score}/${cwWords.length} words. Paraphrase Pick: ${r2Score}/${paraData.length}. Word Forms: ${r3Score}/${formData.length}.`;
+    document.getElementById('games-success-box').classList.remove('hidden');
+    return;
+  }
+  gameRound++;
+  renderRound();
+}
+
+/* Round 1: Crossword */
+const cwH = 15, cwW = 17;
+const cwWords = [
+  { w: "contagious", r: 6, c: 0, d: "A", clue: "(of a disease) able to spread from one animal or person to another" },
+  { w: "keystone", r: 1, c: 7, d: "D", clue: "(of a species) extremely important because the whole system depends on it" },
+  { w: "slather", r: 2, c: 2, d: "A", clue: "to spread something thickly over a surface" },
+  { w: "stressor", r: 6, c: 9, d: "D", clue: "something that puts pressure on a body or a system" },
+  { w: "reproduce", r: 12, c: 5, d: "A", clue: "to produce young animals or plants" },
+  { w: "culprit", r: 0, c: 3, d: "D", clue: "the person or thing responsible for a problem" },
+  { w: "minute", r: 9, c: 11, d: "D", clue: "extremely small (adjective)" },
+  { w: "improvise", r: 4, c: 0, d: "A", clue: "to do or make something without preparing it" },
+  { w: "majestic", r: 10, c: 5, d: "A", clue: "impressive and beautiful, often because of size" },
+  { w: "respite", r: 8, c: 1, d: "A", clue: "a short rest from something unpleasant or difficult" },
+  { w: "menace", r: 14, c: 10, d: "A", clue: "a person or thing that is a danger or a threat" },
+  { w: "thrive", r: 7, c: 9, d: "A", clue: "to grow strongly and be successful" },
+  { w: "ravage", r: 2, c: 14, d: "D", clue: "to damage something very badly" },
+  { w: "forage", r: 5, c: 11, d: "A", clue: "(of animals) to search for food" },
+  { w: "pollen", r: 1, c: 16, d: "D", clue: "the fine powder in flowers that insects carry to other flowers" }
+];
+let cwCells = {}, cwNums = {}, cwDir = 'A', cwCur = null, cwLast = null;
+function cwWordsOf(k) { return cwCells[k].words; }
+function cwActiveWord(k) { const ws = cwWordsOf(k); return ws.find(o => o.d === cwDir) || ws[0]; }
+function initCrossword() {
+  cwCells = {}; cwNums = {}; cwDir = 'A'; cwCur = null; cwLast = null;
+  cwWords.forEach(o => {
+    const dr = o.d === 'A' ? 0 : 1, dc = o.d === 'A' ? 1 : 0;
+    o.cells = [];
+    for (let i = 0; i < o.w.length; i++) {
+      const r = o.r + dr * i, c = o.c + dc * i, k = r + ',' + c;
+      cwCells[k] = cwCells[k] || { r, c, ch: o.w[i].toUpperCase(), words: [] };
+      cwCells[k].words.push(o);
+      o.cells.push(k);
+    }
+  });
+  const starts = [...new Set(cwWords.map(o => o.r + ',' + o.c))].sort((a, b) => { const [ar, ac] = a.split(',').map(Number), [br, bc] = b.split(',').map(Number); return ar - br || ac - bc; });
+  starts.forEach((k, i) => { cwNums[k] = i + 1; });
+  cwWords.forEach(o => { o.num = cwNums[o.r + ',' + o.c]; });
+  let grid = '';
+  for (let r = 0; r < cwH; r++) for (let c = 0; c < cwW; c++) {
+    const k = r + ',' + c;
+    if (cwCells[k]) {
+      grid += `<div class="cw-cell">${cwNums[k] ? `<span class="cw-num">${cwNums[k]}</span>` : ''}<input class="cw-in" id="cw-${r}-${c}" maxlength="1" autocomplete="off" aria-label="row ${r + 1} column ${c + 1}" oninput="cwInput('${k}', this)" onkeydown="cwKey(event, '${k}')" onfocus="cwFocus('${k}')" onclick="cwClick('${k}')"></div>`;
+    } else grid += '<div class="cw-cell"></div>';
+  }
+  const across = cwWords.filter(o => o.d === 'A').sort((a, b) => a.num - b.num);
+  const down = cwWords.filter(o => o.d === 'D').sort((a, b) => a.num - b.num);
+  const clueHtml = list => list.map(o => `<li class="cursor-pointer hover:text-amber-700" onclick="cwClue('${o.w}')"><b>${o.num}.</b> ${o.clue}</li>`).join('');
+  document.getElementById('round-area').innerHTML = `
+    <p class="text-xs text-slate-600 font-bold mb-3">Type the words. Tap a clue to jump to the word. Tap a cell twice to switch between across and down.</p>
+    <div class="overflow-x-auto pb-2"><div class="cw-grid" style="grid-template-columns: repeat(${cwW}, 30px);">${grid}</div></div>
+    <div class="grid md:grid-cols-2 gap-4 mt-4 text-xs md:text-sm">
+      <div><p class="font-black text-amber-900 mb-1">Across</p><ul class="space-y-1">${clueHtml(across)}</ul></div>
+      <div><p class="font-black text-amber-900 mb-1">Down</p><ul class="space-y-1">${clueHtml(down)}</ul></div>
+    </div>
+    <div class="flex flex-wrap items-center gap-3 mt-4">
+      <button onclick="cwCheck()" class="px-5 py-2 bg-amber-500 hover:bg-amber-600 text-white font-black rounded-xl text-xs cursor-pointer">✅ Check</button>
+      <button onclick="cwReveal()" class="px-5 py-2 bg-amber-100 hover:bg-amber-200 text-amber-800 font-black rounded-xl text-xs cursor-pointer">Show answers</button>
+      <button onclick="cwClear()" class="px-5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-black rounded-xl text-xs cursor-pointer">Clear</button>
+      <span id="cw-msg" class="text-sm font-black text-amber-800"></span>
+    </div>`;
+}
+function cwInputEl(k) { const [r, c] = k.split(',').map(Number); return document.getElementById(`cw-${r}-${c}`); }
+function cwHighlight() {
+  document.querySelectorAll('.cw-in.cur').forEach(e => e.classList.remove('cur'));
+  if (!cwCur) return;
+  cwActiveWord(cwCur).cells.forEach(k => cwInputEl(k).classList.add('cur'));
+}
+function cwFocus(k) {
+  cwCur = k;
+  const ws = cwWordsOf(k);
+  if (!ws.some(o => o.d === cwDir)) cwDir = ws[0].d;
+  cwHighlight();
+}
+function cwClick(k) {
+  const ws = cwWordsOf(k);
+  if (cwLast === k && ws.length > 1) { cwDir = cwDir === 'A' ? 'D' : 'A'; cwHighlight(); }
+  cwLast = k;
+}
+function cwMove(k, step) {
+  const w = cwActiveWord(k);
+  const i = w.cells.indexOf(k) + step;
+  return (i >= 0 && i < w.cells.length) ? w.cells[i] : null;
+}
+function cwInput(k, el) {
+  const v = el.value.replace(/[^a-zA-Z]/g, '').slice(-1).toUpperCase();
+  el.value = v;
+  el.classList.remove('ok', 'no');
+  if (v) { const nk = cwMove(k, 1); if (nk) cwInputEl(nk).focus(); }
+}
+function cwKey(e, k) {
+  const [r, c] = k.split(',').map(Number);
+  if (e.key === 'Backspace' && cwInputEl(k).value === '') {
+    const pk = cwMove(k, -1);
+    if (pk) { const pe = cwInputEl(pk); pe.value = ''; pe.classList.remove('ok', 'no'); pe.focus(); e.preventDefault(); }
+  } else if (e.key.startsWith('Arrow')) {
+    const d = { ArrowRight: [0, 1, 'A'], ArrowLeft: [0, -1, 'A'], ArrowDown: [1, 0, 'D'], ArrowUp: [-1, 0, 'D'] }[e.key];
+    const nk = (r + d[0]) + ',' + (c + d[1]);
+    if (cwCells[nk]) { cwDir = d[2]; cwInputEl(nk).focus(); cwHighlight(); e.preventDefault(); }
+  }
+}
+function cwClue(w) {
+  const o = cwWords.find(x => x.w === w);
+  cwDir = o.d;
+  cwInputEl(o.cells[0]).focus();
+  cwHighlight();
+}
+function cwShowNext() { document.getElementById('round-next-btn').classList.remove('hidden'); }
+function cwCheck() {
+  Object.keys(cwCells).forEach(k => {
+    const el = cwInputEl(k);
+    if (!el.value) return;
+    el.classList.remove('ok', 'no');
+    el.classList.add(el.value.toUpperCase() === cwCells[k].ch ? 'ok' : 'no');
+  });
+  r1Score = cwWords.filter(o => o.cells.every(k => cwInputEl(k).value.toUpperCase() === cwCells[k].ch)).length;
+  document.getElementById('cw-msg').innerText = r1Score === cwWords.length ? `🎉 Crossword complete! ${r1Score} / ${cwWords.length}` : `${r1Score} / ${cwWords.length} words correct`;
+  cwShowNext();
+}
+function cwReveal() {
+  Object.keys(cwCells).forEach(k => { const el = cwInputEl(k); el.value = cwCells[k].ch; el.classList.remove('no'); el.classList.add('ok'); });
+  r1Score = cwWords.length;
+  document.getElementById('cw-msg').innerText = 'Answers shown.';
+  cwShowNext();
+}
+function cwClear() {
+  Object.keys(cwCells).forEach(k => { const el = cwInputEl(k); el.value = ''; el.classList.remove('ok', 'no'); });
+  document.getElementById('cw-msg').innerText = '';
+}
+
+/* Round 2: Paraphrase Pick */
+const paraData = [
+  { s: "Pesticides are the main <b>culprit</b> behind the decline of bees.", opts: ["Pesticides are chiefly responsible for the decline of bees.", "Pesticides are the only cure for the decline of bees.", "Pesticides have no effect on the number of bees."], ans: 0 },
+  { s: "The varroa mite is a <b>menace</b> to beekeepers.", opts: ["The varroa mite is a useful helper for beekeepers.", "The varroa mite is a serious threat to beekeepers.", "The varroa mite is an old tradition among beekeepers."], ans: 1 },
+  { s: "Wild bees <b>thrive</b> in areas with plenty of flowers.", opts: ["Wild bees disappear in areas with plenty of flowers.", "Wild bees become aggressive in areas with plenty of flowers.", "Wild bees do very well in areas with plenty of flowers."], ans: 2 },
+  { s: "A <b>minute</b> amount of poison can harm a colony.", opts: ["A tiny amount of poison can harm a colony.", "A huge amount of poison can harm a colony.", "A strange kind of poison can harm a colony."], ans: 0 },
+  { s: "Disease has <b>ravaged</b> bee populations across Europe.", opts: ["Disease has slightly reduced bee populations across Europe.", "Disease has caused severe damage to bee populations across Europe.", "Disease has protected bee populations across Europe."], ans: 1 },
+  { s: "Planting wildflowers can <b>bolster populations of</b> useful insects.", opts: ["Planting wildflowers can poison useful insects.", "Planting wildflowers can hide useful insects.", "Planting wildflowers can increase the numbers of useful insects."], ans: 2 },
+  { s: "Constant stress can <b>wear down</b> a colony's immunity.", opts: ["Constant stress can gradually weaken a colony's immunity.", "Constant stress can quickly improve a colony's immunity.", "Constant stress can completely cure a colony's immunity."], ans: 0 },
+  { s: "A cold winter can <b>finish off</b> a weakened colony.", opts: ["A cold winter can feed a weakened colony.", "A cold winter can kill a weakened colony.", "A cold winter can protect a weakened colony."], ans: 1 },
+  { s: "Some chemicals <b>interfere with</b> the way bees navigate.", opts: ["Some chemicals copy the way bees navigate.", "Some chemicals help the way bees navigate.", "Some chemicals disturb the way bees navigate."], ans: 2 },
+  { s: "Bees nesting <b>in the vicinity of</b> farms are exposed to chemicals.", opts: ["Bees nesting close to farms are exposed to chemicals.", "Bees nesting far from farms are exposed to chemicals.", "Bees nesting inside farms are exposed to chemicals."], ans: 0 },
+  { s: "Hedges can <b>mitigate</b> the effects of habitat loss.", opts: ["Hedges can cause the effects of habitat loss.", "Hedges can reduce the harm of habitat loss.", "Hedges can ignore the effects of habitat loss."], ans: 1 },
+  { s: "Ecosystems with high <b>redundancy</b> cope better with species loss.", opts: ["Ecosystems with no variety cope better with species loss.", "Ecosystems with fast growth cope better with species loss.", "Ecosystems with extra backup cope better with species loss."], ans: 2 },
+  { s: "Machines are a <b>surrogate</b> for wild pollinators.", opts: ["Machines are a substitute for wild pollinators.", "Machines are an enemy of wild pollinators.", "Machines are a food for wild pollinators."], ans: 0 },
+  { s: "Farmers <b>improvise</b> when bees are not available.", opts: ["Farmers wait for rain when bees are not available.", "Farmers find quick solutions without a plan when bees are not available.", "Farmers buy more land when bees are not available."], ans: 1 },
+  { s: "Bees bring <b>blasts of sound</b> and movement to the garden, so some people feel the garden is crowded.", opts: ["Bees bring sudden loud noise and movement to the garden.", "Bees bring silence to the garden.", "Bees bring cold weather to the garden."], ans: 0 }
+];
+let paIdx = 0, paAnswered = false, paOpts = [];
+function initParaphrase() { paIdx = 0; r2Score = 0; loadPara(); }
+function loadPara() {
+  if (paIdx >= paraData.length) { finishRound(`Round 2 score: ${r2Score} / ${paraData.length}`); return; }
+  paAnswered = false;
+  const q = paraData[paIdx];
+  paOpts = shuffleArray(q.opts.map((t, i) => ({ t, ok: i === q.ans })));
+  const pct = Math.round((paIdx / paraData.length) * 100);
+  document.getElementById('round-area').innerHTML = `
+    <div class="max-w-2xl mx-auto space-y-4">
+      <div class="flex justify-between text-xs font-black text-amber-800"><span>Question ${paIdx + 1} of ${paraData.length}</span><span>Score: ${r2Score}</span></div>
+      <div class="w-full bg-slate-100 h-3 rounded-full overflow-hidden"><div class="bg-gradient-to-r from-amber-400 to-orange-400 h-full rounded-full" style="width:${pct}%"></div></div>
+      <p class="text-[11px] font-black text-amber-700 uppercase tracking-wide">Choose the closest paraphrase</p>
+      <p class="text-base font-bold text-slate-800 leading-relaxed bg-amber-50/60 border border-amber-100 rounded-2xl p-4">${q.s}</p>
+      <div class="space-y-2">${paOpts.map((o, i) => `<button class="opt" id="pa-${i}" onclick="answerPara(${i})">${o.t}</button>`).join('')}</div>
+      <div id="pa-next" class="text-center"></div>
+    </div>`;
+}
+function answerPara(i) {
+  if (paAnswered) return;
+  paAnswered = true;
+  const btn = document.getElementById(`pa-${i}`);
+  if (paOpts[i].ok) { r2Score++; btn.classList.add('right'); }
+  else { btn.classList.add('bad'); paOpts.forEach((o, k) => { if (o.ok) document.getElementById(`pa-${k}`).classList.add('right'); }); }
+  document.getElementById('pa-next').innerHTML = `<button onclick="paIdx++;loadPara()" class="px-6 py-2.5 bg-orange-500 hover:bg-orange-600 text-white font-black rounded-xl text-xs cursor-pointer">${paIdx === paraData.length - 1 ? 'See result ➔' : 'Next ➔'}</button>`;
+}
+
+/* Round 3: Word Forms */
+const formData = [
+  { s: "Bees play a vital role in the ___ of many crops.", opts: ["pollination", "pollinate", "pollinated"], ans: "pollination" },
+  { s: "Bees and butterflies are important ___.", opts: ["pollinators", "pollination", "pollinate"], ans: "pollinators" },
+  { s: "The queen controls the ___ of the colony.", opts: ["reproduction", "reproduce", "reproduced"], ans: "reproduction" },
+  { s: "The virus is highly ___ and spreads quickly between hives.", opts: ["contagious", "contagion", "contagiously"], ans: "contagious" },
+  { s: "Flying gives bees great ___ across the landscape.", opts: ["mobility", "mobile", "mobilise"], ans: "mobility" },
+  { s: "A ___ colony has plenty of food and healthy workers.", opts: ["thriving", "thrive", "thrived"], ans: "thriving" },
+  { s: "Some chemicals cause ___ with the bees' sense of direction.", opts: ["interference", "interfere", "interfering"], ans: "interference" },
+  { s: "Many farms have felt the ___ of disease.", opts: ["ravages", "ravage", "ravaged"], ans: "ravages" },
+  { s: "Governments need clear plans for the ___ of climate change.", opts: ["mitigation", "mitigate", "mitigating"], ans: "mitigation" },
+  { s: "The weaker animal showed ___ behaviour and avoided a fight.", opts: ["submissive", "submission", "submit"], ans: "submissive" },
+  { s: "When the machine broke, the workers had to ___ a new method.", opts: ["improvise", "improvisation", "improvised"], ans: "improvise" },
+  { s: "The eagle flew over the valley with great ___.", opts: ["majesty", "majestic", "majestically"], ans: "majesty" }
+];
+let foIdx = 0, foAnswered = false, foOpts = [];
+function initForms() { foIdx = 0; r3Score = 0; loadForm(); }
+function loadForm() {
+  if (foIdx >= formData.length) { finishRound(`Round 3 score: ${r3Score} / ${formData.length}`); return; }
+  foAnswered = false;
+  const q = formData[foIdx];
+  foOpts = shuffleArray([...q.opts]);
+  const pct = Math.round((foIdx / formData.length) * 100);
+  document.getElementById('round-area').innerHTML = `
+    <div class="max-w-xl mx-auto space-y-4">
+      <div class="flex justify-between text-xs font-black text-amber-800"><span>Question ${foIdx + 1} of ${formData.length}</span><span>Score: ${r3Score}</span></div>
+      <div class="w-full bg-slate-100 h-3 rounded-full overflow-hidden"><div class="bg-gradient-to-r from-amber-400 to-orange-400 h-full rounded-full" style="width:${pct}%"></div></div>
+      <p class="text-[11px] font-black text-amber-700 uppercase tracking-wide">Choose the correct word form</p>
+      <p id="fo-sentence" class="text-base font-bold text-slate-800 leading-relaxed bg-amber-50/60 border border-amber-100 rounded-2xl p-4">${q.s.replace('___', '<span class="gap-fill">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>')}</p>
+      <div class="space-y-2">${foOpts.map((o, i) => `<button class="opt" id="fo-${i}" onclick="answerForm(${i})">${o}</button>`).join('')}</div>
+      <div id="fo-next" class="text-center"></div>
+    </div>`;
+}
+function answerForm(i) {
+  if (foAnswered) return;
+  foAnswered = true;
+  const q = formData[foIdx];
+  const btn = document.getElementById(`fo-${i}`);
+  if (foOpts[i] === q.ans) { r3Score++; btn.classList.add('right'); }
+  else { btn.classList.add('bad'); foOpts.forEach((o, k) => { if (o === q.ans) document.getElementById(`fo-${k}`).classList.add('right'); }); }
+  document.getElementById('fo-sentence').innerHTML = q.s.replace('___', `<span class="gap-fill">${q.ans}</span>`);
+  document.getElementById('fo-next').innerHTML = `<button onclick="foIdx++;loadForm()" class="px-6 py-2.5 bg-orange-500 hover:bg-orange-600 text-white font-black rounded-xl text-xs cursor-pointer">${foIdx === formData.length - 1 ? 'See result ➔' : 'Next ➔'}</button>`;
+}
+
+/* WRITING */
+function norm(s) { return s.toLowerCase().replace(/-/g, ' ').replace(/\s+/g, ' ').trim(); }
+const setData = {
+  s1: {
+    bank: ["culprit", "menace", "thrive", "mitigate", "subjected to", "interfere with", "wear down", "ravaged", "bolster", "forage", "surrogate", "respite"],
+    items: [
+      { t: "Scientists believe that pesticides are the main {} behind the fall in bee numbers.", a: ["culprit"] },
+      { t: "The varroa mite is a serious {} to honeybee colonies.", a: ["menace"] },
+      { t: "Wild bees {} in areas with plenty of flowers and little pollution.", a: ["thrive", "thrives"] },
+      { t: "Planting hedges and wildflowers can {} the effects of habitat loss.", a: ["mitigate"] },
+      { t: "Bees living near sprayed fields are often {} harmful chemicals.", a: ["subjected to"] },
+      { t: "Some chemicals {} the way bees navigate, so they cannot find their hive.", a: ["interfere with", "interferes with"] },
+      { t: "Long periods of stress can {} a colony's immunity and leave it open to disease.", a: ["wear down"] },
+      { t: "Disease has {} bee populations across several continents.", a: ["ravaged"] },
+      { t: "Creating flower-rich areas will help to {} populations of useful insects.", a: ["bolster"] },
+      { t: "Bees {} for nectar and pollen within a few kilometres of the hive.", a: ["forage", "forages"] }
+    ]
+  },
+  s3: {
+    bank: ["culprit", "minute", "interfere with", "stressors", "wear down", "thrived", "ravaged", "mitigate", "bolster", "redundancy", "respite"],
+    parts: ["One major reason for the decline in bees is the use of chemicals in farming. Pesticides are often seen as the main ", 0, ". Even a ", 1, " amount can ", 2, " the way bees find food. Disease and loss of habitat are further ", 3, " that slowly ", 4, " the immunity of a colony. Populations that once ", 5, " in the countryside have been ", 6, " in many regions. To ", 7, " the damage, governments should ", 8, " populations of useful insects."],
+    items: [
+      { a: ["culprit"] }, { a: ["minute"] }, { a: ["interfere with"] }, { a: ["stressors"] }, { a: ["wear down"] },
+      { a: ["thrived"] }, { a: ["ravaged"] }, { a: ["mitigate"] }, { a: ["bolster"] }
+    ]
+  }
+};
+const s2Data = [
+  { t: "Pesticides are the biggest cause of the decline in bees.", use: "culprit", model: "Pesticides are widely seen as the main culprit in the decline of bees." },
+  { t: "Bees are in danger when farmers spray chemicals nearby.", use: "in the vicinity of", model: "Bees nesting in the vicinity of sprayed fields face serious risks." },
+  { t: "A few disease-carrying insects can kill a weak hive.", use: "finish off", model: "A few disease-carrying insects can finish off a weakened hive." },
+  { t: "Governments should do something to reduce the harm caused by habitat loss.", use: "mitigate", model: "Governments should take steps to mitigate the harm caused by habitat loss." },
+  { t: "Without wild bees, farmers have to pollinate crops by hand because they have no choice.", use: "improvise", model: "Without wild bees, farmers have to improvise by pollinating crops by hand." }
+];
+const vocabRe = [
+  ["reproduce", /reproduc/i], ["pollen", /pollen/i], ["pollinate", /pollinat/i], ["blasts of sound", /blasts? of sound/i], ["up to the job", /up to the (job|task)/i],
+  ["nimble hands", /nimble/i], ["forage", /forag/i], ["culprit", /culprit/i], ["menace", /menace/i], ["slather", /slather/i], ["stressor", /stressor/i],
+  ["wear down", /wear(s|ing)? down|wore down|worn down/i], ["finish off", /finish(es|ed|ing)? (it |them )?off/i], ["interfere with", /interfer/i],
+  ["in the vicinity of", /vicinity/i], ["bolster", /bolster/i], ["redundancy", /redundan/i], ["surrogate", /surrogate/i], ["thrive", /thriv|throve/i],
+  ["minute (adj)", /\bminute\b/i], ["ravage", /ravag/i], ["terrestrial", /terrestrial/i], ["majestic", /majestic|majesty/i], ["keystone", /keystone/i],
+  ["mobility", /mobility/i], ["radical changes", /radical/i], ["improvise", /improvis/i], ["detach", /detach/i], ["a flock of birds", /flock of/i],
+  ["contagious", /contagio/i], ["be subjected to", /subjected to/i], ["mitigate", /mitigat/i], ["submissive", /submissive/i], ["respite", /respite/i]
+];
+const s4Chips = ["culprit", "minute", "interfere with", "subjected to", "wear down", "stressor", "ravage", "thrive", "forage", "mitigate", "bolster"];
+const s4Model = "I agree to a large extent that pesticides are the main culprit behind falling bee numbers. Bees are subjected to chemicals whenever they forage near farms. Even a minute dose can interfere with their sense of direction, so many never return to the hive. Over time, such stressors wear down the immunity of the whole colony. In some regions, entire populations have been ravaged. Banning the most harmful sprays would therefore help bees to thrive again.";
+const s5Model = [
+  "Wild insects and animals are vanishing from the countryside at an alarming rate. Farming methods and habitat loss are the main causes, but several practical measures could slow the decline.",
+  "Modern farming has changed the countryside dramatically. Pesticides are widely regarded as the main culprit. Insects are subjected to them whenever they forage in treated fields, and even a minute dose can interfere with an insect's sense of direction. Disease is a further stressor. Contagious infections spread quickly through crowded colonies, and constant pressure wears down their immunity. Radical changes in land use have also left many species with nowhere to live. Hedges are cut back and wild meadows are ploughed up.",
+  "Governments can mitigate the damage in several ways. Banning the most harmful chemicals would be a sensible first step. Farmers could also plant wildflowers along field edges, which would bolster populations of useful insects. In the vicinity of cities, parks could be redesigned so that pollinators can thrive. Such steps would give struggling species a respite from constant danger.",
+  "In conclusion, harmful chemicals and loss of habitat have ravaged insect populations. With stronger laws and greener farming, these species could recover."
+];
+function wordCount(t) { const m = t.trim().match(/\S+/g); return m ? m.length : 0; }
+function chipsHtml(list) { return list.map(c => `<span class="chip">${c}</span>`).join(''); }
+
+function initWriting() {
+  // Step 1
+  document.getElementById('s1-bank').innerHTML = chipsHtml(setData.s1.bank);
+  document.getElementById('s1-list').innerHTML = setData.s1.items.map((it, i) => `<p>${i + 1}. ${it.t.replace('{}', `<input class="gap-in" id="s1-${i}" type="text" autocomplete="off" aria-label="gap ${i + 1}">`)}</p>`).join('');
+  // Step 2
+  document.getElementById('s2-list').innerHTML = s2Data.map((it, i) => `
+    <div class="p-4 bg-amber-50/40 rounded-2xl border border-amber-100 space-y-2">
+      <p class="text-sm font-bold text-slate-800">${i + 1}. ${it.t}</p>
+      <p class="text-[11px] font-black text-amber-700">Use: ${it.use}</p>
+      <textarea id="s2-input-${i}" oninput="onS2(${i})" rows="2" placeholder="Write your sentence here first..." class="w-full p-2 text-sm bg-white border border-amber-200 rounded-xl outline-none focus:border-amber-400 font-semibold"></textarea>
+      <button id="s2-btn-${i}" onclick="toggleS2(${i})" disabled class="text-xs text-slate-400 font-black cursor-not-allowed">👁️ Write your answer first to unlock the model</button>
+      <p id="s2-model-${i}" class="hidden text-xs text-emerald-700 font-bold bg-emerald-50 p-2 rounded-lg">${it.model}</p>
+    </div>`).join('');
+  // Step 3
+  document.getElementById('s3-bank').innerHTML = chipsHtml(setData.s3.bank);
+  document.getElementById('s3-text').innerHTML = setData.s3.parts.map(p => typeof p === 'string' ? p : `<input class="gap-in" id="s3-${p}" type="text" autocomplete="off" aria-label="gap ${p + 1}">`).join('');
+  // Step 4 and 5
+  document.getElementById('s4-chips').innerHTML = chipsHtml(s4Chips).replace(/class="chip"/g, 'class="chip s4chip"');
+  document.getElementById('s5-chips').innerHTML = vocabRe.map(v => `<span class="chip s5chip">${v[0]}</span>`).join('');
+}
+function checkSet(id) {
+  const items = setData[id].items;
+  let ok = 0;
+  items.forEach((it, i) => {
+    const el = document.getElementById(`${id}-${i}`);
+    const v = norm(el.value);
+    const good = it.a.some(x => norm(x) === v);
+    el.className = 'gap-in' + (v === '' ? '' : (good ? ' ok' : ' no'));
+    if (good) ok++;
+  });
+  document.getElementById(`${id}-score`).innerText = `Score: ${ok} / ${items.length}`;
+}
+function showKey(id) {
+  setData[id].items.forEach((it, i) => { const el = document.getElementById(`${id}-${i}`); el.value = it.a[0]; el.className = 'gap-in ok'; });
+  document.getElementById(`${id}-score`).innerText = 'Answers shown.';
+}
+function onS2(i) {
+  const has = document.getElementById(`s2-input-${i}`).value.trim().length > 0;
+  const btn = document.getElementById(`s2-btn-${i}`);
+  btn.disabled = !has;
+  btn.className = has ? 'text-xs text-amber-600 hover:underline font-black cursor-pointer' : 'text-xs text-slate-400 font-black cursor-not-allowed';
+  btn.innerText = has ? '👁️ Show model answer' : '👁️ Write your answer first to unlock the model';
+}
+function toggleS2(i) {
+  if (document.getElementById(`s2-input-${i}`).value.trim().length === 0) return;
+  document.getElementById(`s2-model-${i}`).classList.toggle('hidden');
+}
+function unlockBtn(id, ok, onText, offText) {
+  const btn = document.getElementById(id);
+  btn.disabled = !ok;
+  btn.className = ok ? 'text-xs text-amber-600 hover:underline font-black cursor-pointer' : 'text-xs text-slate-400 font-black cursor-not-allowed';
+  btn.innerText = ok ? onText : offText;
+}
+function onS4() {
+  const text = document.getElementById('s4-input').value;
+  const n = wordCount(text);
+  const el = document.getElementById('s4-count');
+  el.innerText = `${n} words (minimum 60)`;
+  el.className = n >= 60 ? 'text-xs font-black text-emerald-600' : 'text-xs font-black text-slate-500';
+  const reg = { "culprit": /culprit/i, "minute": /\bminute\b/i, "interfere with": /interfer/i, "subjected to": /subjected to/i, "wear down": /wear(s|ing)? down|wore down|worn down/i, "stressor": /stressor/i, "ravage": /ravag/i, "thrive": /thriv/i, "forage": /forag/i, "mitigate": /mitigat/i, "bolster": /bolster/i };
+  document.querySelectorAll('#s4-chips .chip').forEach(ch => ch.classList.toggle('on', reg[ch.innerText].test(text)));
+  unlockBtn('s4-btn', n >= 60, '👁️ Show the model paragraph', '👁️ Write at least 60 words to unlock the model paragraph');
+}
+function onS5() {
+  const text = document.getElementById('s5-input').value;
+  const n = wordCount(text);
+  let used = 0;
+  document.querySelectorAll('#s5-chips .chip').forEach((ch, i) => { const on = vocabRe[i][1].test(text); ch.classList.toggle('on', on); if (on) used++; });
+  const c1 = document.getElementById('s5-count'), c2 = document.getElementById('s5-vocab');
+  c1.innerText = `${n} words (minimum 150)`; c1.className = n >= 150 ? 'text-emerald-600' : 'text-slate-500';
+  c2.innerText = `Target items used: ${used} (minimum 6)`; c2.className = used >= 6 ? 'text-emerald-600' : 'text-slate-500';
+  unlockBtn('s5-btn', n >= 150 && used >= 6, '👁️ Show the model essay', '👁️ Reach 150 words and 6 target items to unlock the model essay');
+}
+function toggleModel(id) {
+  const btn = document.getElementById(`${id}-btn`);
+  if (btn.disabled) return;
+  const box = document.getElementById(`${id}-model`);
+  if (box.classList.contains('hidden')) {
+    box.innerHTML = id === 's4' ? s4Model : s5Model.map(p => `<p>${p}</p>`).join('');
+  }
+  box.classList.toggle('hidden');
+}
+</script>
+</body>
+</html>
