@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IELTS 1A_S6_Lesson 2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<style>
+*, body, html, button, span, h1, h2, h3, h4, p, div, input, select, textarea, td, th { font-family: 'Quicksand', sans-serif; font-weight: 600; }
+body { background: #F6F4EE; color: #1e293b; }
+h1, h2, h3, h4, .font-heading { font-family: 'Fredoka', sans-serif; }
+.perspective { perspective: 1000px; }
+.backface-hidden { backface-visibility: hidden; }
+.card-inner { transition: transform 0.55s; transform-style: preserve-3d; }
+.card-flipped { transform: rotateY(180deg); }
+.disabled-tab { opacity: 0.4; cursor: not-allowed !important; pointer-events: none; }
+.starry { background: radial-gradient(circle at 15% 30%, rgba(251,191,36,.25) 0, transparent 2px), radial-gradient(circle at 80% 20%, rgba(255,255,255,.5) 0, transparent 2px), radial-gradient(circle at 60% 75%, rgba(251,191,36,.3) 0, transparent 2px), radial-gradient(circle at 30% 85%, rgba(255,255,255,.4) 0, transparent 2px), linear-gradient(135deg, #1e1b4b, #312e81 60%, #3b2f6b); }
+.tag-s { background:#FEF3C7; color:#92400E; border:1px solid #FDE68A; }
+.tag-l { background:#E0E7FF; color:#3730A3; border:1px solid #C7D2FE; }
+.chip { display:inline-block; font-size:.78rem; font-weight:700; padding:3px 11px; border-radius:999px; margin:2px; border:1px solid #E2E8F0; background:#F1F5F9; color:#64748B; }
+.chip.s { background:#FFFBEB; border-color:#FDE68A; color:#92400E; }
+.chip.l { background:#EEF2FF; border-color:#C7D2FE; color:#3730A3; }
+.chip.on { background:#D1FAE5; border-color:#6EE7B7; color:#047857; }
+.audio-btn { display:inline-flex; align-items:center; justify-content:center; width:24px; height:24px; border-radius:999px; background:#FEF3C7; color:#92400E; font-size:11px; cursor:pointer; border:1px solid #FDE68A; flex-shrink:0; }
+.opt { padding:11px 18px; border-radius:14px; border:2px solid #C7D2FE; background:#fff; font-weight:700; color:#312e81; cursor:pointer; }
+.opt:hover { background:#EEF2FF; }
+.opt.right { border-color:#10B981; background:#D1FAE5; color:#065F46; }
+.opt.bad { border-color:#F43F5E; background:#FFE4E6; color:#9F1239; }
+.tok { padding:6px 12px; border-radius:10px; border:2px solid #FDE68A; background:#fff; font-weight:700; color:#78350F; cursor:pointer; font-size:.9rem; }
+.tok:hover { background:#FFFBEB; }
+.tok.built { border-color:#A5B4FC; background:#EEF2FF; color:#312e81; }
+.gap-in { border:0; border-bottom:2px solid #6366F1; background:transparent; width:210px; max-width:100%; text-align:center; font-weight:700; color:#312e81; }
+.gap-in.ok { border-bottom-color:#10B981; background:#D1FAE5; }
+.gap-in.no { border-bottom-color:#F43F5E; background:#FFE4E6; }
+.fix { text-decoration: underline wavy #F43F5E; text-underline-offset: 4px; color:#9F1239; font-weight:700; }
+</style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-amber-200 pb-12">
+
+<header class="starry text-center p-7 rounded-b-3xl shadow-md border-b-4 border-amber-400">
+  <h1 class="text-3xl md:text-4xl font-extrabold text-white">IELTS 1A_S6_Lesson 2</h1>
+</header>
+
+<div class="max-w-5xl w-full mx-auto px-4 mt-6">
+  <div class="flex bg-indigo-950/90 p-1.5 rounded-2xl shadow-inner overflow-x-auto gap-1">
+    <button onclick="switchTab('reference')" id="btn-reference" class="tab-btn flex-1 py-3 px-2 text-xs md:text-sm font-bold rounded-xl bg-amber-400 text-indigo-950 whitespace-nowrap cursor-pointer">📚 Vocab Bank</button>
+    <button onclick="switchTab('flashcard')" id="btn-flashcard" class="tab-btn flex-1 py-3 px-2 text-xs md:text-sm font-bold rounded-xl text-indigo-200 whitespace-nowrap cursor-pointer">🎴 Flashcards</button>
+    <button onclick="switchTab('game')" id="btn-game" class="tab-btn disabled-tab flex-1 py-3 px-2 text-xs md:text-sm font-bold rounded-xl text-indigo-200 whitespace-nowrap">🎮 Word Games</button>
+    <button onclick="switchTab('writing')" id="btn-writing" class="tab-btn disabled-tab flex-1 py-3 px-2 text-xs md:text-sm font-bold rounded-xl text-indigo-200 whitespace-nowrap">✍️ Output Practice</button>
+    <button onclick="switchTab('summary')" id="btn-summary" class="tab-btn disabled-tab flex-1 py-3 px-2 text-xs md:text-sm font-bold rounded-xl text-indigo-200 whitespace-nowrap">🎉 Completion</button>
+  </div>
+</div>
+
+<main class="flex-1 max-w-5xl w-full mx-auto px-4 py-6">
+
+<!-- TAB 1: VOCAB BANK -->
+<section id="tab-reference" class="tab-content block space-y-6">
+  <div class="bg-white p-6 rounded-3xl border border-indigo-100 shadow-sm space-y-4">
+    <div class="flex justify-between items-center flex-wrap gap-3">
+      <h2 class="text-2xl font-bold text-indigo-950">Vocabulary Table</h2>
+      <div class="flex gap-2 flex-wrap text-xs font-bold">
+        <button id="vb-all" onclick="setVb('all')" class="px-3 py-1.5 rounded-full cursor-pointer">All (30)</button>
+        <button id="vb-S" onclick="setVb('S')" class="px-3 py-1.5 rounded-full cursor-pointer">Speaking: History &amp; Tradition (15)</button>
+        <button id="vb-L" onclick="setVb('L')" class="px-3 py-1.5 rounded-full cursor-pointer">Listening: Astronomy (15)</button>
+      </div>
+    </div>
+    <div class="overflow-x-auto rounded-2xl border border-indigo-100 max-h-[560px]">
+      <table class="w-full text-left border-collapse bg-white">
+        <thead class="sticky top-0 bg-indigo-50 text-indigo-900 text-xs uppercase tracking-wider font-bold z-10">
+          <tr><th class="p-3.5">Vocabulary</th><th class="p-3.5">Pronunciation</th><th class="p-3.5">Meaning</th><th class="p-3.5">Vietnamese meaning</th><th class="p-3.5">Example</th></tr>
+        </thead>
+        <tbody id="vocab-body" class="divide-y divide-indigo-50 text-xs md:text-sm"></tbody>
+      </table>
+    </div>
+    <div class="text-center pt-1">
+      <button onclick="switchTab('flashcard')" class="px-8 py-3.5 bg-indigo-900 hover:bg-indigo-800 text-white font-bold rounded-xl text-sm shadow-sm cursor-pointer">Start Flashcards ➔</button>
+    </div>
+  </div>
+</section>
+
+<!-- TAB 2: FLASHCARDS -->
+<section id="tab-flashcard" class="tab-content hidden space-y-6">
+  <div class="bg-white p-4 rounded-2xl border-2 border-dashed border-indigo-200 shadow-sm flex justify-between items-center flex-wrap gap-3">
+    <div class="flex gap-2 text-xs font-bold">
+      <button id="fc-all" onclick="setFc('all')" class="px-3 py-1.5 rounded-full cursor-pointer">All 30</button>
+      <button id="fc-S" onclick="setFc('S')" class="px-3 py-1.5 rounded-full cursor-pointer">Speaking 15</button>
+      <button id="fc-L" onclick="setFc('L')" class="px-3 py-1.5 rounded-full cursor-pointer">Listening 15</button>
+    </div>
+    <div class="text-sm font-bold text-slate-600">Remaining: <span id="queue-text" class="text-indigo-800 font-extrabold">0</span></div>
+    <div class="w-full sm:w-1/4 bg-slate-100 h-3 rounded-full overflow-hidden"><div id="progress-bar" class="bg-gradient-to-r from-amber-400 to-orange-400 h-full rounded-full transition-all duration-500" style="width:0%"></div></div>
+  </div>
+
+  <div id="fc-box" class="space-y-6">
+    <div class="perspective w-full max-w-md mx-auto h-[400px] cursor-pointer" onclick="flipCard()">
+      <div id="flashcard-inner" class="card-inner w-full h-full relative border-4 border-indigo-300 rounded-3xl shadow-md bg-white">
+        <div class="backface-hidden absolute inset-0 p-6 flex flex-col justify-between items-center text-center bg-indigo-50/50 rounded-[20px]">
+          <span id="f-tag" class="text-xs font-bold px-4 py-1.5 rounded-full"></span>
+          <div class="space-y-3 my-auto">
+            <h3 id="f-word" class="text-3xl font-bold text-indigo-950"></h3>
+            <div class="flex justify-center items-center gap-2"><span id="f-ipa" class="text-indigo-700 font-semibold font-mono text-sm"></span><button onclick="speakIdx(cur, event)" class="w-8 h-8 bg-indigo-900 text-white rounded-full text-xs cursor-pointer">🔊</button></div>
+          </div>
+          <p class="text-xs text-indigo-700 font-bold">👉 Tap to see the meaning 👈</p>
+        </div>
+        <div class="backface-hidden w-full h-full absolute inset-0 p-6 flex flex-col justify-between bg-indigo-950 text-white rounded-[22px]" style="transform: rotateY(180deg);">
+          <span class="text-xs font-bold text-amber-300 uppercase tracking-widest mx-auto">Meaning</span>
+          <div class="my-auto space-y-3 text-center">
+            <p id="b-en" class="text-lg font-semibold text-amber-300 leading-snug"></p>
+            <p id="b-vn" class="text-sm text-indigo-200"></p>
+            <p id="b-ex" class="text-xs text-indigo-100 italic border-t border-indigo-800 pt-3 leading-relaxed"></p>
+          </div>
+          <p class="text-xs text-center text-indigo-300 font-bold">How well did you remember? 👇</p>
+        </div>
+      </div>
+    </div>
+    <div class="w-full max-w-md mx-auto bg-white p-4 rounded-2xl border border-indigo-100 shadow-sm grid grid-cols-4 gap-2">
+      <button onclick="rateCard('again')" class="p-2 bg-rose-50 hover:bg-rose-100 border border-rose-200 rounded-xl cursor-pointer"><span class="block text-xs font-bold text-rose-600">Again</span><span class="text-[10px] text-rose-400 font-bold">&lt; 1m</span></button>
+      <button onclick="rateCard('hard')" class="p-2 bg-amber-50 hover:bg-amber-100 border border-amber-200 rounded-xl cursor-pointer"><span class="block text-xs font-bold text-amber-700">Hard</span><span class="text-[10px] text-amber-500 font-bold">10m</span></button>
+      <button onclick="rateCard('good')" class="p-2 bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 rounded-xl cursor-pointer"><span class="block text-xs font-bold text-indigo-700">Good</span><span class="text-[10px] text-indigo-400 font-bold">1d</span></button>
+      <button onclick="rateCard('easy')" class="p-2 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 rounded-xl cursor-pointer"><span class="block text-xs font-bold text-emerald-700">Easy</span><span class="text-[10px] text-emerald-500 font-bold">4d</span></button>
+    </div>
+  </div>
+
+  <div id="fc-done" class="max-w-md mx-auto bg-emerald-50 border-4 border-emerald-300 p-6 rounded-3xl text-center space-y-4 hidden shadow-sm">
+    <span class="text-5xl block animate-bounce">🌟🔭🏛️</span>
+    <h4 class="text-2xl font-bold text-emerald-900">Flashcards Finished!</h4>
+    <p class="text-sm text-slate-700">Great work. Now let's play with the words.</p>
+    <button onclick="unlockGo('game')" class="w-full py-3.5 bg-indigo-900 hover:bg-indigo-800 text-white font-bold rounded-xl shadow-md cursor-pointer text-sm">Start Word Games ➔</button>
+  </div>
+</section>
+
+<!-- TAB 3: WORD GAMES -->
+<section id="tab-game" class="tab-content hidden space-y-6">
+  <div class="bg-white p-6 rounded-3xl border border-indigo-100 shadow-sm space-y-5">
+    <div class="flex justify-between items-center border-b border-indigo-50 pb-3 flex-wrap gap-2">
+      <div>
+        <h3 class="text-xl font-bold text-indigo-950">Word Games</h3>
+        <p class="text-xs text-slate-500 mt-0.5">3 rounds: type the word, build sentences, judge the usage. You must answer correctly to move on.</p>
+      </div>
+      <div id="round-pills" class="flex items-center gap-2 flex-wrap"></div>
+    </div>
+    <div id="round-area"></div>
+    <div class="text-center"><button id="round-next-btn" onclick="nextRound()" class="hidden px-8 py-3 bg-amber-500 hover:bg-amber-600 text-indigo-950 font-bold rounded-xl text-sm shadow-sm cursor-pointer">Next Round ➔</button></div>
+  </div>
+  <div id="games-done" class="max-w-md mx-auto bg-emerald-50 border-4 border-emerald-300 p-6 rounded-3xl text-center space-y-4 hidden shadow-sm">
+    <span class="text-5xl block animate-bounce">🎮🏆✨</span>
+    <h4 class="text-2xl font-bold text-emerald-900">All 3 Rounds Completed!</h4>
+    <p id="games-summary" class="text-sm text-slate-700"></p>
+    <button onclick="unlockGo('writing')" class="w-full py-3.5 bg-indigo-900 hover:bg-indigo-800 text-white font-bold rounded-xl shadow-md cursor-pointer text-sm">Start Output Practice ➔</button>
+  </div>
+</section>
+
+<!-- TAB 4: OUTPUT PRACTICE -->
+<section id="tab-writing" class="tab-content hidden space-y-6">
+  <div class="bg-white p-6 rounded-3xl border border-indigo-100 shadow-sm">
+    <h3 class="text-xl font-bold text-indigo-950">Output Practice: fix, answer, talk</h3>
+    <p class="text-xs text-slate-600 mt-1">Step 1 is controlled (fix mistakes). Step 2 is guided (Part 3 mini-answers). Step 3 is free (Part 2 talk notes). Use complete sentences and try to use the target words naturally.</p>
+  </div>
+
+  <!-- STEP 1 -->
+  <div class="bg-white p-6 rounded-3xl border border-indigo-100 shadow-sm space-y-4">
+    <h4 class="text-base font-bold text-indigo-900">Step 1. Fix the mistake (controlled)</h4>
+    <p class="text-xs text-slate-500">Each sentence has one wrong form or collocation (underlined). Type the correct phrase to replace it.</p>
+    <div id="s1-list" class="space-y-4"></div>
+    <div class="flex items-center gap-3 flex-wrap">
+      <button onclick="checkFix()" class="px-5 py-2 bg-indigo-900 hover:bg-indigo-800 text-white font-bold rounded-xl text-xs cursor-pointer">✅ Check</button>
+      <button onclick="showFix()" class="px-5 py-2 bg-indigo-100 hover:bg-indigo-200 text-indigo-900 font-bold rounded-xl text-xs cursor-pointer">Show answers</button>
+      <span id="s1-score" class="text-sm font-bold text-indigo-900"></span>
+    </div>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="bg-white p-6 rounded-3xl border border-indigo-100 shadow-sm space-y-6">
+    <h4 class="text-base font-bold text-indigo-900">Step 2. Answer two Part 3 questions (guided)</h4>
+    <div id="p1"></div>
+    <div id="p2"></div>
+  </div>
+
+  <!-- STEP 3 -->
+  <div class="bg-white p-6 rounded-3xl border border-indigo-100 shadow-sm space-y-4">
+    <h4 class="text-base font-bold text-indigo-900">Step 3. Part 2 talk notes (free)</h4>
+    <div class="bg-indigo-50 border border-indigo-100 rounded-2xl p-4 text-sm text-slate-800">
+      <b>Describe something interesting you have learned about space or about the history of your country.</b><br>You should say: what you learned, where or how you learned it, why it interested you, and explain how it changed the way you think.
+    </div>
+    <div class="flex items-center gap-3 flex-wrap">
+      <span id="tm" class="font-heading text-3xl font-bold min-w-[90px]">00:00</span>
+      <button onclick="tmr(60)" class="px-4 py-2 bg-indigo-900 text-white font-bold rounded-xl text-xs cursor-pointer">Prepare 1:00</button>
+      <button onclick="tmr(120)" class="px-4 py-2 bg-indigo-900 text-white font-bold rounded-xl text-xs cursor-pointer">Speak 2:00</button>
+      <button onclick="tmr(0)" class="px-4 py-2 bg-indigo-100 text-indigo-900 font-bold rounded-xl text-xs cursor-pointer">Stop</button>
+    </div>
+    <p class="text-xs text-slate-500">Write what you would say (about 2 minutes of speech). Aim for 120 words or more and at least 8 target items from the 30 words.</p>
+    <textarea id="s3-input" oninput="onS3()" rows="9" placeholder="Write your Part 2 talk here..." class="w-full p-3 bg-indigo-50/40 border border-indigo-200 rounded-xl text-sm outline-none focus:border-indigo-500"></textarea>
+    <div class="flex flex-wrap gap-4 text-xs font-bold"><span id="s3-count" class="text-slate-500">0 words (minimum 120)</span><span id="s3-used" class="text-slate-500">Target items used: 0 (minimum 8)</span></div>
+    <div id="s3-chips"></div>
+    <button id="s3-btn" onclick="toggleModel('s3')" disabled class="text-xs text-slate-400 font-bold cursor-not-allowed">👁️ Reach 120 words and 8 target items to unlock the model talk</button>
+    <div id="s3-model" class="hidden text-xs md:text-sm text-slate-700 bg-emerald-50 border border-emerald-200 p-4 rounded-2xl leading-relaxed"></div>
+  </div>
+
+  <div class="text-center pt-2"><button onclick="unlockGo('summary')" class="px-8 py-3.5 bg-indigo-900 hover:bg-indigo-800 text-white font-bold rounded-xl text-sm shadow-md cursor-pointer">Finish &amp; Go to Summary ➔</button></div>
+</section>
+
+<!-- TAB 5: COMPLETION -->
+<section id="tab-summary" class="tab-content hidden space-y-6">
+  <div class="max-w-2xl mx-auto bg-white border-4 border-amber-300 p-8 rounded-3xl space-y-6 shadow-xl text-center">
+    <div class="space-y-2">
+      <span class="text-6xl block animate-bounce">🎓🏛️🔭</span>
+      <h3 class="text-3xl font-bold text-indigo-950">Congratulations!</h3>
+      <p class="text-sm text-slate-600">You have completed <b class="text-indigo-800">IELTS 1A_S6_Lesson 2</b>.</p>
+    </div>
+    <div class="bg-amber-50/70 p-5 rounded-2xl border border-amber-200 space-y-3 text-left">
+      <h4 class="text-base font-bold text-amber-900 border-b border-amber-200 pb-2">🎤 Speaking: History &amp; Tradition</h4>
+      <p class="text-xs md:text-sm text-slate-700"><b>Describing a place:</b> cultural heritage, preserve, be in awe of, intricate, majestic, portray, bring history to life.</p>
+      <p class="text-xs md:text-sm text-slate-700"><b>Talking about change:</b> fade away, keep (a tradition) alive, outdated, inevitable, adapt to, a fast-paced lifestyle, commercialised, a sense of belonging.</p>
+    </div>
+    <div class="bg-indigo-50/70 p-5 rounded-2xl border border-indigo-200 space-y-3 text-left">
+      <h4 class="text-base font-bold text-indigo-900 border-b border-indigo-200 pb-2">🎧 Listening: Astronomy</h4>
+      <p class="text-xs md:text-sm text-slate-700"><b>The science and its ideas:</b> astronomy, symbolic, kick off, conjure up, come about, evolve, alter, declare.</p>
+      <p class="text-xs md:text-sm text-slate-700"><b>Tools and actions:</b> magnify, capture, dazzle, monitor, keep a constant eye on, undertake, tremendous.</p>
+    </div>
+    <button onclick="location.reload()" class="px-8 py-3.5 bg-indigo-900 hover:bg-indigo-800 text-white font-bold rounded-xl shadow-md cursor-pointer text-sm">🔄 Restart</button>
+  </div>
+</section>
+
+</main>
+
+<script>
+/* ---------- DATA (set S = speaking, L = listening) ---------- */
+const V = [
+{ w:"cultural heritage", ipa:"/ˌkʌltʃərəl ˈherɪtɪdʒ/", en:"customs, buildings and traditions that a country keeps from the past", vn:"di sản văn hóa", ex:"Museums play an important role in protecting a nation's cultural heritage.", set:"S", re:/cultural heritage/i },
+{ w:"preserve", ipa:"/prɪˈzɜːv/", en:"to protect something so that it stays in good condition", vn:"bảo tồn, giữ gìn", ex:"The city has spent a lot of money preserving its ancient streets.", set:"S", re:/preserv/i },
+{ w:"fade away", ipa:"/ˌfeɪd əˈweɪ/", en:"to slowly become weaker and finally disappear", vn:"dần phai nhạt, mai một", ex:"Without young people's interest, many folk songs will slowly fade away.", set:"S", re:/fad(e|es|ed|ing) away/i },
+{ w:"keep (a tradition) alive", say:"keep a tradition alive", ipa:"/kiːp əˈlaɪv/", en:"to make sure a custom continues to exist", vn:"duy trì, giữ cho truyền thống không mất đi", ex:"My family keeps the tradition alive by cooking together on New Year's Eve.", set:"S", re:/(keep|keeps|keeping|kept)\b[^.]{0,30}\balive/i },
+{ w:"outdated", ipa:"/ˌaʊtˈdeɪtɪd/", en:"no longer useful or suitable because it is old-fashioned", vn:"lỗi thời", ex:"Some people believe certain wedding customs are outdated.", set:"S", re:/outdated/i },
+{ w:"inevitable", ipa:"/ɪnˈevɪtəbl/", en:"certain to happen and impossible to avoid", vn:"không thể tránh khỏi", ex:"Some change to old customs is inevitable as society develops.", set:"S", re:/inevitabl/i },
+{ w:"adapt to", ipa:"/əˈdæpt tə/", en:"to change in order to deal with a new situation", vn:"thích nghi với", ex:"Many traditions have adapted to modern life instead of disappearing.", set:"S", re:/adapt(s|ed|ing)? to/i },
+{ w:"a fast-paced lifestyle", ipa:"/ə ˌfɑːst ˈpeɪst ˈlaɪfstaɪl/", en:"a way of living that is very busy, with little free time", vn:"lối sống bận rộn, nhịp sống nhanh", ex:"A fast-paced lifestyle means many families no longer have time for long ceremonies.", set:"S", re:/fast[- ]paced/i },
+{ w:"commercialised", ipa:"/kəˈmɜːʃəlaɪzd/", en:"changed so that making money becomes the main purpose", vn:"bị thương mại hóa", ex:"Some festivals have become so commercialised that their original meaning is lost.", set:"S", re:/commerciali[sz]/i },
+{ w:"portray", ipa:"/pɔːˈtreɪ/", en:"to show or describe someone or something in a film, book or painting", vn:"khắc họa, miêu tả", ex:"The series portrays the life of ordinary people in the 19th century.", set:"S", re:/portray/i },
+{ w:"bring history to life", ipa:"/brɪŋ ˈhɪstri tə ˈlaɪf/", en:"to make the past feel real and exciting", vn:"làm cho lịch sử sống động", ex:"Visiting the old citadel really brought history to life for me.", set:"S", re:/history to life/i },
+{ w:"be in awe of", ipa:"/bi ɪn ˈɔː əv/", en:"to feel great respect and admiration, often with a little fear", vn:"kinh ngạc, thán phục", ex:"Visitors are in awe of the size of the ancient temple.", set:"S", re:/\bawe\b/i },
+{ w:"intricate", ipa:"/ˈɪntrɪkət/", en:"having many small, detailed parts", vn:"phức tạp, tinh xảo", ex:"The intricate patterns on the roof must have taken years to create.", set:"S", re:/intricat/i },
+{ w:"majestic", ipa:"/məˈdʒestɪk/", en:"very impressive in size or beauty", vn:"hùng vĩ, uy nghi", ex:"The majestic gate stands at the entrance of the old town.", set:"S", re:/majestic|majesty/i },
+{ w:"a sense of belonging", ipa:"/ə sens əv bɪˈlɒŋɪŋ/", en:"the feeling of being accepted as part of a group", vn:"cảm giác thuộc về", ex:"Traditions give people a sense of belonging to their community.", set:"S", re:/sense of belonging/i },
+
+{ w:"astronomy", ipa:"/əˈstrɒnəmi/", en:"the science of stars, planets and space", vn:"thiên văn học", ex:"Astronomy has helped people understand how the universe began.", set:"L", re:/astronom/i },
+{ w:"symbolic", ipa:"/sɪmˈbɒlɪk/", en:"showing or representing an idea or quality", vn:"mang tính biểu tượng", ex:"In many ancient cultures, the sun was symbolic of life and power.", set:"L", re:/symbol/i },
+{ w:"kick off", ipa:"/ˈkɪk ɒf/", en:"to begin an event or an activity", vn:"bắt đầu, khởi động", ex:"The science festival will kick off with a talk about the night sky.", set:"L", re:/kick(s|ed|ing)? off/i },
+{ w:"conjure up", ipa:"/ˌkʌndʒər ˈʌp/", en:"to make a picture or idea appear in your mind", vn:"gợi lên trong tâm trí", ex:"The name Milky Way conjures up images of a river of light across the sky.", set:"L", re:/conjur(e|es|ed|ing)/i },
+{ w:"magnify", ipa:"/ˈmæɡnɪfaɪ/", en:"to make something look bigger than it is", vn:"phóng đại, làm to lên", ex:"Telescopes magnify distant objects so that astronomers can study them.", set:"L", re:/magnif/i },
+{ w:"declare", ipa:"/dɪˈkleə(r)/", en:"to say something officially or very clearly", vn:"tuyên bố", ex:"In 2006, scientists declared that Pluto is a dwarf planet.", set:"L", re:/declar/i },
+{ w:"come about", ipa:"/ˌkʌm əˈbaʊt/", en:"to happen, often in a way that was not planned", vn:"xảy ra, hình thành", ex:"Scientists still debate how life on Earth came about.", set:"L", re:/(come|comes|came|coming) about/i },
+{ w:"capture", ipa:"/ˈkæptʃə(r)/", en:"to record something in a photo or video", vn:"ghi lại, chụp lại", ex:"The camera captured a clear image of a galaxy billions of light years away.", set:"L", re:/captur/i },
+{ w:"dazzle", ipa:"/ˈdæzl/", en:"to impress someone very much, or to make it hard to see because of bright light", vn:"làm lóa mắt, làm choáng ngợp", ex:"Visitors were dazzled by the thousands of stars in the desert sky.", set:"L", re:/dazzl/i },
+{ w:"evolve", ipa:"/ɪˈvɒlv/", en:"to change and develop slowly over a long time", vn:"tiến hóa, phát triển dần", ex:"Our understanding of the universe has evolved a great deal since the first telescopes were built.", set:"L", re:/evolv|evolution/i },
+{ w:"alter", ipa:"/ˈɔːltə(r)/", en:"to change something, usually by a small amount", vn:"thay đổi (thường là một chút)", ex:"Bright city lights alter the way we see the night sky.", set:"L", re:/\balter(s|ed|ing)?\b/i },
+{ w:"keep a constant eye on", ipa:"/kiːp ə ˌkɒnstənt ˈaɪ ɒn/", en:"to watch something all the time", vn:"luôn theo dõi sát sao", ex:"Astronomers keep a constant eye on the sun in case a solar storm reaches Earth.", set:"L", re:/constant eye/i },
+{ w:"tremendous", ipa:"/trəˈmendəs/", en:"very big, great or impressive", vn:"to lớn, phi thường", ex:"Space exploration needs a tremendous amount of money and teamwork.", set:"L", re:/tremendous/i },
+{ w:"monitor", ipa:"/ˈmɒnɪtə(r)/", en:"to watch and check something regularly", vn:"theo dõi, giám sát", ex:"Satellites monitor changes in the Earth's climate from space.", set:"L", re:/monitor/i },
+{ w:"undertake", ipa:"/ˌʌndəˈteɪk/", en:"to start doing something difficult or important", vn:"đảm nhận, tiến hành", ex:"In 1969, NASA undertook a mission to land astronauts on the Moon.", set:"L", re:/undertak|undertook/i }
+];
+
+function sh(a){ a=[...a]; for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function idxOf(w){ return V.findIndex(v=>v.w===w); }
+function norm(s){ return s.toLowerCase().replace(/[’]/g,"'").replace(/[^a-z' ]/g," ").replace(/\s+/g," ").trim(); }
+function wc(t){ const m=t.trim().match(/\S+/g); return m?m.length:0; }
+
+/* ---------- AUDIO ---------- */
+function speakText(t){ if('speechSynthesis' in window){ window.speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance(t); u.lang='en-GB'; u.rate=0.9; window.speechSynthesis.speak(u); } }
+function speakIdx(i,e){ if(e) e.stopPropagation(); const v=V[i]; speakText(v.say||v.w.replace(/\(.*?\)/g,'').trim()); }
+
+/* ---------- NAVIGATION ---------- */
+let gStarted=false;
+function switchTab(t){
+  document.querySelectorAll('.tab-content').forEach(e=>e.classList.add('hidden'));
+  document.querySelectorAll('.tab-btn').forEach(b=>{ b.classList.remove('bg-amber-400','text-indigo-950'); b.classList.add('text-indigo-200'); });
+  document.getElementById('tab-'+t).classList.remove('hidden');
+  const b=document.getElementById('btn-'+t); b.classList.add('bg-amber-400','text-indigo-950'); b.classList.remove('text-indigo-200');
+  if(t==='game' && !gStarted){ gStarted=true; gRound=1; renderRound(); }
+}
+function unlockGo(t){ document.getElementById('btn-'+t).classList.remove('disabled-tab'); switchTab(t); }
+function pillStyle(id,active){ const e=document.getElementById(id); e.className='px-3 py-1.5 rounded-full cursor-pointer '+(active?'bg-indigo-900 text-white':'bg-indigo-50 text-indigo-800'); }
+
+/* ---------- VOCAB BANK ---------- */
+let vbSet='all';
+function setVb(s){ vbSet=s; renderVocab(); }
+function renderVocab(){
+  ['all','S','L'].forEach(k=>pillStyle('vb-'+k, vbSet===k));
+  document.getElementById('vocab-body').innerHTML = V.map((v,i)=>({v,i})).filter(o=>vbSet==='all'||o.v.set===vbSet).map(o=>`
+    <tr class="hover:bg-indigo-50/40">
+      <td class="p-3.5 font-bold text-indigo-950"><span class="inline-flex items-center gap-2"><button class="audio-btn" onclick="speakIdx(${o.i})">🔊</button>${o.v.w}</span><br><span class="text-[10px] px-2 py-0.5 rounded-full font-bold ${o.v.set==='S'?'tag-s':'tag-l'}">${o.v.set==='S'?'Speaking':'Listening'}</span></td>
+      <td class="p-3.5 font-mono text-xs text-indigo-700">${o.v.ipa}</td>
+      <td class="p-3.5">${o.v.en}</td>
+      <td class="p-3.5">${o.v.vn}</td>
+      <td class="p-3.5 italic text-slate-500">${o.v.ex}</td></tr>`).join('');
+}
+
+/* ---------- FLASHCARDS ---------- */
+let fcSet='all', queue=[], cur=0, fcTotal=0, flipped=false;
+function setFc(s){ fcSet=s; initFc(); }
+function initFc(){
+  ['all','S','L'].forEach(k=>pillStyle('fc-'+k, fcSet===k));
+  queue=sh(V.map((v,i)=>i).filter(i=>fcSet==='all'||V[i].set===fcSet)); fcTotal=queue.length;
+  document.getElementById('fc-box').classList.remove('hidden'); document.getElementById('fc-done').classList.add('hidden');
+  showCard();
+}
+function showCard(){
+  document.getElementById('progress-bar').style.width=Math.round((fcTotal-queue.length)/fcTotal*100)+'%';
+  document.getElementById('queue-text').innerText=queue.length;
+  if(!queue.length){ document.getElementById('fc-box').classList.add('hidden'); document.getElementById('fc-done').classList.remove('hidden'); return; }
+  cur=queue[0]; const v=V[cur]; flipped=false;
+  document.getElementById('flashcard-inner').classList.remove('card-flipped');
+  const tag=document.getElementById('f-tag'); tag.innerText=v.set==='S'?'Speaking: History & Tradition':'Listening: Astronomy'; tag.className='text-xs font-bold px-4 py-1.5 rounded-full '+(v.set==='S'?'tag-s':'tag-l');
+  document.getElementById('f-word').innerText=v.w; document.getElementById('f-ipa').innerText=v.ipa;
+  document.getElementById('b-en').innerText=v.en; document.getElementById('b-vn').innerText=v.vn; document.getElementById('b-ex').innerText='"'+v.ex+'"';
+}
+function flipCard(){ flipped=!flipped; document.getElementById('flashcard-inner').classList.toggle('card-flipped',flipped); }
+function rateCard(t){
+  if(!queue.length) return;
+  const c=queue.shift();
+  if(t==='again') queue.push(c); else if(t==='hard') queue.splice(Math.min(3,queue.length),0,c);
+  showCard();
+}
+
+/* ---------- WORD GAMES ---------- */
+let gRound=1, r1=0, r2=0, r3=0;
+function renderRound(){
+  const names=['1 Type the Word','2 Sentence Builder','3 Right or Wrong?'];
+  document.getElementById('round-pills').innerHTML=names.map((n,i)=>{ const a=(i+1)===gRound, d=(i+1)<gRound; return `<span class="text-xs font-bold px-3 py-1.5 rounded-full ${a?'bg-indigo-900 text-white':(d?'bg-emerald-100 text-emerald-800':'bg-slate-100 text-slate-500')}">${d?'✓ ':''}${n}</span>`; }).join('');
+  document.getElementById('round-next-btn').classList.add('hidden');
+  if(gRound===1) initSpell(); else if(gRound===2) initBuild(); else initTF();
+}
+function finishRound(msg){
+  document.getElementById('round-area').innerHTML=`<div class="text-center py-6 space-y-2"><span class="text-4xl block">🎯</span><p class="text-base font-bold text-indigo-950">${msg}</p></div>`;
+  const b=document.getElementById('round-next-btn'); b.innerText=gRound===3?'Finish Games ➔':'Next Round ➔'; b.classList.remove('hidden');
+}
+function nextRound(){
+  if(gRound===3){ document.getElementById('round-next-btn').classList.add('hidden'); document.getElementById('games-summary').innerText=`Type the Word: ${r1}/${spellList.length}. Sentence Builder: ${r2}/${buildList.length}. Right or Wrong: ${r3}/${tfData.length}.`; document.getElementById('games-done').classList.remove('hidden'); return; }
+  gRound++; renderRound();
+}
+
+/* Round 1: Type the Word (each question tests meaning, pronunciation or spelling) */
+const spellPlan=[
+ {w:"magnify",type:"meaning"},{w:"monitor",type:"meaning"},{w:"kick off",type:"meaning"},{w:"outdated",type:"meaning"},
+ {w:"astronomy",type:"audio"},{w:"conjure up",type:"audio"},{w:"tremendous",type:"audio"},{w:"majestic",type:"audio"},
+ {w:"commercialised",type:"spelling"},{w:"inevitable",type:"spelling"},{w:"intricate",type:"spelling"},{w:"symbolic",type:"spelling"}
+];
+const spellAccept={ "commercialised":["commercialised","commercialized"] };
+let spellList=[], spIdx=0, spTries=0, spHint=false, spDone=false;
+function maskWord(w){ return w.split('').map((c,i)=>(i%2===0||i===w.length-1)?c:'_').join(' '); }
+function initSpell(){
+  const hasAudio='speechSynthesis' in window;
+  spellList=sh(spellPlan.map(p=>({ i:idxOf(p.w), type:(p.type==='audio'&&!hasAudio)?'spelling':p.type })));
+  spIdx=0; r1=0; loadSpell();
+}
+function loadSpell(){
+  if(spIdx>=spellList.length){ finishRound(`Round 1 score: ${r1} / ${spellList.length}`); return; }
+  const q=spellList[spIdx], v=V[q.i]; spTries=0; spHint=false; spDone=false;
+  let task, body;
+  if(q.type==='meaning'){
+    task='Meaning'; body=`<p class="text-sm text-slate-600">Read the meaning and type the word or phrase.</p><p class="text-base text-slate-800 mt-2">${v.en}</p>`;
+  } else if(q.type==='audio'){
+    task='Pronunciation'; body=`<p class="text-sm text-slate-600">Listen and type the word or phrase you hear.</p><button onclick="speakIdx(${q.i})" class="mt-2 px-4 py-2 bg-indigo-900 text-white font-bold rounded-xl text-xs cursor-pointer">🔊 Play audio</button>`;
+  } else {
+    task='Spelling'; body=`<p class="text-sm text-slate-600">Complete the missing letters and type the whole word.</p><p class="text-base text-slate-800 mt-2">${v.en}</p><p class="text-2xl tracking-widest font-bold text-indigo-900 mt-2">${maskWord(v.w)}</p>`;
+  }
+  document.getElementById('round-area').innerHTML=`
+  <div class="max-w-xl mx-auto space-y-4">
+    <div class="flex justify-between text-xs font-bold text-indigo-900"><span>Question ${spIdx+1} of ${spellList.length}</span><span>Score: ${r1}</span></div>
+    <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden"><div class="bg-gradient-to-r from-amber-400 to-orange-400 h-full" style="width:${Math.round(spIdx/spellList.length*100)}%"></div></div>
+    <div class="bg-indigo-50/70 border border-indigo-100 rounded-2xl p-4">
+      <span class="inline-block text-[11px] font-bold px-3 py-1 rounded-full bg-amber-100 text-amber-800 uppercase tracking-wide mb-1">${task}</span>
+      ${body}
+    </div>
+    <input id="sp-in" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Type your answer..." class="w-full p-3 border-2 border-indigo-200 rounded-xl text-center font-bold text-indigo-950 outline-none focus:border-indigo-500" onkeydown="if(event.key==='Enter')checkSpell()">
+    <div class="flex gap-2 justify-center flex-wrap">
+      <button onclick="checkSpell()" class="px-5 py-2 bg-indigo-900 hover:bg-indigo-800 text-white font-bold rounded-xl text-xs cursor-pointer">✅ Check</button>
+      <button onclick="hintSpell()" class="px-5 py-2 bg-indigo-100 hover:bg-indigo-200 text-indigo-900 font-bold rounded-xl text-xs cursor-pointer">💡 Hint</button>
+    </div>
+    <p id="sp-msg" class="text-sm font-bold text-center"></p>
+    <div id="sp-next" class="text-center"></div>
+  </div>`;
+  if(q.type==='audio') setTimeout(()=>speakIdx(q.i),300);
+  document.getElementById('sp-in').focus();
+}
+function hintSpell(){
+  if(spDone) return; spHint=true;
+  const w=V[spellList[spIdx].i].w, m=document.getElementById('sp-msg');
+  m.className='text-sm font-bold text-center text-indigo-800';
+  m.innerText='Hint: first letter "'+w[0]+'" · '+w.split(' ').map(p=>p.length).join(' + ')+' letters';
+}
+function checkSpell(){
+  if(spDone) return;
+  const v=V[spellList[spIdx].i], inp=document.getElementById('sp-in'), msg=document.getElementById('sp-msg');
+  if(inp.value.trim()===''){ msg.className='text-sm font-bold text-center text-rose-600'; msg.innerText='Type your answer first.'; return; }
+  const ok=(spellAccept[v.w]||[v.w]).some(a=>norm(a)===norm(inp.value));
+  if(ok){
+    if(spTries===0 && !spHint) r1++;
+    spDone=true; inp.disabled=true;
+    inp.className='w-full p-3 border-2 border-emerald-500 bg-emerald-50 rounded-xl text-center font-bold';
+    msg.className='text-sm font-bold text-center text-emerald-700'; msg.innerText='✓ Correct! The answer is: '+v.w;
+    document.getElementById('sp-next').innerHTML=`<button onclick="spIdx++;loadSpell()" class="px-6 py-2.5 bg-amber-500 hover:bg-amber-600 text-indigo-950 font-bold rounded-xl text-xs cursor-pointer">${spIdx===spellList.length-1?'See result ➔':'Next ➔'}</button>`;
+  } else {
+    spTries++;
+    inp.className='w-full p-3 border-2 border-rose-400 bg-rose-50 rounded-xl text-center font-bold';
+    msg.className='text-sm font-bold text-center text-rose-600'; msg.innerText='Not quite. Try again.';
+  }
+}
+
+/* Round 2: Sentence Builder */
+const buildWords=["astronomy","kick off","conjure up","keep a constant eye on","cultural heritage","adapt to","bring history to life","evolve"];
+let buildList=[], bIdx=0, bPool=[], bBuilt=[], bTries=0, bDone=false;
+function initBuild(){ buildList=sh(buildWords.map(idxOf)); bIdx=0; r2=0; loadBuild(); }
+function loadBuild(){
+  if(bIdx>=buildList.length){ finishRound(`Round 2 score: ${r2} / ${buildList.length}`); return; }
+  const v=V[buildList[bIdx]]; bTries=0; bDone=false; bBuilt=[];
+  bPool=sh(v.ex.split(' ').map((t,i)=>({t,id:i})));
+  document.getElementById('round-area').innerHTML=`
+  <div class="max-w-2xl mx-auto space-y-4">
+    <div class="flex justify-between text-xs font-bold text-indigo-900"><span>Sentence ${bIdx+1} of ${buildList.length}</span><span>Score: ${r2}</span></div>
+    <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden"><div class="bg-gradient-to-r from-amber-400 to-orange-400 h-full" style="width:${Math.round(bIdx/buildList.length*100)}%"></div></div>
+    <p class="text-[11px] font-bold text-indigo-700 uppercase tracking-wide">Click the words in the right order</p>
+    <p class="text-sm bg-indigo-50/70 border border-indigo-100 rounded-2xl p-3"><b>Target:</b> <span class="text-indigo-900 font-bold">${v.w}</span></p>
+    <div id="b-built" class="min-h-[64px] border-2 border-dashed border-indigo-300 rounded-2xl p-3 flex flex-wrap gap-2 items-center"></div>
+    <div id="b-pool" class="flex flex-wrap gap-2 justify-center"></div>
+    <div class="flex gap-2 justify-center flex-wrap">
+      <button onclick="checkBuild()" class="px-5 py-2 bg-indigo-900 hover:bg-indigo-800 text-white font-bold rounded-xl text-xs cursor-pointer">✅ Check</button>
+      <button onclick="resetBuild()" class="px-5 py-2 bg-indigo-100 hover:bg-indigo-200 text-indigo-900 font-bold rounded-xl text-xs cursor-pointer">Reset</button>
+    </div>
+    <p id="b-msg" class="text-sm font-bold text-center"></p>
+    <div id="b-next" class="text-center"></div>
+  </div>`;
+  drawBuild();
+}
+function drawBuild(){
+  document.getElementById('b-built').innerHTML=bBuilt.map(o=>`<button class="tok built" onclick="unbuild(${o.id})">${o.t}</button>`).join('')||'<span class="text-xs text-slate-400">Your sentence appears here</span>';
+  document.getElementById('b-pool').innerHTML=bPool.map(o=>`<button class="tok" onclick="build(${o.id})">${o.t}</button>`).join('');
+}
+function build(id){ if(bDone) return; const k=bPool.findIndex(o=>o.id===id); bBuilt.push(bPool.splice(k,1)[0]); drawBuild(); }
+function unbuild(id){ if(bDone) return; const k=bBuilt.findIndex(o=>o.id===id); bPool.push(bBuilt.splice(k,1)[0]); drawBuild(); }
+function resetBuild(){ if(bDone) return; bPool=sh([...bPool,...bBuilt]); bBuilt=[]; drawBuild(); }
+function checkBuild(){
+  if(bDone) return;
+  const v=V[buildList[bIdx]], msg=document.getElementById('b-msg');
+  if(bBuilt.map(o=>o.t).join(' ')===v.ex){ if(bTries===0) r2++; bDone=true; msg.className='text-sm font-bold text-center text-emerald-700'; msg.innerText='✓ Correct sentence!'; document.getElementById('b-next').innerHTML=`<button onclick="bIdx++;loadBuild()" class="px-6 py-2.5 bg-amber-500 hover:bg-amber-600 text-indigo-950 font-bold rounded-xl text-xs cursor-pointer">${bIdx===buildList.length-1?'See result ➔':'Next ➔'}</button>`; }
+  else { bTries++; msg.className='text-sm font-bold text-center text-rose-600'; msg.innerText=bBuilt.length<v.ex.split(' ').length?'Use all the words, then check.':'Not quite. Click a word to move it back and try again.'; }
+}
+
+/* Round 3: Right or Wrong usage */
+const tfData=[
+ { s:"Astronomers use telescopes to magnify distant planets.", ok:true, why:"Correct. Magnify means to make something look bigger." },
+ { s:"Astronomy is the study of old buildings and traditions.", ok:false, why:"Wrong. Astronomy is the science of stars, planets and space." },
+ { s:"In many cultures, the sun is symbolic of life and power.", ok:true, why:"Correct. Symbolic means representing an idea or quality." },
+ { s:"The festival kicked off at the end, when everyone went home.", ok:false, why:"Wrong. Kick off means to begin, so it cannot describe the end." },
+ { s:"Our visit to the observatory came about by chance.", ok:true, why:"Correct. Come about means to happen, often without a plan." },
+ { s:"The bright lights dazzled the visitors, so they could not see well for a moment.", ok:true, why:"Correct. Dazzle can mean to make it hard to see because of bright light." },
+ { s:"She altered to her new school quickly.", ok:false, why:"Wrong. Alter means to change something. The right phrase is adapted to." },
+ { s:"Satellites monitor the weather from space.", ok:true, why:"Correct. Monitor means to watch and check something regularly." },
+ { s:"The observatory is tremendous small.", ok:false, why:"Wrong. Tremendous means very big, and it is an adjective, not an adverb." },
+ { s:"In 1969, NASA undertook the mission to land astronauts on the Moon.", ok:true, why:"Correct. Undertake means to start doing something difficult or important." },
+ { s:"The majestic mountain looked tiny and ordinary.", ok:false, why:"Wrong. Majestic means very impressive, so it does not fit tiny and ordinary." },
+ { s:"Heritage sites need to be preserved for future generations.", ok:true, why:"Correct. Preserve means to protect something so that it stays in good condition." }
+];
+let tIdx=0, tAns=false;
+function initTF(){ tIdx=0; r3=0; loadTF(); }
+function loadTF(){
+  if(tIdx>=tfData.length){ finishRound(`Round 3 score: ${r3} / ${tfData.length}`); return; }
+  tAns=false; const q=tfData[tIdx];
+  document.getElementById('round-area').innerHTML=`
+  <div class="max-w-xl mx-auto space-y-4">
+    <div class="flex justify-between text-xs font-bold text-indigo-900"><span>Statement ${tIdx+1} of ${tfData.length}</span><span>Score: ${r3}</span></div>
+    <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden"><div class="bg-gradient-to-r from-amber-400 to-orange-400 h-full" style="width:${Math.round(tIdx/tfData.length*100)}%"></div></div>
+    <p class="text-[11px] font-bold text-indigo-700 uppercase tracking-wide">Is the target word used correctly in this sentence?</p>
+    <p class="text-base font-bold text-slate-800 leading-relaxed bg-indigo-50/70 border border-indigo-100 rounded-2xl p-4">${q.s}</p>
+    <div class="flex gap-3 justify-center"><button id="tf-y" class="opt" onclick="answerTF(true)">✔ Correct</button><button id="tf-n" class="opt" onclick="answerTF(false)">✘ Wrong</button></div>
+    <p id="tf-why" class="text-sm font-semibold text-center"></p>
+    <div id="tf-next" class="text-center"></div>
+  </div>`;
+}
+function answerTF(choice){
+  if(tAns) return; tAns=true; const q=tfData[tIdx], good=choice===q.ok;
+  if(good) r3++;
+  document.getElementById(choice?'tf-y':'tf-n').classList.add(good?'right':'bad');
+  if(!good) document.getElementById(q.ok?'tf-y':'tf-n').classList.add('right');
+  const w=document.getElementById('tf-why'); w.className='text-sm font-semibold text-center '+(good?'text-emerald-700':'text-rose-600'); w.innerText=q.why;
+  document.getElementById('tf-next').innerHTML=`<button onclick="tIdx++;loadTF()" class="px-6 py-2.5 bg-amber-500 hover:bg-amber-600 text-indigo-950 font-bold rounded-xl text-xs cursor-pointer">${tIdx===tfData.length-1?'See result ➔':'Next ➔'}</button>`;
+}
+
+/* ---------- OUTPUT PRACTICE ---------- */
+const fixData=[
+ { t:"Our understanding of space has {} a great deal since the first telescopes were built.", wrong:"evolution", a:["evolved"] },
+ { t:"Scientists {} the sun in case a solar storm reaches Earth.", wrong:"keep a constant eye at", a:["keep a constant eye on"] },
+ { t:"The name 'Milky Way' {} images of a river of light across the sky.", wrong:"conjures", a:["conjures up"] },
+ { t:"Researchers {} a major study of the night sky last year.", wrong:"undertake", a:["undertook"] },
+ { t:"How did life on Earth {}?", wrong:"came about", a:["come about"] },
+ { t:"Telescopes {} distant objects so that we can study them.", wrong:"magnifies", a:["magnify"] },
+ { t:"Many old customs have {} in big cities.", wrong:"fade away", a:["faded away"] },
+ { t:"Young people often find it hard to {} a fast-paced lifestyle.", wrong:"adapt for", a:["adapt to"] }
+];
+const p1={ q:"Why do some traditions disappear as societies change?", chips:["fade away","outdated","inevitable","adapt to","a fast-paced lifestyle","commercialised","a sense of belonging","keep (a tradition) alive","preserve","cultural heritage"],
+ starter:"Start with: I would say that... / It seems to me that... / One reason is that...",
+ model:"I would say that traditions tend to fade away when people have a fast-paced lifestyle. Many families no longer have time for long ceremonies, so some customs begin to look outdated. Some festivals have also become commercialised, which weakens their original meaning. However, I do not think the loss of every tradition is inevitable. Communities can adapt to modern life and keep important customs alive, because traditions give people a sense of belonging." };
+const p2={ q:"Do you think governments should spend money on space exploration?", chips:["astronomy","magnify","monitor","tremendous","undertake","come about","evolve","capture","symbolic","keep a constant eye on"],
+ starter:"Start with: In my opinion... / Some people argue that... / On the other hand...",
+ model:"In my opinion, governments should support space research, even though the cost is tremendous. Astronomy has helped us understand how the universe came about, and satellites monitor our weather and climate every day. Some people argue that the money should be spent on hospitals instead. That is a fair point, but space projects often lead to useful technology that improves daily life. Overall, I think it is worth continuing to undertake carefully planned missions." };
+const s3Model="The thing I would like to talk about is something I learned in an astronomy class last year. I found out that the first telescopes could magnify the Moon only a little, but over time the technology evolved, and today cameras can capture images of galaxies billions of light years away. The first time I saw those pictures, I was dazzled. The night sky is symbolic of mystery in many cultures, and the name Milky Way conjures up the image of a river of light. What interested me most was how astronomers keep a constant eye on the sun, because a solar storm could damage our satellites. It also changed my opinion about heritage. Old observatories are part of our cultural heritage, so I think we should preserve them. Even if traditions alter with time, they can bring history to life and give young people a sense of belonging. Studying the sky made me feel in awe of the universe, and it showed me that knowledge never stops growing.";
+
+function chipHtml(i){ return `<span class="chip ${V[i].set==='S'?'s':'l'}" data-i="${i}">${V[i].w}</span>`; }
+function buildPart(id,p){
+  document.getElementById(id).innerHTML=`
+  <div class="space-y-3">
+    <div class="bg-indigo-50 border border-indigo-100 rounded-2xl p-3 text-sm font-bold text-slate-800">${p.q}</div>
+    <p class="text-xs text-slate-500">${p.starter}. Write 45 words or more and use at least 2 target items.</p>
+    <div id="${id}-chips">${p.chips.map(c=>chipHtml(idxOf(c))).join('')}</div>
+    <textarea id="${id}-in" oninput="onPart('${id}')" rows="5" placeholder="Write your answer here..." class="w-full p-3 bg-indigo-50/40 border border-indigo-200 rounded-xl text-sm outline-none focus:border-indigo-500"></textarea>
+    <p id="${id}-count" class="text-xs font-bold text-slate-500">0 words (minimum 45)</p>
+    <button id="${id}-btn" onclick="toggleModel('${id}')" disabled class="text-xs text-slate-400 font-bold cursor-not-allowed">👁️ Write 45 words and use 2 target items to unlock the model answer</button>
+    <div id="${id}-model" class="hidden text-xs md:text-sm text-slate-700 bg-emerald-50 border border-emerald-200 p-4 rounded-2xl leading-relaxed"></div>
+  </div>`;
+}
+function unlockBtn(id,ok,onT,offT){ const b=document.getElementById(id); b.disabled=!ok; b.className=ok?'text-xs text-indigo-700 hover:underline font-bold cursor-pointer':'text-xs text-slate-400 font-bold cursor-not-allowed'; b.innerText=ok?onT:offT; }
+function onPart(id){
+  const t=document.getElementById(id+'-in').value, n=wc(t); let used=0;
+  document.querySelectorAll('#'+id+'-chips .chip').forEach(c=>{ const on=V[+c.dataset.i].re.test(t); c.classList.toggle('on',on); if(on) used++; });
+  const el=document.getElementById(id+'-count'); el.innerText=`${n} words (minimum 45) · target items used: ${used}`; el.className='text-xs font-bold '+(n>=45&&used>=2?'text-emerald-600':'text-slate-500');
+  unlockBtn(id+'-btn', n>=45&&used>=2, '👁️ Show the model answer', '👁️ Write 45 words and use 2 target items to unlock the model answer');
+}
+function onS3(){
+  const t=document.getElementById('s3-input').value, n=wc(t); let used=0;
+  document.querySelectorAll('#s3-chips .chip').forEach(c=>{ const on=V[+c.dataset.i].re.test(t); c.classList.toggle('on',on); if(on) used++; });
+  const a=document.getElementById('s3-count'), b=document.getElementById('s3-used');
+  a.innerText=`${n} words (minimum 120)`; a.className=n>=120?'text-emerald-600':'text-slate-500';
+  b.innerText=`Target items used: ${used} (minimum 8)`; b.className=used>=8?'text-emerald-600':'text-slate-500';
+  unlockBtn('s3-btn', n>=120&&used>=8, '👁️ Show the model talk', '👁️ Reach 120 words and 8 target items to unlock the model talk');
+}
+function toggleModel(id){
+  const b=document.getElementById(id+'-btn'); if(b.disabled) return;
+  const box=document.getElementById(id+'-model');
+  if(box.classList.contains('hidden')) box.innerText = id==='p1'?p1.model:(id==='p2'?p2.model:s3Model);
+  box.classList.toggle('hidden');
+}
+function checkFix(){
+  let ok=0;
+  fixData.forEach((f,i)=>{ const el=document.getElementById('fx-'+i); const good=f.a.some(a=>norm(a)===norm(el.value)); el.className='gap-in'+(el.value.trim()===''?'':(good?' ok':' no')); if(good) ok++; });
+  document.getElementById('s1-score').innerText=`Score: ${ok} / ${fixData.length}`;
+}
+function showFix(){ fixData.forEach((f,i)=>{ const el=document.getElementById('fx-'+i); el.value=f.a[0]; el.className='gap-in ok'; }); document.getElementById('s1-score').innerText='Answers shown.'; }
+let tmrId=null;
+function tmr(n){ clearInterval(tmrId); let left=n; const show=()=>{ const m=Math.floor(left/60), s=left%60; document.getElementById('tm').textContent=(m<10?'0':'')+m+':'+(s<10?'0':'')+s; }; show(); if(n>0) tmrId=setInterval(()=>{ left--; show(); if(left<=0) clearInterval(tmrId); },1000); }
+
+function initWriting(){
+  document.getElementById('s1-list').innerHTML=fixData.map((f,i)=>`<div class="p-4 bg-indigo-50/40 rounded-2xl border border-indigo-100 space-y-2"><p class="text-sm font-semibold text-slate-800">${i+1}. ${f.t.replace('{}',`<span class="fix">${f.wrong}</span>`)}</p><input id="fx-${i}" class="gap-in" type="text" autocomplete="off" placeholder="correct phrase" aria-label="Correction ${i+1}"></div>`).join('');
+  buildPart('p1',p1); buildPart('p2',p2);
+  document.getElementById('s3-chips').innerHTML=V.map((v,i)=>chipHtml(i)).join('');
+}
+
+window.onload=function(){ renderVocab(); initFc(); initWriting(); };
+</script>
+</body>
+</html>
